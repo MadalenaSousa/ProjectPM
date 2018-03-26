@@ -9,7 +9,7 @@ void setup() {
   
   n = parseInt(ficheiro[0]);
   m = parseInt(ficheiro[1]);
-  img=loadImage("wdw.jpg");
+  img=loadImage("img.jpg");
 for(int i=0; i<10;i++){
  for(int j=0; j<10; j++){ 
    segments[i][j] = img.get(i*116,j*10,116,10);
