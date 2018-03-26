@@ -3,7 +3,6 @@ String[] linhas;
 int n, m;
 PImage [][] pedacos;
 PImage img;
-color c;
 
 void setup() {
   largura = 600;
