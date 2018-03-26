@@ -9,7 +9,7 @@ void setup() {
   largura = 600;
   altura = 800;
 
-  size(800, 1000);
+  size(600, 800);
 
   linhas =  loadStrings("texto.txt");
 
@@ -49,6 +49,10 @@ void draw() {
           pedacos[i][j].pixels[loc] = c;
         }
       }
+      noFill();
+      stroke(0);
+      strokeWeight(10);
+      rect(pedacos[i][j].width * i, pedacos[i][j].height * j, pedacos[i][j].width, pedacos[i][j].height);
       pedacos[i][j].updatePixels();
       image(pedacos[i][j], pedacos[i][j].width * i, pedacos[i][j].height * j);
       //pedacos[i][j].save("pedacos" + i + j + ".jpg");
