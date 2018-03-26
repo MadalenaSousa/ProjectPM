@@ -8,7 +8,7 @@ void setup() {
   largura = 600;
   altura = 800;
 
-  size(600, 800);
+  size(800, 1000);
 
   linhas =  loadStrings("texto.txt");
 
@@ -39,13 +39,13 @@ void draw() {
         for (int y=0; y<pedacos[i][j].height; y++) {
           int loc = x + y * pedacos[i][j].width;
 
-          color c = img.pixels[loc];
+          //color c = img.pixels[x + y * img.width];
 
-          float r = red(c);
-          float g = green(c);
-          float b = blue(c);
+          //float r = red(c);
+          //float g = green(c);
+          //float b = blue(c);
 
-          pedacos[i][i].pixels[loc] = color(r, g, b);
+          pedacos[i][i].pixels[loc] = img.pixels[x + y * img.width];
         }
       }
       pedacos[i][j].updatePixels();
