@@ -18,10 +18,10 @@ void setup() {
   img =  loadImage(linhas[2]);
   img.loadPixels();
 
-  pedacos = new PImage[m][n];
+  pedacos = new PImage[n][m];
 
-  for (int i=0; i<m; i++) {
-    for (int j=0; j<n; j++) {
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
       pedacos[i][j] = createImage(largura/n, altura/m, RGB);
       pedacos[i][j].loadPixels();
     }
@@ -32,8 +32,8 @@ void draw() {
 
   image(img, 0, 0, largura, altura);
 
-  for (int i=0; i<m; i++) {
-    for (int j=0; j<n; j++) {
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
 
       for (int x=0; x<pedacos[i][j].width; x++) {
         for (int y=0; y<pedacos[i][j].height; y++) {
