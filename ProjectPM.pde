@@ -1,15 +1,15 @@
 String[] linhas;
 int n, m;
-PImage [][] pedacos = new PImage[n][m];
+PImage [][] pedacos = new PImage[m][n];
 PImage img;
 
 void setup() {
   size(600, 800);
 
   linhas =  loadStrings("texto.txt");
-
-  n = parseInt(linhas[1]);
-  m = parseInt(linhas[0]);
+  
+  m = parseInt(linhas[0]); //8
+  n = parseInt(linhas[1]); //6
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
@@ -23,14 +23,15 @@ void setup() {
 }
 
 void draw() {
+  
+  image(img, 0, 0, 600, 800);
+  
   for (int x=0; x<n; x++) {
     for (int y=0; y<m; y++) {
-      int loc = x + y * pedacos[n][m].width;
-      pedacos[n][m].pixels[loc] = img.pixels[loc];
+      int loc = x + y * pedacos[x][y].width;
+      pedacos[x][y].pixels[loc] = img.pixels[loc];
+      stroke(0);
+      image(pedacos[x][y], 0, 0);
     }
   }
-
-  image(img, 0, 0, 600, 800);
-  stroke(0);
-  image(pedacos[n][m], 0, 0);
 }
