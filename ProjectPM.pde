@@ -3,6 +3,7 @@ String[] linhas;
 int n, m;
 PImage [][] pedacos;
 PImage img;
+color c;
 
 void setup() {
   largura = 600;
@@ -39,13 +40,13 @@ void draw() {
         for (int y=0; y<pedacos[i][j].height; y++) {
           int loc = x + y * pedacos[i][j].width;
 
-          //color c = img.pixels[x + y * img.width];
+          color c = img.pixels[x + y * largura/n];
 
           //float r = red(c);
           //float g = green(c);
           //float b = blue(c);
 
-          pedacos[i][i].pixels[loc] = img.pixels[x + y * img.width];
+          pedacos[i][j].pixels[loc] = c;
         }
       }
       pedacos[i][j].updatePixels();
