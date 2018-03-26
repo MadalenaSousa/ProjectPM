@@ -49,7 +49,8 @@ void draw() {
         }
       }
       pedacos[i][j].updatePixels();
-      image(pedacos[i][j], pedacos[i][j].width * j, pedacos[i][j].height * i);
+      image(pedacos[i][j], pedacos[i][j].width * i, pedacos[i][j].height * j);
+      //pedacos[i][j].save("pedacos" + i + j + ".jpg");
     }
   }
 }
