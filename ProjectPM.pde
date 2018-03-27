@@ -16,8 +16,8 @@ void setup() {
   linhas =  loadStrings("ficheiro.txt");
 
   //conversão de String para Int
-  m = parseInt(linhas[1]); //9
-  n = parseInt(linhas[0]); //16
+  m = parseInt(linhas[0]); //16
+  n = parseInt(linhas[1]); //9
 
   img =  loadImage(linhas[2]);
   img.loadPixels();
@@ -28,7 +28,7 @@ void setup() {
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
-      pedacos[i][j] = createImage(largura/n, altura/m, RGB);
+      pedacos[i][j] = createImage(largura/m, altura/n, RGB);
       pedacos[i][j].loadPixels();
     }
   }
@@ -47,18 +47,19 @@ void draw() {
       }
       
       //definição da imagem
-      pedacos[i][j] = img.get(i*pedacos[i][j].width, j*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
+      pedacos[i][j] = img.get(j*pedacos[i][j].width, i*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
 
       //retângulo à volta da imagem, moldura
       noFill();
       stroke(0);
       strokeWeight(10);
-      rect(pedacos[i][j].width * i, pedacos[i][j].height * j, pedacos[i][j].width, pedacos[i][j].height);
+      rect(pedacos[i][j].width * j, pedacos[i][j].height * i, pedacos[i][j].width, pedacos[i][j].height);
 
       //display das novas imagens criadas, exceto a ultima
-      if (i+j < (n-1)+(m-1)) {
+      //if (i+j < (n-1)+(m-1)) {
+      if (i != (n-1) || j != (m-1)) {
         pedacos[i][j].updatePixels();
-        image(pedacos[i][j], pedacos[i][j].width * i, pedacos[i][j].height * j);
+        image(pedacos[i][j], pedacos[i][j].width * j, pedacos[i][j].height * i);
         //pedacos[i][j].save("pedacos" + count + ".jpg");
       }
     }
