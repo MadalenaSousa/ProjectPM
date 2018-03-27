@@ -1,37 +1,50 @@
-PImage img;
-String[] ficheiro;
-PImage[][] segments = new PImage[10][10];
+int altura, largura;
+String[] linhas;
 int n, m;
- 
+PImage [][] pedacos;
+PImage img;
+
 void setup() {
-  size(1160, 600);
-  ficheiro =  loadStrings("ficheiro.txt");
-  
-  n = parseInt(ficheiro[0]);
-  m = parseInt(ficheiro[1]);
-  img=loadImage("img.jpg");
-for(int i=0; i<10;i++){
- for(int j=0; j<10; j++){ 
-   segments[i][j] = img.get(i*116,j*10,116,10);
- 
-    }}
+  largura = 800;
+  altura = 450;
+
+  size(800, 450);
+
+  linhas =  loadStrings("ficheiro.txt");
+
+  m = parseInt(linhas[1]); //9
+  n = parseInt(linhas[0]); //16
+
+  img =  loadImage(linhas[2]);
+  img.loadPixels();
+  img.resize(800, 450);
+
+  pedacos = new PImage[n][m];
+
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
+      pedacos[i][j] = createImage(largura/n, altura/m, RGB);
+      pedacos[i][j].loadPixels();
+    }
+  }
 }
-    void draw(){
-  for(int i=0; i<10;i++){
-    for(int j=0; j<10; j++){ 
-        background(255);
-        /// image(img, 0,0);
+
+void draw() {
+
+  //image(img, 0, 0, largura, altura);
+
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
+
+      pedacos[i][j] = img.get(i*pedacos[i][j].width, j*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
 
       noFill();
-      rect(i,j,116,10);
-      image(segments[i][j], i*116, j*10,segments[i][j].width,segments[i][j].height);
-      
-      i=i+116;
-      j=j+60;
-
-
-
-}}
-  
-    
+      stroke(0);
+      strokeWeight(10);
+      rect(pedacos[i][j].width * i, pedacos[i][j].height * j, pedacos[i][j].width, pedacos[i][j].height);
+      pedacos[i][j].updatePixels();
+      image(pedacos[i][j], pedacos[i][j].width * i, pedacos[i][j].height * j);
+      pedacos[i][j].save("pedacos" + i + j + ".jpg");
+    }
+  }
 }
