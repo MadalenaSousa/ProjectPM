@@ -44,7 +44,7 @@ void draw() {
       rect(pedacos[i][j].width * i, pedacos[i][j].height * j, pedacos[i][j].width, pedacos[i][j].height);
       pedacos[i][j].updatePixels();
       image(pedacos[i][j], pedacos[i][j].width * i, pedacos[i][j].height * j);
-      pedacos[i][j].save("pedacos" + i + j + ".jpg");
+      //pedacos[i][j].save("pedacos" + i + j + ".jpg");
     }
   }
 }
