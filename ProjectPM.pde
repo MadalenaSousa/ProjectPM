@@ -7,7 +7,7 @@ int count;
 
 void setup() {
   size(800, 450);
-  
+
   largura = 800;
   altura = 450;
 
@@ -40,12 +40,12 @@ void draw() {
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
-      
+
       //contador
       if (count < n*m) {
         count++;
       }
-      
+
       //definição da imagem
       pedacos[i][j] = img.get(j*pedacos[i][j].width, i*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
 
@@ -56,11 +56,10 @@ void draw() {
       rect(pedacos[i][j].width * j, pedacos[i][j].height * i, pedacos[i][j].width, pedacos[i][j].height);
 
       //display das novas imagens criadas, exceto a ultima
-      //if (i+j < (n-1)+(m-1)) {
       if (i != (n-1) || j != (m-1)) {
         pedacos[i][j].updatePixels();
         image(pedacos[i][j], pedacos[i][j].width * j, pedacos[i][j].height * i);
-        //pedacos[i][j].save("pedacos" + count + ".jpg");
+        //pedacos[i][j].save("pedacos" + count + ".jpg"); //usamos isto para garantir que as imagens estavam realmente a ser criadas como queriamos
       }
     }
   }
