@@ -4,7 +4,7 @@ String[] linhas;
 int count;
 
 void setup() {
-  size(800, 450);
+  size(875, 490);
 
   largura = 800;
   altura = 450;
