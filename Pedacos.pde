@@ -61,7 +61,6 @@ class Pedacos {
       for (int j=0; j<m; j++) {
         if ((mouseX - x[j] <= pedacos[i][j].width && mouseX - x[j] >= 0) && (mouseY - y[i] <= pedacos[i][j].height && mouseY - y[i] >= 0)) {
           println(x[j]);
-          println(pedacos[i][j].pixels[0]);
         }
       }
     }
