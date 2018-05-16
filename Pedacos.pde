@@ -1,69 +1,19 @@
-class Pedacos {
+class Pedaco {
 
-  int altura, largura;
-  int n, m;
-  float[] x, y;
-  PImage [][] pedacos;
-  PImage img;
+  int alt, larg;
+  PImage pedaco;
 
-  Pedacos(int altura, int largura, int n /*8*/, int m/*6*/, PImage img) {
-    this.altura = altura;
-    this.largura = largura;
-    this.n = n;
-    this.m = m;
-    this.img = img;
-    //criação dos pedacos
-    x = new float[m];
-    y = new float[n];
-    pedacos = new PImage[n][m];
-    for (int i=0; i<n; i++) {
-      for (int j=0; j<m; j++) {
-        if (i != (n-1) || j != (m-1)) {
-          pedacos[i][j] = createImage(largura/m, altura/n, RGB);
-          x[j] = 5 * j + pedacos[i][j].width * j;
-          y[i] = 5 * i + pedacos[i][j].height * i;
-        }
-      }
-    }
+  Pedaco(int alt, int larg, PImage imgOriginal, float x, float y) {
+    this.alt = alt;
+    this.larg = larg;
+    pedaco = createImage(larg, alt, RGB);
+    imgOriginal.resize(600, 800);
+    pedaco = imgOriginal.get((int)y*pedaco.width, (int)x*pedaco.height, pedaco.width, pedaco.height);
+
+    //pedaco.save("pedacos" + count + ".jpg");
   }
 
-  void desenha() {
-    img.loadPixels();
-    img.resize(600, 800);
-
-    for (int i=0; i<n/*8*/; i++) {
-      for (int j=0; j<m/*6*/; j++) {
-        if (i != (n-1) || j != (m-1)) {
-          /* 
-           for (int l=0; l < pedacos[i][j].height; l++) {
-           for (int c=0; c < pedacos[i][j].width; c++) {
-           int loc = (l * pedacos[i][j].width) + c;
-           int loc_original = ((j * pedacos[i][j].width) + c) + ((i * pedacos[i][j].height * img.width) + (l * img.width));
-           pedacos[i][j].pixels[loc] = img.pixels[loc_original];
-           }
-           }
-           */
-
-          //definição da imagem
-          pedacos[i][j] = img.get(j*pedacos[i][j].width, i*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
-
-          //display das novas imagens criadas, exceto a ultima
-          image(pedacos[i][j], x[j], y[i]); //ele desenha cada pedaco a 5px * o indíce do pedaco anterior
-          //pedacos[i][j].save("pedacos" + count + ".jpg");
-        }
-      }
-    }
-  }
-
-  void mover() {
-    for (int i=0; i<n; i++) {
-      for (int j=0; j<m; j++) {
-        if (i != (n-1) || j != (m-1)) {
-          if ((mouseX - x[j] <= pedacos[i][j].width && mouseX - x[j] >= 0) && (mouseY - y[i] <= pedacos[i][j].height && mouseY - y[i] >= 0)) {
-            println(x[j]);
-          }
-        }
-      }
-    }
+  void desenha(float x, float y) {
+    image(pedaco, (5 + pedaco.width) * y, (5 + pedaco.height) * x); //ele desenha cada pedaco a 5px * o indíce do pedaco anterior
   }
 }

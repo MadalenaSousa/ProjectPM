@@ -1,4 +1,5 @@
-Pedacos pedacos;
+Pedaco[][] pedacos;
+int n, m;
 int largura, altura;
 String[] linhas;
 int count;
@@ -11,14 +12,33 @@ void setup() {
   altura = 800;
   count = 0;
   linhas = loadStrings("texto.txt");
+  n = parseInt(linhas[0]);
+  m = parseInt(linhas[1]);
 
-  pedacos = new Pedacos(altura, largura, parseInt(linhas[0]), parseInt(linhas[1]), loadImage("img.jpg"));
-  pedacos.desenha();
+  pedacos = new Pedaco[n][m];
+
+  PImage img = loadImage("img.jpg");
+
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
+      if (i != (n-1) || j != (m-1)) {
+        pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j);
+      } else {
+        pedacos[i][j] = null;
+      }
+    }
+  }
 }
 
 void draw() {
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
+      if (pedacos[i][j] != null) {
+        pedacos[i][j].desenha(i, j);
+      }
+    }
+  }
 }
 
 void mousePressed() {
-  pedacos.mover();
 }
