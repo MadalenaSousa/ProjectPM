@@ -43,19 +43,7 @@ void draw() {
           pedacos[i][j].pixels[loc] = img.pixels[loc_original];
         }
       }
-      //for (int x=0; x<pedacos[i][j].width; x++) {
-        //for (int y=0; y<pedacos[i][j].height; y++) {
-          //int loc = x + y * pedacos[i][j].width;
 
-           //pedacos[i][j] = img.get(i*pedacos[i][j].width, j*pedacos[i][j].height, pedacos[i][j].width,pedacos[i][j].height);
-
-          //float r = red(c);
-          //float g = green(c);
-          //float b = blue(c);
-
-          //pedacos[i][j].pixels[loc] = 1;
-       // }
-      //}
       noFill();
       stroke(0);
       strokeWeight(10);
