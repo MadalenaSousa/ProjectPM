@@ -5,7 +5,7 @@ class Pedacos {
   PImage [][] pedacos;
   PImage img;
 
-  Pedacos(int altura, int largura, int n, int m, PImage img) {
+  Pedacos(int altura, int largura, int n /*8*/, int m/*6*/, PImage img) {
     this.altura = altura;
     this.largura = largura;
     this.n = n;
@@ -36,8 +36,8 @@ class Pedacos {
         if (i != (n-1) || j != (m-1)) {
           pedacos[i][j].updatePixels();
           image(pedacos[i][j], 5 * j + pedacos[i][j].width * j, 5 * i + pedacos[i][j].height * i); //ele desenha cada pedaco a 5px * o indíce do pedaco anterior
-          //pedacos[i][j].save("pedacos" + count + ".jpg");
         }
+         //pedacos[i][j].save("pedacos" + count + ".jpg");
       }
     }
   }
