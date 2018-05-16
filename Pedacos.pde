@@ -28,6 +28,16 @@ class Pedacos {
     for (int i=0; i<n; i++) {
       for (int j=0; j<m; j++) {
         pedacos[i][j].loadPixels();
+        
+/* 
+      for (int l=0; l < pedacos[i][j].height; l++) {
+        for (int c=0; c < pedacos[i][j].width; c++) {
+          int loc = (l * pedacos[i][j].width) + c;
+          int loc_original = ((j * pedacos[i][j].width) + c) + ((i * pedacos[i][j].height * img.width) + (l * img.width));
+          pedacos[i][j].pixels[loc] = img.pixels[loc_original];
+        }
+      }
+*/
 
         //definição da imagem
         pedacos[i][j] = img.get(j*pedacos[i][j].width, i*pedacos[i][j].height, pedacos[i][j].width, pedacos[i][j].height);
