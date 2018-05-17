@@ -41,4 +41,43 @@ void draw() {
 }
 
 void mousePressed() {
+  for (int i=0; i<n; i++) {
+    for (int j=0; i<m; j++) {
+      if (pedacos[i][j] != null) {
+        if (pedacos[i][j].pressed()) {
+          if (i!=0) {
+            if (pedacos[i][j+1] == null) {
+              pedacos[i][j+1] = pedacos[i][j];
+              pedacos[i][j] = null;
+              return;
+            }
+          }
+
+          if (i!=n-1) {
+            if (pedacos[i][j-1] == null) {
+              pedacos[i][j-1] = pedacos[i][j];
+              pedacos[i][j] = null;
+              return;
+            }
+          }
+
+          if (j!=0) {
+            if (pedacos[i-1][j] == null) {
+              pedacos[i-1][j] = pedacos[i][j];
+              pedacos[i][j] = null;
+              return;
+            }
+          }
+
+          if (j!=m-1) {
+            if (pedacos[i+1][j] == null) {
+              pedacos[i+1][j] = pedacos[i][j];
+              pedacos[i][j] = null;
+              return;
+            }
+          }
+        }
+      }
+    }
+  }
 }
