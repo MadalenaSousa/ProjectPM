@@ -17,7 +17,7 @@ void setup() {
 
   pedacos = new Pedaco[n][m];
 
-  PImage img = loadImage("img.jpg");
+  PImage img = loadImage("image.jpg");
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
@@ -42,7 +42,7 @@ void draw() {
 
 void mousePressed() {
   for (int i=0; i<n /*8*/; i++) {
-    for (int j=0; i<m/*6*/; j++) {
+    for (int j=0; j<m/*6*/; j++) {
       if (pedacos[i][j] != null) {
         if (pedacos[i][j].pressed()) {
           if (i!=0) {
