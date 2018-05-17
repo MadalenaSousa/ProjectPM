@@ -43,7 +43,7 @@ void draw() {
 void mousePressed() {
   for (int i=0; i<n /*8*/; i++) {
     for (int j=0; i<m/*6*/; j++) {
-      if (i != 4 || j != 3) {
+      if (pedacos[i][j] != null) {
         if (pedacos[i][j].pressed()) {
           if (i!=0) {
             if (pedacos[i-1][j] == null) {
