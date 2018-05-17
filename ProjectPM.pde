@@ -17,7 +17,7 @@ void setup() {
 
   pedacos = new Pedaco[n][m];
 
-  PImage img = loadImage("img.jpg");
+  PImage img = loadImage("image.jpg");
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
