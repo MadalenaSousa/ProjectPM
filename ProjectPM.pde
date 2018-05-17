@@ -1,4 +1,5 @@
 Pedaco[][] pedacos;
+PedPreto nigga;
 int n, m;
 int largura, altura;
 String[] linhas;
@@ -18,13 +19,15 @@ void setup() {
   pedacos = new Pedaco[n][m];
 
   PImage img = loadImage("image.jpg");
+  
+  nigga = new PedPreto(altura/n, largura/m, img, , j);
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != 4 || j != 3) {
         pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j);
       } else {
-        pedacos[i][j] = null;
+        pedacos[i][j] = nigga;
       }
     }
   }
@@ -47,7 +50,8 @@ void mousePressed() {
         if (pedacos[i][j].pressed()) {
           if (i!=0) {
             if (pedacos[i-1][j] == null) {
-              pedacos[i-1][j] = pedacos[i][j];
+              Pedaco temp = pedacos[i][j];
+              pedacos[i-1][j] = temp;
               pedacos[i][j] = null;
               return;
             }
@@ -55,6 +59,7 @@ void mousePressed() {
 
           if (i!=n-1) {
             if (pedacos[i+1][j] == null) {
+              Pedaco temp = pedacos[i][j];
               pedacos[i+1][j] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
@@ -63,6 +68,7 @@ void mousePressed() {
 
           if (j!=0) {
             if (pedacos[i][j-1] == null) {
+              Pedaco temp = pedacos[i][j];
               pedacos[i][j-1] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
@@ -71,8 +77,9 @@ void mousePressed() {
 
           if (j!=m-1) {
             if (pedacos[i][j+1] == null) {
-              pedacos[i][j+1] = pedacos[i][j];
-              pedacos[i][j] = null;
+              Pedaco temp = pedacos[i][j];
+              pedacos[i][j] = 
+              pedacos[i][j+1] = temp;
               return;
             }
           }
