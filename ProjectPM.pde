@@ -20,7 +20,7 @@ void setup() {
 
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
-      if (i != 4 || j != 3) {
+      if (i != (n-1) || j != (m-1)) {
         pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j);
       } else {
         pedacos[i][j] = null;
@@ -81,3 +81,12 @@ void mousePressed() {
     }
   }
 }
+
+/* 
+
+WEBGRAFIA
+http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+https://rosettacode.org/wiki/15_Puzzle_Game#Java
+https://www.openprocessing.org/sketch/131051
+
+*/
