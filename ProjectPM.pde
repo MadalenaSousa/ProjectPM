@@ -91,3 +91,40 @@ void mousePressed() {
  https://www.openprocessing.org/sketch/131051
  
  */
+
+void misturar(Pedaco[][] p) {
+  for (int i=0; i<10; i++) {
+    if (p != null) {
+      if (i!=0) {
+        if (pedacos[i-1][j] == null) {
+          pedacos[i-1][j] = pedacos[i][j];
+          pedacos[i][j] = null;
+          return;
+        }
+      }
+
+      if (i!=n-1) {
+        if (pedacos[i+1][j] == null) {
+          pedacos[i+1][j] = pedacos[i][j];
+          pedacos[i][j] = null;
+          return;
+        }
+      }
+
+        if (pedacos[i][j-1] == null) {
+          pedacos[i][j-1] = pedacos[i][j];
+          pedacos[i][j] = null;
+          return;
+        }
+      }
+
+      if (j!=m-1) {
+        if (pedacos[i][j+1] == null) {
+          pedacos[i][j+1] = pedacos[i][j];
+          pedacos[i][j] = null;
+          return;
+        }
+      }
+    }
+  }
+}
