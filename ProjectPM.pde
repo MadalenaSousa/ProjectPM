@@ -29,6 +29,7 @@ void setup() {
   }
 }
 
+
 void draw() {
   background(0);
   for (int i=0; i<n; i++) {
@@ -83,10 +84,10 @@ void mousePressed() {
 }
 
 /* 
-
-WEBGRAFIA
-http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
-https://rosettacode.org/wiki/15_Puzzle_Game#Java
-https://www.openprocessing.org/sketch/131051
-
-*/
+ 
+ WEBGRAFIA
+ http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+ https://rosettacode.org/wiki/15_Puzzle_Game#Java
+ https://www.openprocessing.org/sketch/131051
+ 
+ */
