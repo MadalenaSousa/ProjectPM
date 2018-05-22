@@ -92,12 +92,12 @@ void mousePressed() {
 
 void misturar(Pedaco[][] p) {
 
-  for (int z=0; z<10; z++) {
+  for (int z=0; z<nBaralhar; z++) { //usa 10 movimentos para baralhar
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        int r = (int)random(0, 4);
+        int r = (int)random(0, 4); //cria uma variavel random em que cada numero representa uma das 4 opçoes de peca que podem preencher o buraco
 
-        if (r==0 && i!=0) {
+        if (r==0 && i!=0) { //dependendo do numero escolhido para r atribui ao nulo uma das quatro imagens, tendo em conta os cantos
           if (p[i][j] == null) {
             p[i][j] = p[i-1][j];
             p[i-1][j] = null;
