@@ -6,7 +6,7 @@ int count;
 
 void setup() {
   //size(800, 1000);
-  size(625, 835);
+  size(600, 800);
 
   largura = 600;
   altura = 800;
