@@ -30,11 +30,9 @@ void setup() {
     }
   }
 
-  for (int i=0; i<n /*8*/; i++) {
-    for (int j=0; j<m/*6*/; j++) {
-      misturar(pedacos);
-    }
-  }
+  //for (int z=0; z<nBaralhar; z++) {
+    misturar(pedacos);
+  
 }
 
 
@@ -93,36 +91,41 @@ void mousePressed() {
 
 void misturar(Pedaco[][] p) {
 
-  for (int z=0; z<10; z++) {
-    for (int i=0; i<n /*8*/; i++) {
-      for (int j=0; j<m/*6*/; j++) {
-        int r = (int)random(0, 4);
+  for (int i=0; i<n /*8*/; i++) {
+    for (int j=0; j<m/*6*/; j++) {
+      int r = (int)random(0, 4);
 
-        if (r==0 && i!=0) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i-1][j];
-            p[i-1][j] = null;
-          }
-        } else if (r==1 && i!=n-1) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i+1][j];
-            p[i+1][j] = null;
-          }
-        } else if (r==2 && j!=0) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i][j-1];
-            p[i][j-1] = null;
-          }
-        } else if (r==3 && j!=m-1) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i][j+1];
-            p[i][j+1] = null;
-          }
+      if (r==0 && i!=0) {
+        if (p[i][j] == null) {
+          p[i][j] = p[i-1][j];
+          p[i-1][j] = null;
+        }
+      } 
+      
+      if (r==1 && i!=n-1) {
+        if (p[i][j] == null) {
+          p[i][j] = p[i+1][j];
+          p[i+1][j] = null;
+        }
+      }
+      
+      if (r==2 && j!=0) {
+        if (p[i][j] == null) {
+          p[i][j] = p[i][j-1];
+          p[i][j-1] = null;
+        }
+      } 
+      
+      if (r==3 && j!=m-1) {
+        if (p[i][j] == null) {
+          p[i][j] = p[i][j+1];
+          p[i][j+1] = null;
         }
       }
     }
   }
 }
+
 
 /* 
  
