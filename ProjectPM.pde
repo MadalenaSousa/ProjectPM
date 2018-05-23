@@ -94,28 +94,25 @@ void misturar(Pedaco[][] p) {
   for (int i=0; i<n /*8*/; i++) {
     for (int j=0; j<m/*6*/; j++) {
       int r = (int)random(0, 4);
-      
-      while((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) {
+
+      while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) {
         r = (int)random(0, 4);
       }
 
-      if (r==0 && i!=0) {
-        if (p[i][j] == null) {
+      if (p[i][j] == null) {
+        if (r==0) {
           p[i][j] = p[i-1][j];
           p[i-1][j] = null;
-        }
-      } else if (r==1 && i!=n-1) {
-        if (p[i][j] == null) {
+          
+        } else if (r==1) {
           p[i][j] = p[i+1][j];
           p[i+1][j] = null;
-        }
-      } else if (r==2 && j!=0) {
-        if (p[i][j] == null) {
+          
+        } else if (r==2) {
           p[i][j] = p[i][j-1];
           p[i][j-1] = null;
-        }
-      } else if (r==3 && j!=m-1) {
-        if (p[i][j] == null) {
+          
+        } else if (r==3) {
           p[i][j] = p[i][j+1];
           p[i][j+1] = null;
         }
