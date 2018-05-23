@@ -93,25 +93,51 @@ void misturar(Pedaco[][] p) {
       for (int j=0; j<m/*6*/; j++) {
         int r = (int)random(0, 4); //cria uma variavel random em que cada numero representa uma das 4 opçoes de peca que podem preencher o buraco
 
-        if (r==0 && i!=0) { //dependendo do numero escolhido para r atribui ao nulo uma das quatro imagens, tendo em conta os cantos
-          if (p[i][j] == null) {
-            p[i][j] = p[i-1][j];
-            p[i-1][j] = null;
+        if (r==0) { //dependendo do numero escolhido para r atribui ao nulo uma das quatro imagens, tendo em conta os cantos
+          if (i!=0) {
+            if (p[i][j] == null) {
+              p[i][j] = p[i-1][j];
+              p[i-1][j] = null;
+            }
+          } else {
+            r = (int)random(0, 4);
+            return;
           }
-        } else if (r==1 && i!=n-1) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i+1][j];
-            p[i+1][j] = null;
+        }
+
+        if (r==1) {
+          if (i!=n-1) {
+            if (p[i][j] == null) {
+              p[i][j] = p[i+1][j];
+              p[i+1][j] = null;
+            }
+          } else {
+            r = (int)random(0, 4);
+            return;
           }
-        } else if (r==2 && j!=0) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i][j-1];
-            p[i][j-1] = null;
+        }
+
+        if (r==2) {
+          if (j!=0) {
+            if (p[i][j] == null) {
+              p[i][j] = p[i][j-1];
+              p[i][j-1] = null;
+            }
+          } else {
+            r = (int)random(0, 4);
+            return;
           }
-        } else if (r==3 && j!=m-1) {
-          if (p[i][j] == null) {
-            p[i][j] = p[i][j+1];
-            p[i][j+1] = null;
+        }
+
+        if (r==3) {
+          if (j!=m-1) {
+            if (p[i][j] == null) {
+              p[i][j] = p[i][j+1];
+              p[i][j+1] = null;
+            }
+          } else {
+            r = (int)random(0, 4);
+            return;
           }
         }
       }
