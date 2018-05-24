@@ -1,15 +1,20 @@
 import processing.sound.*;
 
+Menu menu;
 Pedaco[][] pedacos;
 int n, m, nBaralhar;
 int largura, altura;
 String[] linhas;
 int count;
 SoundFile win, wrong, move, lose;
+PFont f;
 
 void setup() {
   //size(800, 1000);
   size(600, 800);
+
+  f = createFont("HelvLight-Normal", 100, true);
+  menu = new Menu(Menu.MENU);
 
   win = new SoundFile(this, "win.mp3");
   lose = new SoundFile(this, "lose.mp3");
@@ -43,62 +48,90 @@ void setup() {
 
 
 void draw() {
-  background(0);
-  for (int i=0; i<n; i++) {
-    for (int j=0; j<m; j++) {
-      if (pedacos[i][j] != null) {
-        pedacos[i][j].desenha(i, j);
+  if (menu.selected == Menu.MENU) {
+    background(0);
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textFont(f, 40);
+    text("15 PUZZLE", width/2, height/2);
+  } else if (menu.selected == Menu.JOGO) {
+    background(0);
+    for (int i=0; i<n; i++) {
+      for (int j=0; j<m; j++) {
+        if (pedacos[i][j] != null) {
+          pedacos[i][j].desenha(i, j);
+        }
       }
     }
   }
 }
 
 void mousePressed() {
-  for (int i=0; i<n /*8*/; i++) {
-    for (int j=0; j<m/*6*/; j++) {
-      if (pedacos[i][j] != null) {
-        if (pedacos[i][j].pressed()) {
-          if (i!=0) {
-            move.play();
-            if (pedacos[i-1][j] == null) {
-              pedacos[i-1][j] = pedacos[i][j];
-              pedacos[i][j] = null;
-              return;
-            } else {
-              wrong.play();
-            }
-          }
+  if (menu.selected == Menu.MENU) {
+    menu.selected = Menu.JOGO;
+  }
+  
+  if(menu.selected == Menu.JOGO) {
+    for (int i=0; i<n /*8*/; i++) {
+      for (int j=0; j<m/*6*/; j++) {
+        if (pedacos[i][j] != null) {
+          if (pedacos[i][j].pressed()) {
+            if (i!=0) {
+              move.play();
+              if (pedacos[i-1][j] == null) {
+                pedacos[i-1][j] = pedacos[i][j];
+                pedacos[i][j] = null;
+                return;
+              }
+            } 
 
-          if (i!=n-1) {
-            move.play();
-            if (pedacos[i+1][j] == null) {
-              pedacos[i+1][j] = pedacos[i][j];
-              pedacos[i][j] = null;
-              return;
-            } else {
-              wrong.play();
-            }
-          }
+            if (i!=n-1) {
+              move.play();
+              if (pedacos[i+1][j] == null) {
+                pedacos[i+1][j] = pedacos[i][j];
+                pedacos[i][j] = null;
+                return;
+              }
+            } 
 
-          if (j!=0) {
-            move.play();
-            if (pedacos[i][j-1] == null) {
-              pedacos[i][j-1] = pedacos[i][j];
-              pedacos[i][j] = null;
-              return;
-            } else {
-              wrong.play();
-            }
-          }
+            if (j!=0) {
+              move.play();
+              if (pedacos[i][j-1] == null) {
+                pedacos[i][j-1] = pedacos[i][j];
+                pedacos[i][j] = null;
+                return;
+              }
+            } 
 
-          if (j!=m-1) {
-            move.play();
-            if (pedacos[i][j+1] == null) {
-              pedacos[i][j+1] = pedacos[i][j];
-              pedacos[i][j] = null;
-              return;
-            } else {
-              wrong.play();
+            if (j!=m-1) {
+              move.play();
+              if (pedacos[i][j+1] == null) {
+                pedacos[i][j+1] = pedacos[i][j];
+                pedacos[i][j] = null;
+                return;
+              }
+            }
+
+            if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
+              if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                wrong.play();
+              }
+            } else if (i==0) {
+              if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                wrong.play();
+              }
+            } else if (i==n-1) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                wrong.play();
+              }
+            } else if (j==0) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i-1][j] != null) {
+                wrong.play();
+              }
+            } else if (j==m-1) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j-1] != null) {
+                wrong.play();
+              }
             }
           }
         }
