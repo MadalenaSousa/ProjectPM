@@ -8,12 +8,13 @@ String[] linhas;
 int count;
 SoundFile win, wrong, move, lose;
 PFont f;
+PImage azulejo;
 
 void setup() {
   //size(800, 1000);
   size(600, 800);
-
-  f = createFont("HelvLight-Normal", 100, true);
+  azulejo=loadImage("azulejo.jpg");
+  f = createFont("Baskerville", 100, true);
   menu = new Menu(Menu.MENU);
 
   win = new SoundFile(this, "win.mp3");
@@ -49,11 +50,17 @@ void setup() {
 
 void draw() {
   if (menu.selected == Menu.MENU) {
-    background(0);
-    textAlign(CENTER, CENTER);
+    azulejo.resize(600, 800);
+    image(azulejo, 0, 0);
     fill(255);
-    textFont(f, 40);
-    text("15 PUZZLE", width/2, height/2);
+    noStroke();
+    rect(0, 100, 500, 100);
+    rect(300, 500, 302, 102);
+    textFont(f, 90);
+    fill(#1C477E);
+    text("15 PUZZLE", 15, 180);
+    fill(#AA2013);
+    text("PLAY", 337, 582);
   } else if (menu.selected == Menu.JOGO) {
     background(0);
     for (int i=0; i<n; i++) {
@@ -68,10 +75,12 @@ void draw() {
 
 void mousePressed() {
   if (menu.selected == Menu.MENU) {
-    menu.selected = Menu.JOGO;
+    if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
+      menu.selected = Menu.JOGO;
+    }
   }
-  
-  if(menu.selected == Menu.JOGO) {
+
+  if (menu.selected == Menu.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         if (pedacos[i][j] != null) {
