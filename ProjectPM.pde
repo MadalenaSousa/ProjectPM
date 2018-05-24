@@ -1,12 +1,20 @@
+import processing.sound.*;
+
 Pedaco[][] pedacos;
 int n, m, nBaralhar;
 int largura, altura;
 String[] linhas;
 int count;
+SoundFile win, wrong, move, lose;
 
 void setup() {
   //size(800, 1000);
   size(600, 800);
+
+  win = new SoundFile(this, "win.mp3");
+  lose = new SoundFile(this, "lose.mp3");
+  move = new SoundFile(this, "move.mp3");
+  wrong = new SoundFile(this, "wrong.mp3");
 
   largura = 600;
   altura = 800;
@@ -51,34 +59,46 @@ void mousePressed() {
       if (pedacos[i][j] != null) {
         if (pedacos[i][j].pressed()) {
           if (i!=0) {
+            move.play();
             if (pedacos[i-1][j] == null) {
               pedacos[i-1][j] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
+            } else {
+              wrong.play();
             }
           }
 
           if (i!=n-1) {
+            move.play();
             if (pedacos[i+1][j] == null) {
               pedacos[i+1][j] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
+            } else {
+              wrong.play();
             }
           }
 
           if (j!=0) {
+            move.play();
             if (pedacos[i][j-1] == null) {
               pedacos[i][j-1] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
+            } else {
+              wrong.play();
             }
           }
 
           if (j!=m-1) {
+            move.play();
             if (pedacos[i][j+1] == null) {
               pedacos[i][j+1] = pedacos[i][j];
               pedacos[i][j] = null;
               return;
+            } else {
+              wrong.play();
             }
           }
         }
@@ -124,4 +144,4 @@ void misturar(Pedaco[][] p, int nMovimentos) {
  WEBGRAFIA
  https://www.openprocessing.org/sketch/131051
  
-*/
+ */
