@@ -1,4 +1,4 @@
 4
 3
-img.jpg
-10
+image.jpg
+100
