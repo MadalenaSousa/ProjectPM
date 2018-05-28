@@ -85,7 +85,7 @@ void mousePressed() {
       for (int j=0; j<m/*6*/; j++) {
         if (pedacos[i][j] != null) {
           if (pedacos[i][j].pressed()) {
-            if (i!=0) {
+            if (i!=0) { //Mexer as peças + Som de mover
               move.play();
               if (pedacos[i-1][j] == null) {
                 pedacos[i-1][j] = pedacos[i][j];
@@ -120,7 +120,7 @@ void mousePressed() {
                 return;
               }
             }
-
+            //Sons: Som errado
             if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
               if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
                 wrong.play();
