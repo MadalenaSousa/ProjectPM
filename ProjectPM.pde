@@ -1,39 +1,39 @@
 import processing.sound.*;
 
-Menu menu;
-Pedaco[][] pedacos;
+String[] linhas;
+PImage img, azulejo;
 int n, m, nBaralhar;
 int largura, altura;
-String[] linhas;
-int count;
+Menu menu;
+Pedaco[][] pedacos;
 SoundFile win, wrong, move, lose;
 PFont f;
-PImage azulejo;
 
 void setup() {
-  //size(800, 1000);
   size(600, 800);
-  azulejo=loadImage("azulejo.jpg");
-  f = createFont("Baskerville", 100, true);
-  menu = new Menu(Menu.MENU);
 
+  //CARREGAMENTOS
+  linhas = loadStrings("texto.txt");
+  img = loadImage(linhas[2]);
+  azulejo = loadImage("azulejo.jpg");
+
+  //VARIÁVEIS
+  n = parseInt(linhas[0]); //8
+  m = parseInt(linhas[1]); //6
+  nBaralhar = parseInt(linhas[3]); //100
+  largura = 600;
+  altura = 800;
+  f = createFont("Baskerville", 100, true);
+
+  //OBJETOS
+  menu = new Menu(Menu.MENU);
+  pedacos = new Pedaco[n][m];
   win = new SoundFile(this, "win.mp3");
   lose = new SoundFile(this, "lose.mp3");
   move = new SoundFile(this, "move.mp3");
   wrong = new SoundFile(this, "wrong.mp3");
-
-  largura = 600;
-  altura = 800;
-  count = 0;
-  linhas = loadStrings("texto.txt");
-  n = parseInt(linhas[0]); //8
-  m = parseInt(linhas[1]); //6
-  nBaralhar = parseInt(linhas[3]); //100
-
-  pedacos = new Pedaco[n][m];
-
-  PImage img = loadImage(linhas[2]);
-
+  
+  //Criação dos pedaços à exceção do último que é nulo, não existe
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != (n-1) || j != (m-1)) {
@@ -49,20 +49,28 @@ void setup() {
 
 
 void draw() {
+
+  //Dedinição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
     azulejo.resize(600, 800);
     image(azulejo, 0, 0);
-    fill(255);
+
     noStroke();
+    textFont(f, 90);
+
+    fill(255);
     rect(0, 100, 500, 100);
     rect(300, 500, 302, 102);
-    textFont(f, 90);
+
     fill(#1C477E);
     text("15 PUZZLE", 15, 180);
     fill(#AA2013);
     text("PLAY", 337, 582);
+
+    //Apresentar o menu do Puzzle (JOGO)
   } else if (menu.selected == Menu.JOGO) {
     background(0);
+
     for (int i=0; i<n; i++) {
       for (int j=0; j<m; j++) {
         if (pedacos[i][j] != null) {
@@ -74,18 +82,21 @@ void draw() {
 }
 
 void mousePressed() {
+  
+  //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
     if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
       menu.selected = Menu.JOGO;
     }
   }
 
+  //Mover as peças + Som do movimento Válido
   if (menu.selected == Menu.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         if (pedacos[i][j] != null) {
           if (pedacos[i][j].pressed()) {
-            if (i!=0) { //Mexer as peças + Som de mover
+            if (i!=0) { 
               move.play();
               if (pedacos[i-1][j] == null) {
                 pedacos[i-1][j] = pedacos[i][j];
@@ -120,7 +131,8 @@ void mousePressed() {
                 return;
               }
             }
-            //Sons: Som errado
+            
+            //Som de movimento Inválido
             if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
               if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
                 wrong.play();
@@ -171,7 +183,8 @@ void mousePressed() {
 
 void misturar(Pedaco[][] p, int nMovimentos) {
 
-  for (int z=0; z<nMovimentos; z++) {
+  //Mover as peças 
+  for(int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         int r = (int)random(0, 4);
@@ -195,7 +208,6 @@ void misturar(Pedaco[][] p, int nMovimentos) {
             p[i][j+1] = null;
           }
         }
-        
       }
     }
   }
