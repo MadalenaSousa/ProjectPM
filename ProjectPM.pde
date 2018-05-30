@@ -182,19 +182,20 @@ void misturar(Pedaco[][] p, int nMovimentos) {
 
         if (p[i][j] == null) {
           if (r==0) {
-            p[i][j] = p[i-1][j]; //r=0 puxa de cima, logo, anda para baixo
+            p[i][j] = p[i-1][j]; //r=0 puxa de cima, peça de baixo do nulo sobe
             p[i-1][j] = null;
           } else if (r==1) {
-            p[i][j] = p[i+1][j]; //r=1 puxa de baixo, logo, anda para cima
+            p[i][j] = p[i+1][j]; //r=1 puxa de baixo, peça por cima do nulo desce
             p[i+1][j] = null;
           } else if (r==2) {
-            p[i][j] = p[i][j-1]; //r=2 puxa da esquerda, logo, anda para a direita
+            p[i][j] = p[i][j-1]; //r=2 puxa da esquerda, peça à esquerda do nulo anda para a direita
             p[i][j-1] = null;
           } else if (r==3) {
-            p[i][j] = p[i][j+1]; //r=3 puxa da direita, logo, anda para a esquerda
+            p[i][j] = p[i][j+1]; //r=3 puxa da direita, peça à direita do nulo anda para a esquerda
             p[i][j+1] = null;
           }
         }
+        
       }
     }
   }
