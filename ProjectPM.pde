@@ -28,7 +28,7 @@ void setup() {
   linhas = loadStrings("texto.txt");
   n = parseInt(linhas[0]); //8
   m = parseInt(linhas[1]); //6
-  nBaralhar = parseInt(linhas[3]); //10
+  nBaralhar = parseInt(linhas[3]); //100
 
   pedacos = new Pedaco[n][m];
 
@@ -85,7 +85,7 @@ void mousePressed() {
       for (int j=0; j<m/*6*/; j++) {
         if (pedacos[i][j] != null) {
           if (pedacos[i][j].pressed()) {
-            if (i!=0) {
+            if (i!=0) { //Mexer as peças + Som de mover
               move.play();
               if (pedacos[i-1][j] == null) {
                 pedacos[i-1][j] = pedacos[i][j];
@@ -120,25 +120,45 @@ void mousePressed() {
                 return;
               }
             }
-
+            //Sons: Som errado
             if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
               if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
                 wrong.play();
               }
             } else if (i==0) {
-              if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                wrong.play();
+              if (j==0) {
+                if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+                  wrong.play();
+                }
+              } else if (j==m-1) {
+                if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
+              } else {
+                if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
               }
             } else if (i==n-1) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                wrong.play();
+              if (j==0) {
+                if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
+                  wrong.play();
+                }
+              } else if (j==m-1) {
+                if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
+              } else {
+                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
               }
             } else if (j==0) {
               if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i-1][j] != null) {
                 wrong.play();
               }
             } else if (j==m-1) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j-1] != null) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
                 wrong.play();
               }
             }
@@ -156,22 +176,22 @@ void misturar(Pedaco[][] p, int nMovimentos) {
       for (int j=0; j<m/*6*/; j++) {
         int r = (int)random(0, 4);
 
-        while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) {
+        while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) { //cantos
           r = (int)random(0, 4);
         }
 
         if (p[i][j] == null) {
           if (r==0) {
-            p[i][j] = p[i-1][j];
+            p[i][j] = p[i-1][j]; //r=0 puxa de cima, logo, anda para baixo
             p[i-1][j] = null;
           } else if (r==1) {
-            p[i][j] = p[i+1][j];
+            p[i][j] = p[i+1][j]; //r=1 puxa de baixo, logo, anda para cima
             p[i+1][j] = null;
           } else if (r==2) {
-            p[i][j] = p[i][j-1];
+            p[i][j] = p[i][j-1]; //r=2 puxa da esquerda, logo, anda para a direita
             p[i][j-1] = null;
           } else if (r==3) {
-            p[i][j] = p[i][j+1];
+            p[i][j] = p[i][j+1]; //r=3 puxa da direita, logo, anda para a esquerda
             p[i][j+1] = null;
           }
         }
