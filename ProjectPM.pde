@@ -39,6 +39,7 @@ void setup() {
   moveBaralhar = new ArrayList();
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
+
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != (n-1) || j != (m-1)) {
@@ -50,12 +51,18 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
+<<<<<<< HEAD
   //if(insucesso)
+=======
+
+>>>>>>> 850b11ad0e8fac0a8204d539e47d174444c3258a
   println("Uma Solução: " + moveBaralhar);
+
 }
 
 
 void draw() {
+
 
   //Dedinição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
@@ -119,22 +126,26 @@ void mousePressed() {
                 pedacos[i+1][j] = pedacos[i][j];
                 pedacos[i][j] = null;
                 moveJogador.add("DOWN");
+
                 return;
               }
             } 
 
             if (j!=0) {
               move.play();
+
               if (pedacos[i][j-1] == null) { //Mover para direita
                 pedacos[i][j-1] = pedacos[i][j];
                 pedacos[i][j] = null;
                 moveJogador.add("RIGHT");
+
                 return;
               }
             } 
 
             if (j!=m-1) {
               move.play();
+
               if (pedacos[i][j+1] == null) { //Mover para a esquerda
                 pedacos[i][j+1] = pedacos[i][j];
                 pedacos[i][j] = null;
@@ -195,6 +206,7 @@ void mousePressed() {
 void misturar(Pedaco[][] p, int nMovimentos) {
 
   //Mover as peças 
+
   for (int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -228,6 +240,7 @@ void misturar(Pedaco[][] p, int nMovimentos) {
   }
 }
 
+<<<<<<< HEAD
 String PalavraOposta(String s) {
   if(s.equals("UP")) {
     s = "DOWN";
@@ -240,6 +253,8 @@ String PalavraOposta(String s) {
   }
   return s;
 }
+=======
+>>>>>>> 850b11ad0e8fac0a8204d539e47d174444c3258a
 
 /*
 Ideia para definir posições:
@@ -264,6 +279,7 @@ if(noSitio) {
   
   
 */
+
 
 /* 
  
