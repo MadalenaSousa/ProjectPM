@@ -37,6 +37,7 @@ void setup() {
   move = new SoundFile(this, "move.mp3");
   wrong = new SoundFile(this, "wrong.mp3");
   moveBaralhar = new ArrayList();
+  moveJogador = new ArrayList();
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
   for (int i=0; i<n; i++) {
@@ -119,7 +120,6 @@ void mousePressed() {
                 pedacos[i+1][j] = pedacos[i][j];
                 pedacos[i][j] = null;
                 moveJogador.add("DOWN");
-
                 return;
               }
             } 
@@ -131,7 +131,6 @@ void mousePressed() {
                 pedacos[i][j-1] = pedacos[i][j];
                 pedacos[i][j] = null;
                 moveJogador.add("RIGHT");
-
                 return;
               }
             } 
