@@ -245,31 +245,6 @@ String PalavraOposta(String s) {
   return s;
 }
 
-/*
-Ideia para definir posições:
-
-float x, y;
-boolean noSitio;
-
-x = i%width;
-y = (i-x)/width
-
-if(x != pedaco[i][j].x && y != pedaco[i][j].y) {
-  noStio = false;
-  return;
-}
-if(x != pedaco[i][j].x && y != pedaco[i][j].y) {
-  noSitio =true;
-}
-
-if(noSitio) {
-  play
-}
-  
-  
-*/
-
-
 /* 
  
  WEBGRAFIA
