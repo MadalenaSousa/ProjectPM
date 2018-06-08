@@ -11,6 +11,8 @@ PFont f;
 ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 
+//Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
+
 void setup() {
   size(600, 800);
 
