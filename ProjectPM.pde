@@ -51,19 +51,13 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
-<<<<<<< HEAD
   //if(insucesso)
-=======
-
->>>>>>> 850b11ad0e8fac0a8204d539e47d174444c3258a
   println("Uma Solução: " + moveBaralhar);
 
 }
 
 
 void draw() {
-
-
   //Dedinição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
     azulejo.resize(600, 800);
@@ -96,7 +90,6 @@ void draw() {
 }
 
 void mousePressed() {
-
   //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
     if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
@@ -206,7 +199,6 @@ void mousePressed() {
 void misturar(Pedaco[][] p, int nMovimentos) {
 
   //Mover as peças 
-
   for (int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -240,7 +232,6 @@ void misturar(Pedaco[][] p, int nMovimentos) {
   }
 }
 
-<<<<<<< HEAD
 String PalavraOposta(String s) {
   if(s.equals("UP")) {
     s = "DOWN";
@@ -253,8 +244,6 @@ String PalavraOposta(String s) {
   }
   return s;
 }
-=======
->>>>>>> 850b11ad0e8fac0a8204d539e47d174444c3258a
 
 /*
 Ideia para definir posições:
