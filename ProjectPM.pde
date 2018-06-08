@@ -8,6 +8,8 @@ Menu menu;
 Pedaco[][] pedacos;
 SoundFile win, wrong, move, lose;
 PFont f;
+ArrayList <String> moveBaralhar;
+ArrayList <String> moveJogador;
 
 void setup() {
   size(600, 800);
@@ -32,7 +34,8 @@ void setup() {
   lose = new SoundFile(this, "lose.mp3");
   move = new SoundFile(this, "move.mp3");
   wrong = new SoundFile(this, "wrong.mp3");
-  
+  moveBaralhar = new ArrayList();
+
   //Criação dos pedaços à exceção do último que é nulo, não existe
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
@@ -45,6 +48,7 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
+  println(moveBaralhar);
 }
 
 
@@ -82,7 +86,7 @@ void draw() {
 }
 
 void mousePressed() {
-  
+
   //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
     if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
@@ -98,40 +102,44 @@ void mousePressed() {
           if (pedacos[i][j].pressed()) {
             if (i!=0) { 
               move.play();
-              if (pedacos[i-1][j] == null) {
+              if (pedacos[i-1][j] == null) { //Subir peça
                 pedacos[i-1][j] = pedacos[i][j];
                 pedacos[i][j] = null;
+                moveJogador.add("UP");
                 return;
               }
             } 
 
             if (i!=n-1) {
               move.play();
-              if (pedacos[i+1][j] == null) {
+              if (pedacos[i+1][j] == null) { //Descer peça
                 pedacos[i+1][j] = pedacos[i][j];
                 pedacos[i][j] = null;
+                moveJogador.add("DOWN");
                 return;
               }
             } 
 
             if (j!=0) {
               move.play();
-              if (pedacos[i][j-1] == null) {
+              if (pedacos[i][j-1] == null) { //Mover para direita
                 pedacos[i][j-1] = pedacos[i][j];
                 pedacos[i][j] = null;
+                moveJogador.add("RIGHT");
                 return;
               }
             } 
 
             if (j!=m-1) {
               move.play();
-              if (pedacos[i][j+1] == null) {
+              if (pedacos[i][j+1] == null) { //Mover para a esquerda
                 pedacos[i][j+1] = pedacos[i][j];
                 pedacos[i][j] = null;
+                moveJogador.add("LEFT");
                 return;
               }
             }
-            
+
             //Som de movimento Inválido
             if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
               if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
@@ -184,7 +192,7 @@ void mousePressed() {
 void misturar(Pedaco[][] p, int nMovimentos) {
 
   //Mover as peças 
-  for(int z=0; z<nMovimentos; z++) {
+  for (int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         int r = (int)random(0, 4);
@@ -197,15 +205,19 @@ void misturar(Pedaco[][] p, int nMovimentos) {
           if (r==0) {
             p[i][j] = p[i-1][j]; //r=0 puxa de cima, peça de baixo do nulo sobe
             p[i-1][j] = null;
+            moveBaralhar.add("UP");
           } else if (r==1) {
             p[i][j] = p[i+1][j]; //r=1 puxa de baixo, peça por cima do nulo desce
             p[i+1][j] = null;
+            moveBaralhar.add("DOWN");
           } else if (r==2) {
             p[i][j] = p[i][j-1]; //r=2 puxa da esquerda, peça à esquerda do nulo anda para a direita
             p[i][j-1] = null;
+            moveBaralhar.add("LEFT");
           } else if (r==3) {
             p[i][j] = p[i][j+1]; //r=3 puxa da direita, peça à direita do nulo anda para a esquerda
             p[i][j+1] = null;
+            moveBaralhar.add("RIGHT");
           }
         }
       }
