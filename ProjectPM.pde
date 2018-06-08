@@ -228,6 +228,19 @@ void misturar(Pedaco[][] p, int nMovimentos) {
     }
   }
 }
+
+/*
+Ideia para definir posições:
+
+float x, y;
+
+x = i%width;
+y = 
+
+if(x = pedaco[i][j].x && y = pedaco[i][j].y) {
+  
+*/
+
 /* 
  
  WEBGRAFIA
