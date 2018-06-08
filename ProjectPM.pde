@@ -12,9 +12,6 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 
 //Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
-
-//Para inverter o arrayList podemos adicionar as palavras no inicio em vez de no fim (?) //temos de adicionar as palavras opostas a cada movimento em cada movimento (?)
-
 void setup() {
   size(600, 800);
 
@@ -41,7 +38,6 @@ void setup() {
   moveBaralhar = new ArrayList();
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
-
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != (n-1) || j != (m-1)) {
@@ -53,15 +49,13 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
-
+  //if(insucesso) 
   println("Uma Solução: " + moveBaralhar);
 
 }
 
 
 void draw() {
-
-
   //Dedinição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
     azulejo.resize(600, 800);
@@ -94,7 +88,6 @@ void draw() {
 }
 
 void mousePressed() {
-
   //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
     if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
