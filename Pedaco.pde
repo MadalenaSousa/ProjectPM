@@ -21,7 +21,7 @@ class Pedaco {
   }
 
   
-  //Verifica se o utilixador pressiona o rato dentro das margens da peça
+  //Verifica se o utilizador pressiona o rato dentro das margens da peça
   boolean pressed() {
     if ((mouseX - x  <= pedaco.width && mouseX - x >= 0) && (mouseY - y <= pedaco.height && mouseY - y >= 0)) {
       return true;

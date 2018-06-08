@@ -60,7 +60,7 @@ void setup() {
 
 
 void draw() {
-  //Dedinição do Menu Inicial (MENU)
+  //Definição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
     azulejo.resize(600, 800);
     image(azulejo, 0, 0);
@@ -88,6 +88,40 @@ void draw() {
         }
       }
     }
+    
+    //Definição do menu PERDEU
+  } else if (menu.selected == Menu.PERDEU) {
+    azulejo.resize(600, 800);
+    image(azulejo, 0, 0);
+
+    noStroke();
+    fill(255);
+    rect(0, 100, 600, 100);
+    rect(300, 500, 602, 102);
+    
+    textFont(f, 90);
+    fill(#1C477E);
+    text("PERDEU!", 100, 180);
+    textFont(f, 70);
+    fill(#AA2013);
+    text("Jogar Novamente", 337, 582);
+    
+    //Definição do menu GANHOU
+  } else if (menu.selected == Menu.GANHOU) {
+    azulejo.resize(600, 800);
+    image(azulejo, 0, 0);
+
+    noStroke();
+    fill(255);
+    rect(0, 100, 600, 100);
+    rect(300, 500, 602, 102);
+    
+    textFont(f, 90);
+    fill(#1C477E);
+    text("Ganhou!", 100, 180);
+    textFont(f, 70);
+    fill(#AA2013);
+    text("Jogar Novamente", 337, 582);
   }
 
   if (moveJogador.size() > 100) {
@@ -151,7 +185,7 @@ void mousePressed() {
                   return;
                 }
               }
-              
+
               x=i%width;
               y=j%height;
               if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
