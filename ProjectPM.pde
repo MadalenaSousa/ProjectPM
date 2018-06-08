@@ -13,7 +13,7 @@ ArrayList <String> moveJogador;
 
 //Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
 
-//Para inverter o arrayList podemos adicionar as palavras no inicio em vez de no fim?
+//Para inverter o arrayList podemos adicionar as palavras no inicio em vez de no fim (?) //temos de adicionar as palavras opostas a cada movimento em cada movimento (?)
 
 void setup() {
   size(600, 800);
