@@ -10,6 +10,8 @@ SoundFile win, wrong, move, lose;
 PFont f;
 ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
+boolean noSitio;
+float x, y;
 
 //Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
 
@@ -54,7 +56,6 @@ void setup() {
 
   //if(insucesso)
   println("Uma Solução: " + moveBaralhar);
-
 }
 
 
@@ -190,6 +191,18 @@ void mousePressed() {
             }
           }
         }
+        x=i%width;
+        y=j%height;
+        if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
+          noSitio=false;
+        }
+        if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
+          noSitio=true;
+        }
+        if (noSitio) {
+          win.stop();
+          win.play();
+        }
       }
     }
   }
@@ -232,13 +245,13 @@ void misturar(Pedaco[][] p, int nMovimentos) {
 }
 
 String PalavraOposta(String s) {
-  if(s.equals("UP")) {
+  if (s.equals("UP")) {
     s = "DOWN";
-  } else if(s.equals("DOWN")) {
+  } else if (s.equals("DOWN")) {
     s = "UP";
-  } else if(s.equals("RIGHT")) {
+  } else if (s.equals("RIGHT")) {
     s = "LEFT";
-  } else if(s.equals("LEFT")) {
+  } else if (s.equals("LEFT")) {
     s = "RIGHT";
   }
   return s;
