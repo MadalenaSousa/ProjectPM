@@ -89,6 +89,10 @@ void draw() {
       }
     }
   }
+
+  if (moveJogador.size() > 100) {
+    println("Esgotou o Número de Jogadas");
+  }
 }
 
 void mousePressed() {
@@ -103,105 +107,112 @@ void mousePressed() {
   if (menu.selected == Menu.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        if (pedacos[i][j] != null) {
-          if (pedacos[i][j].pressed()) {
-            if (i!=0) { 
-              move.play();
-              if (pedacos[i-1][j] == null) { //Subir peça
-                pedacos[i-1][j] = pedacos[i][j];
-                pedacos[i][j] = null;
-                moveJogador.add("UP");
-                return;
+        if (moveJogador.size() < nBaralhar) {
+          if (pedacos[i][j] != null) {
+            if (pedacos[i][j].pressed()) {
+              if (i!=0) { 
+                move.play();
+                if (pedacos[i-1][j] == null) { //Subir peça
+                  pedacos[i-1][j] = pedacos[i][j];
+                  pedacos[i][j] = null;
+                  moveJogador.add("UP");
+                  return;
+                }
+              } 
+
+              if (i!=n-1) {
+                move.play();
+                if (pedacos[i+1][j] == null) { //Descer peça
+                  pedacos[i+1][j] = pedacos[i][j];
+                  pedacos[i][j] = null;
+                  moveJogador.add("DOWN");
+                  return;
+                }
+              } 
+
+              if (j!=0) {
+                move.play();
+
+                if (pedacos[i][j-1] == null) { //Mover para direita
+                  pedacos[i][j-1] = pedacos[i][j];
+                  pedacos[i][j] = null;
+                  moveJogador.add("RIGHT");
+                  return;
+                }
+              } 
+
+              if (j!=m-1) {
+                move.play();
+
+                if (pedacos[i][j+1] == null) { //Mover para a esquerda
+                  pedacos[i][j+1] = pedacos[i][j];
+                  pedacos[i][j] = null;
+                  moveJogador.add("LEFT");
+                  return;
+                }
               }
-            } 
 
-            if (i!=n-1) {
-              move.play();
-              if (pedacos[i+1][j] == null) { //Descer peça
-                pedacos[i+1][j] = pedacos[i][j];
-                pedacos[i][j] = null;
-                moveJogador.add("DOWN");
-                return;
-              }
-            } 
-
-            if (j!=0) {
-              move.play();
-
-              if (pedacos[i][j-1] == null) { //Mover para direita
-                pedacos[i][j-1] = pedacos[i][j];
-                pedacos[i][j] = null;
-                moveJogador.add("RIGHT");
-                return;
-              }
-            } 
-
-            if (j!=m-1) {
-              move.play();
-
-              if (pedacos[i][j+1] == null) { //Mover para a esquerda
-                pedacos[i][j+1] = pedacos[i][j];
-                pedacos[i][j] = null;
-                moveJogador.add("LEFT");
-                return;
-              }
-            }
-
-            //Som de movimento Inválido
-            if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
-              if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                wrong.play();
-              }
-            } else if (i==0) {
-              if (j==0) {
-                if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+              //Som de movimento Inválido
+              if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
+                if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
+              } else if (i==0) {
+                if (j==0) {
+                  if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+                    wrong.play();
+                  }
+                } else if (j==m-1) {
+                  if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                } else {
+                  if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                }
+              } else if (i==n-1) {
+                if (j==0) {
+                  if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
+                    wrong.play();
+                  }
+                } else if (j==m-1) {
+                  if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                } else {
+                  if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                }
+              } else if (j==0) {
+                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
                   wrong.play();
                 }
               } else if (j==m-1) {
-                if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
                   wrong.play();
                 }
-              } else {
-                if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              }
-            } else if (i==n-1) {
-              if (j==0) {
-                if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
-                  wrong.play();
-                }
-              } else if (j==m-1) {
-                if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              } else {
-                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              }
-            } else if (j==0) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
-                wrong.play();
-              }
-            } else if (j==m-1) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
-                wrong.play();
               }
             }
           }
-        }
-        x=i%width;
-        y=j%height;
-        if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
-          noSitio=false;
-        }
-        if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
-          noSitio=true;
-        }
-        if (noSitio) {
-          win.stop();
-          win.play();
+          /*
+          x=i%width;
+          y=j%height;
+          if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
+            noSitio=false;
+          }
+          if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
+            noSitio=true;
+          }
+          if (noSitio) {
+            win.stop();
+            win.play();
+          }
+          */
+        } else {
+          println("Esgotou o número de jogadas");
+          println("Perdeu!");
         }
       }
     }
