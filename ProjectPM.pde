@@ -55,7 +55,7 @@ void setup() {
   misturar(pedacos, nBaralhar);
 
   //if(insucesso)
-  println("Uma Solução: " + moveBaralhar);
+  println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
 }
 
 
@@ -151,6 +151,20 @@ void mousePressed() {
                   return;
                 }
               }
+              
+              x=i%width;
+              y=j%height;
+              if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
+                noSitio=false;
+                //return;
+              }
+              if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
+                noSitio=true;
+              }
+              if (noSitio) {
+                win.stop();
+                win.play();
+              }
 
               //Som de movimento Inválido
               if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
@@ -198,18 +212,19 @@ void mousePressed() {
           }
           /*
           x=i%width;
-          y=j%height;
-          if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
-            noSitio=false;
-          }
-          if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
-            noSitio=true;
-          }
-          if (noSitio) {
-            win.stop();
-            win.play();
-          }
-          */
+           y=j%height;
+           if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
+           noSitio=false;
+           return;
+           }
+           if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
+           noSitio=true;
+           }
+           if (noSitio) {
+           win.stop();
+           win.play();
+           }
+           */
         } else {
           println("Esgotou o número de jogadas");
           println("Perdeu!");
