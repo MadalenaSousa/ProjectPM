@@ -13,8 +13,6 @@ ArrayList <String> moveJogador;
 
 //Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
 
-//Para inverter o arrayList podemos adicionar as palavras no inicio em vez de no fim (?) //temos de adicionar as palavras opostas a cada movimento em cada movimento (?)
-
 void setup() {
   size(600, 800);
 
@@ -53,15 +51,13 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
-
+  //if(insucesso)
   println("Uma Solução: " + moveBaralhar);
 
 }
 
 
 void draw() {
-
-
   //Dedinição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
     azulejo.resize(600, 800);
@@ -94,7 +90,6 @@ void draw() {
 }
 
 void mousePressed() {
-
   //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
     if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
@@ -186,7 +181,7 @@ void mousePressed() {
                 }
               }
             } else if (j==0) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i-1][j] != null) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
                 wrong.play();
               }
             } else if (j==m-1) {
@@ -204,7 +199,6 @@ void mousePressed() {
 void misturar(Pedaco[][] p, int nMovimentos) {
 
   //Mover as peças 
-
   for (int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -218,19 +212,19 @@ void misturar(Pedaco[][] p, int nMovimentos) {
           if (r==0) {
             p[i][j] = p[i-1][j]; //r=0 puxa de cima, peça de baixo do nulo sobe
             p[i-1][j] = null;
-            moveBaralhar.add(0, "UP");
+            moveBaralhar.add(0, PalavraOposta("UP"));
           } else if (r==1) {
             p[i][j] = p[i+1][j]; //r=1 puxa de baixo, peça por cima do nulo desce
             p[i+1][j] = null;
-            moveBaralhar.add(0, "DOWN");
+            moveBaralhar.add(0, PalavraOposta("DOWN"));
           } else if (r==2) {
             p[i][j] = p[i][j-1]; //r=2 puxa da esquerda, peça à esquerda do nulo anda para a direita
             p[i][j-1] = null;
-            moveBaralhar.add(0, "LEFT");
+            moveBaralhar.add(0, PalavraOposta("LEFT"));
           } else if (r==3) {
             p[i][j] = p[i][j+1]; //r=3 puxa da direita, peça à direita do nulo anda para a esquerda
             p[i][j+1] = null;
-            moveBaralhar.add(0, "RIGHT");
+            moveBaralhar.add(0, PalavraOposta("RIGHT"));
           }
         }
       }
@@ -238,16 +232,40 @@ void misturar(Pedaco[][] p, int nMovimentos) {
   }
 }
 
+String PalavraOposta(String s) {
+  if(s.equals("UP")) {
+    s = "DOWN";
+  } else if(s.equals("DOWN")) {
+    s = "UP";
+  } else if(s.equals("RIGHT")) {
+    s = "LEFT";
+  } else if(s.equals("LEFT")) {
+    s = "RIGHT";
+  }
+  return s;
+}
 
 /*
 Ideia para definir posições:
 
 float x, y;
+boolean noSitio;
 
 x = i%width;
-y = 
+y = (i-x)/width
 
-if(x = pedaco[i][j].x && y = pedaco[i][j].y) {
+if(x != pedaco[i][j].x && y != pedaco[i][j].y) {
+  noStio = false;
+  return;
+}
+if(x != pedaco[i][j].x && y != pedaco[i][j].y) {
+  noSitio =true;
+}
+
+if(noSitio) {
+  play
+}
+  
   
 */
 
