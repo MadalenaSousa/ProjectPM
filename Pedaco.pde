@@ -14,9 +14,9 @@ class Pedaco {
     pedaco = imgOriginal.get((int)jy*pedaco.width, (int)ix*pedaco.height, pedaco.width, pedaco.height);
   }
 
-  void desenha(float ix, float jy) { //enviar como argumento para eles poderem ser atualizados
-    this.x = (5 + pedaco.width) * jy;
-    this.y = (5 + pedaco.height) * ix;
+  void desenha(float i, float j) { //enviar como argumento para eles poderem ser atualizados
+    this.x = (5 + pedaco.width) * j;
+    this.y = (5 + pedaco.height) * i;
     image(pedaco, x, y); //ele desenha cada pedaco a 5px * o indíce do pedaco anterior
   }
 

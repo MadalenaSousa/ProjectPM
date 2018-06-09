@@ -12,8 +12,7 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
 float x, y;
-
-//Podemos usar os arraylists para limitar o numero de movimentos do jogador (if(arraylist.size>x) else println(movimentos esgotados))
+int[] pos;
 
 void setup() {
   size(600, 800);
@@ -40,6 +39,11 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
   moveBaralhar = new ArrayList();
   moveJogador = new ArrayList();
+  pos = new int[n*m];
+  
+  for(int i=0; i<pos.length; i++) {
+
+  }
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
   for (int i=0; i<n; i++) {
@@ -85,10 +89,11 @@ void draw() {
       for (int j=0; j<m; j++) {
         if (pedacos[i][j] != null) {
           pedacos[i][j].desenha(i, j);
+          println(pedacos[i][j].x);
         }
       }
     }
-    
+
     //Definição do menu PERDEU
   } else if (menu.selected == Menu.PERDEU) {
     azulejo.resize(600, 800);
@@ -98,14 +103,14 @@ void draw() {
     fill(255);
     rect(0, 100, 600, 100);
     rect(300, 500, 602, 102);
-    
+
     textFont(f, 90);
     fill(#1C477E);
     text("PERDEU!", 100, 180);
     textFont(f, 70);
     fill(#AA2013);
     text("Jogar Novamente", 337, 582);
-    
+
     //Definição do menu GANHOU
   } else if (menu.selected == Menu.GANHOU) {
     azulejo.resize(600, 800);
@@ -115,7 +120,7 @@ void draw() {
     fill(255);
     rect(0, 100, 600, 100);
     rect(300, 500, 602, 102);
-    
+
     textFont(f, 90);
     fill(#1C477E);
     text("Ganhou!", 100, 180);
@@ -141,7 +146,7 @@ void mousePressed() {
   if (menu.selected == Menu.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        if (moveJogador.size() < nBaralhar) {
+        if (moveJogador.size() < nBaralhar*2) {
           if (pedacos[i][j] != null) {
             if (pedacos[i][j].pressed()) {
               if (i!=0) { 
@@ -244,21 +249,6 @@ void mousePressed() {
               }
             }
           }
-          /*
-          x=i%width;
-           y=j%height;
-           if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
-           noSitio=false;
-           return;
-           }
-           if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
-           noSitio=true;
-           }
-           if (noSitio) {
-           win.stop();
-           win.play();
-           }
-           */
         } else {
           println("Esgotou o número de jogadas");
           println("Perdeu!");
