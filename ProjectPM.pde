@@ -12,7 +12,7 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
 float x, y;
-int[] pos;
+int k;
 
 void setup() {
   size(600, 800);
@@ -29,6 +29,7 @@ void setup() {
   largura = 600;
   altura = 800;
   f = createFont("Baskerville", 100, true);
+  k = 0;
 
   //OBJETOS
   menu = new Menu(Menu.MENU);
@@ -39,17 +40,13 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
   moveBaralhar = new ArrayList();
   moveJogador = new ArrayList();
-  pos = new int[n*m];
-  
-  for(int i=0; i<pos.length; i++) {
-
-  }
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != (n-1) || j != (m-1)) {
-        pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j);
+        pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j, k);
+        k++;
       } else {
         pedacos[i][j] = null;
       }
@@ -89,7 +86,6 @@ void draw() {
       for (int j=0; j<m; j++) {
         if (pedacos[i][j] != null) {
           pedacos[i][j].desenha(i, j);
-          println(pedacos[i][j].x);
         }
       }
     }
@@ -307,9 +303,22 @@ String PalavraOposta(String s) {
   return s;
 }
 
-/* 
- 
- WEBGRAFIA
- https://www.openprocessing.org/sketch/131051
- 
- */
+boolean vitoria() {
+  for (int i=0; i<n; i++) {
+    for (int j=0; j<m; j++) {
+      if(pedacos[i][j] != null) {
+        if(pedacos[i][j].ident != k) {
+          return false;
+        }
+        k++;
+      }
+    }
+  }
+}
+
+    /* 
+     
+     WEBGRAFIA
+     https://www.openprocessing.org/sketch/131051
+     
+     */
