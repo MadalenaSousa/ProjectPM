@@ -5,6 +5,7 @@ PImage img, azulejo;
 int n, m, nBaralhar;
 int largura, altura;
 Menu menu;
+Principal principal, ganhou, perdeu;
 Pedaco[][] pedacos;
 SoundFile win, wrong, move, lose;
 PFont f;
@@ -12,7 +13,6 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
 float x, y;
-int k;
 
 void setup() {
   size(600, 800);
@@ -29,7 +29,6 @@ void setup() {
   largura = 600;
   altura = 800;
   f = createFont("Baskerville", 100, true);
-  k = 0;
 
   //OBJETOS
   menu = new Menu(Menu.MENU);
@@ -40,13 +39,17 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
   moveBaralhar = new ArrayList();
   moveJogador = new ArrayList();
+  principal = new Principal(azulejo, "15 PUZZLE", "JOGAR");
+  ganhou = new Ganhou(azulejo, "GANHOU", "Jogar Novamente", win);
+  perdeu = new Principal(azulejo, "PERDEU", "Jogar Novamente");
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
+  int nIdentificacao = 0;
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
       if (i != (n-1) || j != (m-1)) {
-        pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j, k);
-        k++;
+        pedacos[i][j] = new Pedaco(altura/n, largura/m, img, i, j, nIdentificacao);
+        nIdentificacao++;
       } else {
         pedacos[i][j] = null;
       }
@@ -63,20 +66,7 @@ void setup() {
 void draw() {
   //Definição do Menu Inicial (MENU)
   if (menu.selected == Menu.MENU) {
-    azulejo.resize(600, 800);
-    image(azulejo, 0, 0);
-
-    noStroke();
-    textFont(f, 90);
-
-    fill(255);
-    rect(0, 100, 500, 100);
-    rect(300, 500, 302, 102);
-
-    fill(#1C477E);
-    text("15 PUZZLE", 15, 180);
-    fill(#AA2013);
-    text("PLAY", 337, 582);
+    principal.desenha();
 
     //Apresentar o menu do Puzzle (JOGO)
   } else if (menu.selected == Menu.JOGO) {
@@ -90,42 +80,23 @@ void draw() {
       }
     }
 
+    if (vitoria(pedacos)) {
+      ((Ganhou)ganhou).viraFalse();
+      menu.selected = Menu.GANHOU;
+    }
+
     //Definição do menu PERDEU
   } else if (menu.selected == Menu.PERDEU) {
-    azulejo.resize(600, 800);
-    image(azulejo, 0, 0);
-
-    noStroke();
-    fill(255);
-    rect(0, 100, 600, 100);
-    rect(300, 500, 602, 102);
-
-    textFont(f, 90);
-    fill(#1C477E);
-    text("PERDEU!", 100, 180);
-    textFont(f, 70);
-    fill(#AA2013);
-    text("Jogar Novamente", 337, 582);
+    perdeu.desenha();
 
     //Definição do menu GANHOU
   } else if (menu.selected == Menu.GANHOU) {
-    azulejo.resize(600, 800);
-    image(azulejo, 0, 0);
-
-    noStroke();
-    fill(255);
-    rect(0, 100, 600, 100);
-    rect(300, 500, 602, 102);
-
-    textFont(f, 90);
-    fill(#1C477E);
-    text("Ganhou!", 100, 180);
-    textFont(f, 70);
-    fill(#AA2013);
-    text("Jogar Novamente", 337, 582);
+    ganhou.desenha();
+    ((Ganhou)ganhou).tocou();
   }
 
-  if (moveJogador.size() > 100) {
+  //Limitar jogadas (Mensagem) 
+  if (moveJogador.size() > nBaralhar * 2) {
     println("Esgotou o Número de Jogadas");
   }
 }
@@ -133,7 +104,7 @@ void draw() {
 void mousePressed() {
   //Clicar e iniciar o JOGO
   if (menu.selected == Menu.MENU) {
-    if (mouseX>=300 && mouseX<=width && mouseY>=500 && mouseY<=600) {
+    if (mouseX>=100 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
       menu.selected = Menu.JOGO;
     }
   }
@@ -187,20 +158,6 @@ void mousePressed() {
                 }
               }
 
-              x=i%width;
-              y=j%height;
-              if (pedacos[i][j].x!=x && pedacos[i][j].y!=y) {
-                noSitio=false;
-                //return;
-              }
-              if (pedacos[i][j].x==x && pedacos[i][j].y==y) {
-                noSitio=true;
-              }
-              if (noSitio) {
-                win.stop();
-                win.play();
-              }
-
               //Som de movimento Inválido
               if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
                 if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
@@ -248,6 +205,8 @@ void mousePressed() {
         } else {
           println("Esgotou o número de jogadas");
           println("Perdeu!");
+          lose.play();
+          menu.selected = Menu.PERDEU;
         }
       }
     }
@@ -303,22 +262,24 @@ String PalavraOposta(String s) {
   return s;
 }
 
-boolean vitoria() {
+boolean vitoria(Pedaco[][] p) {
+  int posicao = 0;
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
-      if(pedacos[i][j] != null) {
-        if(pedacos[i][j].ident != k) {
+      if (p[i][j] != null) {
+        if (p[i][j].ident != posicao) {
           return false;
         }
-        k++;
       }
+      posicao++;
     }
   }
+  return true;
 }
 
-    /* 
-     
-     WEBGRAFIA
-     https://www.openprocessing.org/sketch/131051
-     
-     */
+/* 
+ 
+ WEBGRAFIA
+ https://www.openprocessing.org/sketch/131051
+ 
+ */
