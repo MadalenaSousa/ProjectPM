@@ -1,12 +1,28 @@
 class Menu {
+  PImage img;
+  String topo, option1;
 
-  static final int MENU = 0;
-  static final int JOGO = 1;
-  static final int GANHOU = 2;
-  static final int PERDEU = 3;
-  int selected;
+  Menu(PImage img, String topo, String option1) {
+    this.img = img;
+    this.topo = topo;
+    this.option1 = option1;
+  }
 
-  Menu(int selected) {
-    this.selected = selected;
+  void desenha() {
+    img.resize(600, 800);
+    image(img, 0, 0);
+
+    noStroke();
+    textFont(f, 90);
+
+    fill(#1C477E);
+    rect(0, 100, 600, 100);
+    fill(#F5D57E);
+    rect(100, 400, 400, 102);
+
+    fill(255);
+    text(topo, 60, 180);
+    textFont(f, 50);
+    text(option1, 190, 482);
   }
 }

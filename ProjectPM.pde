@@ -4,8 +4,10 @@ String[] linhas;
 PImage img, azulejo;
 int n, m, nBaralhar;
 int largura, altura;
-Menu menu;
-Principal principal, ganhou, perdeu;
+Status status;
+Principal principal; 
+Ganhou ganhou; 
+Perdeu perdeu;
 Pedaco[][] pedacos;
 SoundFile win, wrong, move, lose;
 PFont f;
@@ -31,7 +33,7 @@ void setup() {
   f = createFont("Baskerville", 100, true);
 
   //OBJETOS
-  menu = new Menu(Menu.MENU);
+  status = new Status(Status.MENU);
   pedacos = new Pedaco[n][m];
   win = new SoundFile(this, "win.mp3");
   lose = new SoundFile(this, "lose.mp3");
@@ -41,7 +43,7 @@ void setup() {
   moveJogador = new ArrayList();
   principal = new Principal(azulejo, "15 PUZZLE", "JOGAR");
   ganhou = new Ganhou(azulejo, "GANHOU", "Jogar Novamente", win);
-  perdeu = new Principal(azulejo, "PERDEU", "Jogar Novamente");
+  perdeu = new Perdeu(azulejo, "PERDEU", "Jogar Novamente", lose);
 
   //Criação dos pedaços à exceção do último que é nulo, não existe
   int nIdentificacao = 0;
@@ -65,11 +67,11 @@ void setup() {
 
 void draw() {
   //Definição do Menu Inicial (MENU)
-  if (menu.selected == Menu.MENU) {
+  if (status.selected == Status.MENU) {
     principal.desenha();
 
     //Apresentar o menu do Puzzle (JOGO)
-  } else if (menu.selected == Menu.JOGO) {
+  } else if (status.selected == Status.JOGO) {
     background(0);
 
     for (int i=0; i<n; i++) {
@@ -81,18 +83,19 @@ void draw() {
     }
 
     if (vitoria(pedacos)) {
-      ((Ganhou)ganhou).viraFalse();
-      menu.selected = Menu.GANHOU;
+      ganhou.viraFalse();
+      status.selected = Status.GANHOU;
     }
 
     //Definição do menu PERDEU
-  } else if (menu.selected == Menu.PERDEU) {
+  } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
+    perdeu.tocou();
 
     //Definição do menu GANHOU
-  } else if (menu.selected == Menu.GANHOU) {
+  } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
-    ((Ganhou)ganhou).tocou();
+    ganhou.tocou();
   }
 
   //Limitar jogadas (Mensagem) 
@@ -103,14 +106,14 @@ void draw() {
 
 void mousePressed() {
   //Clicar e iniciar o JOGO
-  if (menu.selected == Menu.MENU) {
+  if (status.selected == Status.MENU) {
     if (mouseX>=100 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
-      menu.selected = Menu.JOGO;
+      status.selected = Status.JOGO;
     }
   }
 
   //Mover as peças + Som do movimento Válido
-  if (menu.selected == Menu.JOGO) {
+  if (status.selected == Status.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         if (moveJogador.size() < nBaralhar*2) {
@@ -203,10 +206,7 @@ void mousePressed() {
             }
           }
         } else {
-          println("Esgotou o número de jogadas");
-          println("Perdeu!");
-          lose.play();
-          menu.selected = Menu.PERDEU;
+          status.selected = Status.PERDEU;
         }
       }
     }

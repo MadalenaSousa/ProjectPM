@@ -1,4 +1,4 @@
-class Ganhou extends Principal {
+class Ganhou extends Menu {
   SoundFile som;
   boolean tocou;
 
