@@ -45,7 +45,7 @@ void setup() {
   ganhou = new Ganhou(azulejo, "GANHOU", "Jogar Novamente", win);
   perdeu = new Perdeu(azulejo, "PERDEU", "Jogar Novamente", lose);
 
-  //Criação dos pedaços à exceção do último que é nulo, não existe
+  //Criação dos pedaços à exceção do último que é nulo, não existe, atribuindo um numero de identificação a cada pedaco
   int nIdentificacao = 0;
   for (int i=0; i<n; i++) {
     for (int j=0; j<m; j++) {
@@ -59,9 +59,6 @@ void setup() {
   }
 
   misturar(pedacos, nBaralhar);
-
-  //if(insucesso)
-  println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
 }
 
 
@@ -91,6 +88,7 @@ void draw() {
   } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
     perdeu.tocou();
+    println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
 
     //Definição do menu GANHOU
   } else if (status.selected == Status.GANHOU) {
