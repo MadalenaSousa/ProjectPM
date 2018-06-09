@@ -88,7 +88,7 @@ void draw() {
   } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
     perdeu.tocou();
-    println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
+    println("A Solution: "+ "Move the Black Piece " + moveBaralhar); //Este print ainda não está bem, está a imprimir continuamente. Ainda tem de ser posto na classe
 
     //Definição do menu GANHOU
   } else if (status.selected == Status.GANHOU) {
