@@ -15,6 +15,15 @@ class NivelTimer extends Jogo {
     tempoLimites=59;
   }
 
+  void startNivel() {
+    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
+    misturar(); //Baralha
+    moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
+    status.selected = Status.TIMER; //Inicia o Jogo
+    jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
+    jaPerdeu = false;
+  }
+
   void desenhaJogo() {
     super.desenha();
 

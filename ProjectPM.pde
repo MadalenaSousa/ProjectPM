@@ -57,7 +57,7 @@ void draw() {
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
     ganhou.tocou(); //Iniciar a música de ganhar
-  
+
     //Ativar nivel Simples
   } else if (status.selected == Status.SIMPLES) {
     ganhou.stopMusic();
@@ -100,7 +100,6 @@ void mousePressed() {
     }
   } else if (status.selected == Status.GANHOU) {
     if (ganhou.cursorSobre()) {
-      println("in");
       status.selected = Status.TIMER;
       nivelTimer.startNivel();
     }
@@ -111,8 +110,11 @@ void mousePressed() {
   }
 
   //Mover as peças + Som do movimento Válido
-  if (status.selected == Status.SIMPLES || status.selected == Status.TIMER) {
+  if (status.selected == Status.SIMPLES) {
     nivelSimples.moverPecaSom(move);
     nivelSimples.somErrado(wrong);
+  } else if (status.selected == Status.TIMER) {
+    nivelTimer.moverPecaSom(move);
+    nivelTimer.somErrado(wrong);
   }
 }
