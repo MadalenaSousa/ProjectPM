@@ -14,7 +14,7 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
 float x, y;
-boolean jaPerdeu;
+boolean jaPerdeu, jaGanhou;
 
 void setup() {
   size(600, 800);
@@ -82,6 +82,7 @@ void draw() {
     }
 
     if (vitoria(pedacos)) {
+      jaGanhou = true;
       status.selected = Status.GANHOU;
     }
 
@@ -90,7 +91,7 @@ void draw() {
     perdeu.desenha();
     perdeu.tocou(); //Iniciar a música de Perder
     if (jaPerdeu) {
-      println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
+      println("Uma solução: Mover a peça preta " + moveBaralhar);
       jaPerdeu = false;
     }
 
@@ -98,6 +99,10 @@ void draw() {
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
     ganhou.tocou(); //Iniciar a música de ganhar
+    if (jaGanhou) {
+      println("Os seus movimentos: Moveu a peça preta " + moveJogador);
+      jaGanhou = false;
+    }
   }
 
   //Fazer o texto ficar maior quando o cursor está sobre o retângulo
@@ -151,20 +156,20 @@ void mousePressed() {
             if (pedacos[i][j].pressed()) {
               if (i!=0) { 
                 move.play();
-                if (pedacos[i-1][j] == null) { //Subir peça
+                if (pedacos[i-1][j] == null) { //Desce a peça nula
                   pedacos[i-1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
-                  moveJogador.add("UP");
+                  moveJogador.add("DOWN");
                   return;
                 }
               } 
 
               if (i!=n-1) {
                 move.play();
-                if (pedacos[i+1][j] == null) { //Descer peça
+                if (pedacos[i+1][j] == null) { //Sobe a peça nula
                   pedacos[i+1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
-                  moveJogador.add("DOWN");
+                  moveJogador.add("UP");
                   return;
                 }
               } 
@@ -172,7 +177,7 @@ void mousePressed() {
               if (j!=0) {
                 move.play();
 
-                if (pedacos[i][j-1] == null) { //Mover para direita
+                if (pedacos[i][j-1] == null) { //Move a peça nula para a direita
                   pedacos[i][j-1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("RIGHT");
@@ -183,7 +188,7 @@ void mousePressed() {
               if (j!=m-1) {
                 move.play();
 
-                if (pedacos[i][j+1] == null) { //Mover para a esquerda
+                if (pedacos[i][j+1] == null) { //Move a peça nula para a esquerda
                   pedacos[i][j+1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("LEFT");
