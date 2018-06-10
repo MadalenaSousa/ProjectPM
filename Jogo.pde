@@ -5,7 +5,7 @@ class Jogo {
   ArrayList <String> moveBaralhar;
   Status status;
   int nBaralhar;
-  boolean jaPerdeu, jaGanhou, notMuted;
+  boolean jaPerdeu, jaGanhou;
 
   Jogo(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar) {
     this.n = n;
@@ -30,7 +30,6 @@ class Jogo {
     moveJogador = new ArrayList();
     jaPerdeu = false;
     jaGanhou = false;
-    notMuted = true;
   }
 
   //Função para reeiniciar o jogo
@@ -44,13 +43,6 @@ class Jogo {
           pedacos[i][j].desenha(i, j);
         }
       }
-    }
-
-    if (vitoria()) {
-      jaGanhou = true;
-      jaPerdeu = false;
-      status.selected = Status.GANHOU;
-      printSolution(); //imprime os movimentos do jogador, visto que a variavel jaGanhou está a true
     }
 
     if (permiteJogar() == false) {
@@ -86,6 +78,21 @@ class Jogo {
     return true;
   }
 
+  // Verifica se Ganhou
+  void verificaGanhou() {
+    if (vitoria()) {
+      jaGanhou = true;
+      jaPerdeu = false;
+      status.selected = Status.GANHOU;
+      recorde();
+      printSolution(); //imprime os movimentos do jogador, visto que a variavel jaGanhou está a true
+    }
+  }
+
+  String recorde() {
+    return "";
+  }
+
   //Lógica dos movimentos e adição do som de movimento válido
   void moverPecaSom(SoundFile move) {
     for (int i=0; i<n /*8*/; i++) {
@@ -94,49 +101,45 @@ class Jogo {
           if (pedacos[i][j] != null) {
             if (pedacos[i][j].pressed()) {
               if (i!=0) {
-                if (notMuted) {
-                  move.play();
-                }
+                reproduzir(move);
                 if (pedacos[i-1][j] == null) { //Desce a peça nula
                   pedacos[i-1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("DOWN");
+                  verificaGanhou();
                   return;
                 }
               } 
 
               if (i!=n-1) {
-                if (notMuted) {
-                  move.play();
-                }
+                reproduzir(move);
                 if (pedacos[i+1][j] == null) { //Sobe a peça nula
                   pedacos[i+1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("UP");
+                  verificaGanhou();
                   return;
                 }
               } 
 
               if (j!=0) {
-                if (notMuted) {
-                  move.play();
-                }
+                reproduzir(move);
                 if (pedacos[i][j-1] == null) { //Move a peça nula para a direita
                   pedacos[i][j-1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("RIGHT");
+                  verificaGanhou();
                   return;
                 }
               } 
 
               if (j!=m-1) {
-                if (notMuted) {
-                  move.play();
-                }
+                reproduzir(move);
                 if (pedacos[i][j+1] == null) { //Move a peça nula para a esquerda
                   pedacos[i][j+1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("LEFT");
+                  verificaGanhou();
                   return;
                 }
               }
@@ -151,49 +154,47 @@ class Jogo {
   void somErrado(SoundFile wrong) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        if (notMuted) {
-          if (pedacos[i][j] != null) {
-            if (pedacos[i][j].pressed()) {
-              if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
-                if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              } else if (i==0) {
-                if (j==0) {
-                  if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
-                    wrong.play();
-                  }
-                } else if (j==m-1) {
-                  if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
-                    wrong.play();
-                  }
-                } else {
-                  if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                    wrong.play();
-                  }
-                }
-              } else if (i==n-1) {
-                if (j==0) {
-                  if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
-                    wrong.play();
-                  }
-                } else if (j==m-1) {
-                  if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
-                    wrong.play();
-                  }
-                } else {
-                  if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                    wrong.play();
-                  }
-                }
-              } else if (j==0) {
-                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
-                  wrong.play();
+        if (pedacos[i][j] != null) {
+          if (pedacos[i][j].pressed()) {
+            if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
+              if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                reproduzir(wrong);
+              }
+            } else if (i==0) {
+              if (j==0) {
+                if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+                  reproduzir(wrong);
                 }
               } else if (j==m-1) {
-                if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
-                  wrong.play();
+                if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                  reproduzir(wrong);
                 }
+              } else {
+                if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  reproduzir(wrong);
+                }
+              }
+            } else if (i==n-1) {
+              if (j==0) {
+                if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
+                  reproduzir(wrong);
+                }
+              } else if (j==m-1) {
+                if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
+                  reproduzir(wrong);
+                }
+              } else {
+                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  reproduzir(wrong);
+                }
+              }
+            } else if (j==0) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
+                reproduzir(wrong);
+              }
+            } else if (j==m-1) {
+              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
+                reproduzir(wrong);
               }
             }
           }
@@ -201,6 +202,7 @@ class Jogo {
       }
     }
   }
+
 
   //Trocar as Palavras pela sua oposta para a solução fazer mais sentido
   String PalavraOposta(String s) {

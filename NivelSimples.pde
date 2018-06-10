@@ -44,18 +44,21 @@ class NivelSimples extends Jogo {
     }
   }
 
-  int recorde() {
+  String recorde() {
     if (jaGanhou) {
       recorde.add(moveJogador.size());
     }
-    int valor = 0;
-    Integer[] rec = recorde.toArray(new Integer[1]);
-    rec[0] = 1;
-    int[] v = new int[rec.length];
-    for (int i=0; i<rec.length; i++) {
-      v[i] = rec[i].intValue();
+    
+    if(recorde.size() == 0) {
+      return "Sem Resultados";
     }
-    valor = min(v);
-    return valor;
+    
+    int[] rec = new int[recorde.size()]; 
+    
+    for(int i = 0; i < recorde.size(); i++) {
+      rec[i] = recorde.get(i);
+    }
+    
+    return "" + min(rec);
   }
 }

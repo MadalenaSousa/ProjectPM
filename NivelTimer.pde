@@ -1,18 +1,16 @@
 class NivelTimer extends Jogo {
 
   boolean parar;
-  int s, m;
-  PFont d;
-  int tempoM, tempoS, tempoLimiteM, tempoLimiteS;
+  long tInicial;
+  int tempoLimiteM, tempoLimiteS;
+  int tRestaS, tFinalS;
 
-  NivelTimer(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar, int nLimite) {
+  NivelTimer(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar) {
     super(n, m, img, alturaImg, larguraImg, status, nBaralhar);
-    parar=false;
-    s=(millis()/1000)%60;
-    m=((millis()/1000) / 60)%60;
-    d=createFont("Baskerville", 75, true);
-    tempoLimiteM=2;
-    tempoLimiteS=59;
+    parar = false;
+    tempoLimiteM = 1;
+    tempoLimiteS = 01;
+    tFinalS = tempoLimiteM * 60 + tempoLimiteS; //tempo limite total em segundos
   }
 
   void startNivel() {
@@ -22,13 +20,20 @@ class NivelTimer extends Jogo {
     status.selected = Status.TIMER; //Inicia o Jogo
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
+    tRestaS = tFinalS; //O tempo que resta inicialmente é o tempo total limite
+    tInicial = millis(); //tempo a que estou a comecar o nivel
   }
 
   void desenhaJogo() {
     super.desenha();
+    
+    int tempoMillis = (int)(millis() - tInicial); //tempo que ja passou em millissegundos
+    int tPassadoS = (tempoMillis/1000); // tempo que ja passou convertido em segundos
 
-    tempoM = tempoLimiteM-m;
-    tempoS=tempoLimiteS-s;
+    tRestaS = tFinalS - tPassadoS; 
+    
+    int tempoM = (int)(tRestaS/60); //calcula o tempo que resta em minutos
+    int tempoS = (tRestaS%60); //calcula o tempo que resta em segundos
 
     //Adicionar aqui o desenho do cronometro
     textAlign(CENTER, CENTER);
@@ -44,7 +49,7 @@ class NivelTimer extends Jogo {
   }
 
   boolean permiteJogar() {
-    if (tempoM > 0 && tempoS > 0) {
+    if (tRestaS > 0) {
       return true;
     } else {
       return false;
