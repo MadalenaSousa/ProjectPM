@@ -33,7 +33,7 @@ void setup() {
   principal = new Principal(azulejo, "15 PUZZLE", "Jogar", "Opções");
   ganhou = new Ganhou(azulejo, "GANHOU!", "Próximo Nível", "Menu Principal", new SoundFile(this, "win.mp3"));
   perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
-  opcoes = new Opcoes(azulejo, "OPÇÕES", "Sem Som", " ");
+  opcoes = new Opcoes(azulejo, "OPÇÕES", "Sem Som", "Menu Principal");
 
 
   //NIVEIS
@@ -60,7 +60,7 @@ void draw() {
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
     ganhou.tocou(); //Iniciar a música de ganhar
-    
+
     //Ativar o menu Opções
   } else if (status.selected == Status.OPCOES) {
     ganhou.stopMusic();
@@ -77,7 +77,6 @@ void draw() {
   } else if (status.selected == Status.TIMER) {
     ganhou.stopMusic();
     perdeu.stopMusic();
-    //println("in");
     nivelTimer.desenhaJogo();
   }
 
@@ -133,7 +132,6 @@ void mousePressed() {
     } else if (principal.cursorSobreOption2()) {
       status.selected = Status.OPCOES;
     }
-
   } else if (status.selected == Status.GANHOU) {
     if (ganhou.cursorSobreOption1()) {
       status.selected = Status.TIMER;
@@ -143,7 +141,13 @@ void mousePressed() {
     }
   } else if (status.selected == Status.PERDEU) {
     if (perdeu.cursorSobreOption1()) {
-    nivelSimples.startNivel();
+      nivelSimples.startNivel();
+    } else if (perdeu.cursorSobreOption2()) {
+      status.selected = Status.MENU;
+    }
+  } else if (status.selected == Status.OPCOES) {
+    if (perdeu.cursorSobreOption1()) {
+      
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }

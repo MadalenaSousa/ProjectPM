@@ -4,8 +4,9 @@ class Status {
   static final int MENU = 0;
   static final int PERDEU = 1;
   static final int GANHOU = 2;
-  static final int SIMPLES = 3;
-  static final int TIMER = 4;
+  static final int OPCOES = 3;
+  static final int SIMPLES = 4;
+  static final int TIMER = 5;
   int selected;
 
   Status(int selected) {
