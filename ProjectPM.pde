@@ -14,6 +14,7 @@ ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
 float x, y;
+boolean jaPerdeu;
 
 void setup() {
   size(600, 800);
@@ -29,6 +30,7 @@ void setup() {
   nBaralhar = parseInt(linhas[3]); //100
   largura = 600;
   altura = 800;
+  jaPerdeu = false;
 
   //OBJETOS
   status = new Status(Status.MENU);
@@ -87,6 +89,10 @@ void draw() {
   } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
     perdeu.tocou(); //Iniciar a música de Perder
+    if (jaPerdeu) {
+      println("A Solution: "+ "Move the Black Piece " + moveBaralhar);
+      jaPerdeu = false;
+    }
 
     //Ativar o menu Ganhou
   } else if (status.selected == Status.GANHOU) {
@@ -230,6 +236,7 @@ void mousePressed() {
             }
           }
         } else {
+          jaPerdeu = true;
           status.selected = Status.PERDEU;
         }
       }
@@ -307,11 +314,4 @@ void restart() {
   misturar(pedacos, nBaralhar); //Baralha
   moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
   status.selected = Status.JOGO; //Inicia o Jogo
-}
-
-void printSolucao() {
-  if (jaPerdeu) {
-    println("A Solution: "+ "Move the Black Piece " + moveBaralhar); //Este print ainda não está bem, está a imprimir continuamente. Ainda tem de ser posto na classe
-    jaPerdeu = false;
-  }
 }
