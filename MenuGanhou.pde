@@ -2,8 +2,8 @@ class Ganhou extends Menu {
   SoundFile som;
   boolean tocou;
 
-  Ganhou(PImage img, String topo, String option1, SoundFile som) {
-    super(img, topo, option1);
+  Ganhou(PImage img, String topo, String option1, String option2, SoundFile som) {
+    super(img, topo, option1, option2);
     this.som = som;
     tocou = false;
   }

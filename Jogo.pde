@@ -1,11 +1,11 @@
-abstract class Jogo {
+class Jogo {
   Pedaco[][] pedacos;
   int n, m;
   ArrayList <String> moveJogador; //ArrayLists que guardam os movimentos
   ArrayList <String> moveBaralhar;
   Status status;
   int nBaralhar;
-  boolean jaPerdeu, jaGanhou;
+  boolean jaPerdeu, jaGanhou, notMuted;
 
   Jogo(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar) {
     this.n = n;
@@ -30,6 +30,7 @@ abstract class Jogo {
     moveJogador = new ArrayList();
     jaPerdeu = false;
     jaGanhou = false;
+    notMuted = true;
   }
 
   //Função para reeiniciar o jogo
@@ -60,11 +61,14 @@ abstract class Jogo {
     }
   }
 
-//METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
-  void desenhaJogo() {}
+  //METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
+  void desenhaJogo() {
+  }
 
   //Detetor de perder
-  boolean permiteJogar(){return true;}
+  boolean permiteJogar() {
+    return true;
+  }
 
   //Detetor de ganhar
   boolean vitoria() {
@@ -81,7 +85,7 @@ abstract class Jogo {
     }
     return true;
   }
-  
+
   //Lógica dos movimentos e adição do som de movimento válido
   void moverPecaSom(SoundFile move) {
     for (int i=0; i<n /*8*/; i++) {
@@ -89,8 +93,10 @@ abstract class Jogo {
         if (permiteJogar()) {
           if (pedacos[i][j] != null) {
             if (pedacos[i][j].pressed()) {
-              if (i!=0) { 
-                move.play();
+              if (i!=0) {
+                if (notMuted) {
+                  move.play();
+                }
                 if (pedacos[i-1][j] == null) { //Desce a peça nula
                   pedacos[i-1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
@@ -100,7 +106,9 @@ abstract class Jogo {
               } 
 
               if (i!=n-1) {
-                move.play();
+                if (notMuted) {
+                  move.play();
+                }
                 if (pedacos[i+1][j] == null) { //Sobe a peça nula
                   pedacos[i+1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
@@ -110,8 +118,9 @@ abstract class Jogo {
               } 
 
               if (j!=0) {
-                move.play();
-
+                if (notMuted) {
+                  move.play();
+                }
                 if (pedacos[i][j-1] == null) { //Move a peça nula para a direita
                   pedacos[i][j-1] = pedacos[i][j];
                   pedacos[i][j] = null;
@@ -121,8 +130,9 @@ abstract class Jogo {
               } 
 
               if (j!=m-1) {
-                move.play();
-
+                if (notMuted) {
+                  move.play();
+                }
                 if (pedacos[i][j+1] == null) { //Move a peça nula para a esquerda
                   pedacos[i][j+1] = pedacos[i][j];
                   pedacos[i][j] = null;
@@ -136,52 +146,54 @@ abstract class Jogo {
       }
     }
   }
-  
+
   //Adição do som de movimentos errados
   void somErrado(SoundFile wrong) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        if (pedacos[i][j] != null) {
-          if (pedacos[i][j].pressed()) {
-            if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
-              if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                wrong.play();
-              }
-            } else if (i==0) {
-              if (j==0) {
-                if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+        if (notMuted) {
+          if (pedacos[i][j] != null) {
+            if (pedacos[i][j].pressed()) {
+              if (i!=0 && i!=n-1 && j!=0 && j!=m-1) {
+                if (pedacos[i+1][j] != null && pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                  wrong.play();
+                }
+              } else if (i==0) {
+                if (j==0) {
+                  if (pedacos[i+1][j] != null && pedacos[i][j+1] != null) {
+                    wrong.play();
+                  }
+                } else if (j==m-1) {
+                  if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                } else {
+                  if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                }
+              } else if (i==n-1) {
+                if (j==0) {
+                  if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
+                    wrong.play();
+                  }
+                } else if (j==m-1) {
+                  if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                } else {
+                  if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
+                    wrong.play();
+                  }
+                }
+              } else if (j==0) {
+                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
                   wrong.play();
                 }
               } else if (j==m-1) {
-                if (pedacos[i+1][j] != null && pedacos[i][j-1] != null) {
+                if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
                   wrong.play();
                 }
-              } else {
-                if (pedacos[i+1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              }
-            } else if (i==n-1) {
-              if (j==0) {
-                if (pedacos[i-1][j] != null && pedacos[i][j+1] != null) {
-                  wrong.play();
-                }
-              } else if (j==m-1) {
-                if (pedacos[i-1][j] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              } else {
-                if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i][j-1] != null) {
-                  wrong.play();
-                }
-              }
-            } else if (j==0) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j+1] != null && pedacos[i+1][j] != null) {
-                wrong.play();
-              }
-            } else if (j==m-1) {
-              if (pedacos[i-1][j] !=null && pedacos[i][j-1] != null && pedacos[i+1][j] != null) {
-                wrong.play();
               }
             }
           }
@@ -203,7 +215,7 @@ abstract class Jogo {
     }
     return s;
   }
-  
+
   //Baralha as peças, movendo-as, tornando as soluções sempre possíveis de resolver
   void misturar() {
     for (int z=0; z<nBaralhar; z++) {
@@ -238,7 +250,7 @@ abstract class Jogo {
       }
     }
   }
-  
+
   //Consoante a classificação do jogo, imprime um determinado arraylist
   void printSolution() {
     if (jaGanhou) {

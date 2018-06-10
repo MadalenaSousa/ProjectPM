@@ -1,10 +1,12 @@
 class NivelSimples extends Jogo {
 
   int nLimite;
+  ArrayList <Integer> recorde;
 
   NivelSimples(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar, int nLimite) {
     super(n, m, img, alturaImg, larguraImg, status, nBaralhar);
     this.nLimite = nLimite;
+    recorde = new ArrayList();
   }
 
   void startNivel() {
@@ -29,7 +31,8 @@ class NivelSimples extends Jogo {
     textSize(30);
     text("Recorde", 800, 300);
     textSize(50);
-    //text(/*recorde min jogadas*/, 800, 400);
+    text(recorde(), 800, 400);
+
   }
 
   //Determina se, consoante o numero de jogadas feitas, é ainda permitido jogar (tecnicamente, diz-nos se o jogar já perdeu ou não)
@@ -39,5 +42,20 @@ class NivelSimples extends Jogo {
     } else {
       return false;
     }
+  }
+
+  int recorde() {
+    if (jaGanhou) {
+      recorde.add(moveJogador.size());
+    }
+    int valor = 0;
+    Integer[] rec = recorde.toArray(new Integer[1]);
+    rec[0] = 1;
+    int[] v = new int[rec.length];
+    for (int i=0; i<rec.length; i++) {
+      v[i] = rec[i].intValue();
+    }
+    valor = min(v);
+    return valor;
   }
 }

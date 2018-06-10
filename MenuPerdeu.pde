@@ -2,8 +2,8 @@ class Perdeu extends Menu {
   boolean tocou;
   SoundFile som;
 
-  Perdeu(PImage img, String topo, String option1, SoundFile som) {
-    super(img, topo, option1);
+  Perdeu(PImage img, String topo, String option1, String option2, SoundFile som) {
+    super(img, topo, option1, option2);
     this.som = som;
     tocou = false;
   }

@@ -1,4 +1,4 @@
-class NivelTimer extends Jogo {
+/*class NivelTimer extends Jogo {
 
   boolean parar;
   int s, m;
@@ -50,4 +50,4 @@ class NivelTimer extends Jogo {
       return false;
     }
   }
-}
+}*/

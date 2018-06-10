@@ -5,6 +5,7 @@ Status status;
 Principal principal; 
 Ganhou ganhou; 
 Perdeu perdeu;
+Opcoes opcoes;
 SoundFile wrong, move;
 
 void setup() {
@@ -29,9 +30,11 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
 
   //MENUS
-  principal = new Principal(azulejo, "15 PUZZLE", "Jogar");
-  ganhou = new Ganhou(azulejo, "GANHOU!", "Próximo Nível", new SoundFile(this, "win.mp3"));
-  perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", new SoundFile(this, "lose.mp3"));
+  principal = new Principal(azulejo, "15 PUZZLE", "Jogar", "Opções");
+  ganhou = new Ganhou(azulejo, "GANHOU!", "Próximo Nível", "Menu Principal", new SoundFile(this, "win.mp3"));
+  perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
+  opcoes = new Opcoes(azulejo, "OPÇÕES", "Sem Som", " ");
+
 
   //NIVEIS
   nivelSimples = new NivelSimples(n, m, img, altura, largura, status, nBaralhar, nLimite);
@@ -57,6 +60,12 @@ void draw() {
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
     ganhou.tocou(); //Iniciar a música de ganhar
+    
+    //Ativar o menu Opções
+  } else if (status.selected == Status.OPCOES) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    opcoes.desenha();
 
     //Ativar nivel Simples
   } else if (status.selected == Status.SIMPLES) {
@@ -73,39 +82,70 @@ void draw() {
   }
 
   //Fazer o texto ficar maior quando o cursor está sobre o retângulo
-  if (principal.cursorSobre()) {
-    principal.tt = 75;
+  if (principal.cursorSobreOption1()) {
+    principal.t1 = 75;
   } else {
-    principal.tt = 70;
+    principal.t1 = 70;
+  }
+  if (opcoes.cursorSobreOption1()) {
+    opcoes.t1 = 75;
+  } else {
+    opcoes.t1 = 70;
+  }
+  if (perdeu.cursorSobreOption1()) {
+    perdeu.t1 = 50;
+  } else {
+    perdeu.t1 = 45;
+  }
+  if (ganhou.cursorSobreOption1()) {
+    ganhou.t1 = 50;
+  } else {
+    ganhou.t1 = 45;
   }
 
-  if (perdeu.cursorSobre()) {
-    perdeu.tt = 50;
+  if (principal.cursorSobreOption2()) {
+    principal.t2 = 75;
   } else {
-    perdeu.tt = 45;
+    principal.t2 = 70;
   }
-
-  if (ganhou.cursorSobre()) {
-    ganhou.tt = 50;
+  if (opcoes.cursorSobreOption2()) {
+    opcoes.t2 = 75;
   } else {
-    ganhou.tt = 45;
+    opcoes.t2 = 70;
+  }
+  if (perdeu.cursorSobreOption2()) {
+    perdeu.t2 = 50;
+  } else {
+    perdeu.t2 = 45;
+  }
+  if (ganhou.cursorSobreOption2()) {
+    ganhou.t2 = 50;
+  } else {
+    ganhou.t2 = 45;
   }
 }
 
 void mousePressed() {
   //Clicar e iniciar o JOGO
   if (status.selected == Status.MENU) {
-    if (principal.cursorSobre()) {
+    if (principal.cursorSobreOption1()) {
       nivelSimples.startNivel();
+    } else if (principal.cursorSobreOption2()) {
+      status.selected = Status.OPCOES;
     }
+
   } else if (status.selected == Status.GANHOU) {
-    if (ganhou.cursorSobre()) {
+    if (ganhou.cursorSobreOption1()) {
       status.selected = Status.TIMER;
       nivelTimer.startNivel();
+    } else if (ganhou.cursorSobreOption2()) {
+      status.selected = Status.MENU;
     }
   } else if (status.selected == Status.PERDEU) {
-    if (perdeu.cursorSobre()) {
-      nivelSimples.startNivel();
+    if (perdeu.cursorSobreOption1()) {
+    nivelSimples.startNivel();
+    } else if (perdeu.cursorSobreOption2()) {
+      status.selected = Status.MENU;
     }
   }
 
