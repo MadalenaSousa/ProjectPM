@@ -9,6 +9,15 @@ class NivelSimples extends Jogo {
     recorde = new ArrayList();
   }
 
+  void startNivel() {
+    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
+    misturar(); //Baralha
+    moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
+    status.selected = Status.SIMPLES; //Inicia o Jogo
+    jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
+    jaPerdeu = false;
+  }
+  
   //Estrutura geral do nível + Pontuação
   void desenhaJogo() {
     super.desenha();
@@ -23,6 +32,7 @@ class NivelSimples extends Jogo {
     text("Recorde", 800, 300);
     textSize(50);
     text(recorde(), 800, 400);
+
   }
 
   //Determina se, consoante o numero de jogadas feitas, é ainda permitido jogar (tecnicamente, diz-nos se o jogar já perdeu ou não)

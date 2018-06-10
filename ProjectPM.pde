@@ -1,6 +1,6 @@
 import processing.sound.*;
 
-Jogo nivelSimples;
+Jogo nivelSimples, nivelTimer;
 Status status;
 Principal principal; 
 Ganhou ganhou; 
@@ -35,8 +35,10 @@ void setup() {
   perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
   opcoes = new Opcoes(azulejo, "OPÇÕES", "Sem Som", " ");
 
+
   //NIVEIS
   nivelSimples = new NivelSimples(n, m, img, altura, largura, status, nBaralhar, nLimite);
+  nivelTimer = new NivelTimer(n, m, img, altura, largura, status, nBaralhar, nLimite);
 }
 
 
@@ -49,12 +51,6 @@ void draw() {
     perdeu.stopMusic();
     principal.desenha();
 
-    //Ativar o Jogo
-  } else if (status.selected == Status.JOGO) {
-    ganhou.stopMusic();
-    perdeu.stopMusic();
-    nivelSimples.desenhaJogo();
-
     //Ativar o menu Perdeu
   } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
@@ -64,12 +60,25 @@ void draw() {
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
     ganhou.tocou(); //Iniciar a música de ganhar
-
+    
     //Ativar o menu Opções
   } else if (status.selected == Status.OPCOES) {
     ganhou.stopMusic();
     perdeu.stopMusic();
     opcoes.desenha();
+
+    //Ativar nivel Simples
+  } else if (status.selected == Status.SIMPLES) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    nivelSimples.desenhaJogo();
+
+    //Ativer nivel Timer
+  } else if (status.selected == Status.TIMER) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    //println("in");
+    nivelTimer.desenhaJogo();
   }
 
   //Fazer o texto ficar maior quando o cursor está sobre o retângulo
@@ -124,29 +133,28 @@ void mousePressed() {
     } else if (principal.cursorSobreOption2()) {
       status.selected = Status.OPCOES;
     }
-  }
 
-  //Clicar no botão de Jogar Novamente e reeiniciar o Jogo
-  if (status.selected == Status.GANHOU) {
+  } else if (status.selected == Status.GANHOU) {
     if (ganhou.cursorSobreOption1()) {
-      //nivelTimer.startNivel();
+      status.selected = Status.TIMER;
+      nivelTimer.startNivel();
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
-  }
-
-  //Clicar no botão de Jogar Novamente e reeiniciar o Jogo
-  if (status.selected == Status.PERDEU) {
+  } else if (status.selected == Status.PERDEU) {
     if (perdeu.cursorSobreOption1()) {
-      nivelSimples.startNivel();
+    nivelSimples.startNivel();
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
   }
 
   //Mover as peças + Som do movimento Válido
-  if (status.selected == Status.JOGO) {
+  if (status.selected == Status.SIMPLES) {
     nivelSimples.moverPecaSom(move);
     nivelSimples.somErrado(wrong);
+  } else if (status.selected == Status.TIMER) {
+    nivelTimer.moverPecaSom(move);
+    nivelTimer.somErrado(wrong);
   }
 }
