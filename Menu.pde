@@ -16,7 +16,8 @@ class Menu {
     alt = 100;
     tt = 45;
   }
-
+  
+  //Estrutura geral dos menus
   void desenha() {
     img.resize(600, 800);
     image(img, 0, 0);

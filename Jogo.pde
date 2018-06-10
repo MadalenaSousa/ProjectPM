@@ -1,7 +1,7 @@
 abstract class Jogo {
   Pedaco[][] pedacos;
   int n, m;
-  ArrayList <String> moveJogador;
+  ArrayList <String> moveJogador; //ArrayLists que guardam os movimentos
   ArrayList <String> moveBaralhar;
   Status status;
   int nBaralhar;
@@ -13,6 +13,7 @@ abstract class Jogo {
     this.status = status;
     this.nBaralhar = nBaralhar;
 
+    //Criação dos pedacos, à exceção do último, atribuindo a cada um um numero de identificação
     pedacos = new Pedaco[n][m];
     int nIdentificacao = 0;
     for (int i=0; i<n; i++) {
@@ -33,11 +34,11 @@ abstract class Jogo {
 
   //Função para reeiniciar o jogo
   void startNivel() {
-    moveBaralhar.clear();
+    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
     misturar(); //Baralha
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
     status.selected = Status.JOGO; //Inicia o Jogo
-    jaGanhou = false;
+    jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
   }
 
@@ -54,18 +55,18 @@ abstract class Jogo {
       jaGanhou = true;
       jaPerdeu = false;
       status.selected = Status.GANHOU;
-      printSolution();
+      printSolution(); //imprime os movimentos do jogador, visto que a variavel jaGanhou está a true
     }
 
     if (permiteJogar() == false) {
       jaGanhou = false;
       jaPerdeu = true;
       status.selected = Status.PERDEU;
-      printSolution();
+      printSolution(); //imprime os movimentos da solução, visto que a variavel jaPerdeu está a true
     }
   }
 
-//METODOS PARA DAR OVERRIDE
+//METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
   void desenhaJogo() {}
 
   //Detetor de perder
@@ -86,6 +87,8 @@ abstract class Jogo {
     }
     return true;
   }
+  
+  //Lógica dos movimentos e adição do som de movimento válido
   void moverPecaSom(SoundFile move) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -139,9 +142,9 @@ abstract class Jogo {
       }
     }
   }
-
+  
+  //Adição do som de movimentos errados
   void somErrado(SoundFile wrong) {
-    //Som de movimento Inválido
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         if (pedacos[i][j] != null) {
@@ -206,9 +209,9 @@ abstract class Jogo {
     }
     return s;
   }
-
+  
+  //Baralha as peças, movendo-as, tornando as soluções sempre possíveis de resolver
   void misturar() {
-    //Mover as peças 
     for (int z=0; z<nBaralhar; z++) {
       for (int i=0; i<n /*8*/; i++) {
         for (int j=0; j<m/*6*/; j++) {
@@ -241,7 +244,8 @@ abstract class Jogo {
       }
     }
   }
-
+  
+  //Consoante a classificação do jogo, imprime um determinado arraylist
   void printSolution() {
     if (jaGanhou) {
       println("Os seus movimentos: Moveu a peça preta " + moveJogador);

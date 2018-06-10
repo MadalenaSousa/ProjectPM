@@ -7,6 +7,7 @@ class NivelSimples extends Jogo {
     this.nLimite = nLimite;
   }
   
+  //Estrutura geral do nível + Pontuação
   void desenhaJogo() {
     super.desenha();
     
@@ -17,7 +18,8 @@ class NivelSimples extends Jogo {
     textSize(50);
     text(nLimite - moveJogador.size(), 800, 200);
   }
-
+  
+  //Determina se, consoante o numero de jogadas feitas, é ainda permitido jogar (tecnicamente, diz-nos se o jogar já perdeu ou não)
   boolean permiteJogar() {
     if (moveJogador.size() < nLimite) {
       return true;

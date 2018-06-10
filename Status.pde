@@ -1,3 +1,4 @@
+//classe de controlo dos menus
 class Status {
 
   static final int MENU = 0;
