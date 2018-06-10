@@ -11,6 +11,16 @@ class NivelTimer extends Jogo {
     super.desenha();
 
     //Adicionar aqui o desenho do cronometro
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(30);
+    text("Tempo de Sobra", 800, 100);
+    textSize(50);
+    text(/*tempo de sobra*/, 800, 200);
+    textSize(30);
+    text("Recorde", 800, 300);
+    textSize(50);
+    text(/*recorde min tempo*/, 800, 400);
   }
 
   boolean permiteJogar() {
