@@ -44,7 +44,7 @@ class NivelTimer extends Jogo {
   }
 
   boolean permiteJogar() {
-    if (tempoM>0 && tempoS>0) {
+    if (tempoM > 0 && tempoS > 0) {
       return true;
     } else {
       return false;
