@@ -10,23 +10,27 @@ class Menu {
     this.topo = topo;
     this.option1 = option1;
     f = createFont("Baskerville", 100, true);
-    x = 100;
+    x = 300;
     y = 400;
     larg = 400;
     alt = 100;
     tt = 45;
   }
-
+  
+  //Estrutura geral dos menus
   void desenha() {
     img.resize(600, 800);
     image(img, 0, 0);
+    image(img, 500, 0);
     textAlign(CENTER, CENTER);
     noStroke();
     textFont(f);
     
     //Botões
+    rectMode(CENTER);
     fill(#1C477E);
-    rect(0, 100, 600, 100);
+    rect(width/2, 150, 600, 100);
+    rectMode(CORNER);
     fill(#F5D57E);
     rect(x, y, larg, alt);
     
