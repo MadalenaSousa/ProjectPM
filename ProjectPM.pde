@@ -10,7 +10,6 @@ Ganhou ganhou;
 Perdeu perdeu;
 Pedaco[][] pedacos;
 SoundFile win, wrong, move, lose;
-PFont f;
 ArrayList <String> moveBaralhar;
 ArrayList <String> moveJogador;
 boolean noSitio;
@@ -30,7 +29,6 @@ void setup() {
   nBaralhar = parseInt(linhas[3]); //100
   largura = 600;
   altura = 800;
-  f = createFont("Baskerville", 100, true);
 
   //OBJETOS
   status = new Status(Status.MENU);
@@ -41,9 +39,9 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
   moveBaralhar = new ArrayList();
   moveJogador = new ArrayList();
-  principal = new Principal(azulejo, "15 PUZZLE", "JOGAR");
-  ganhou = new Ganhou(azulejo, "GANHOU", "Jogar Novamente", win);
-  perdeu = new Perdeu(azulejo, "PERDEU", "Jogar Novamente", lose);
+  principal = new Principal(azulejo, "15 PUZZLE", "Jogar");
+  ganhou = new Ganhou(azulejo, "GANHOU!", "Jogar Novamente", win);
+  perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", lose);
 
   //Criação dos pedaços à exceção do último que é nulo, não existe, atribuindo um numero de identificação a cada pedaco
   int nIdentificacao = 0;
@@ -63,13 +61,15 @@ void setup() {
 
 
 void draw() {
-  //Definição do Menu Inicial (MENU)
+  //Ativar o menu Principal
   if (status.selected == Status.MENU) {
     principal.desenha();
 
-    //Apresentar o menu do Puzzle (JOGO)
+    //Ativar o Jogo
   } else if (status.selected == Status.JOGO) {
     background(0);
+    ganhou.stopMusic();
+    perdeu.stopMusic();
 
     for (int i=0; i<n; i++) {
       for (int j=0; j<m; j++) {
@@ -80,33 +80,59 @@ void draw() {
     }
 
     if (vitoria(pedacos)) {
-      ganhou.viraFalse();
       status.selected = Status.GANHOU;
     }
 
-    //Definição do menu PERDEU
+    //Ativar o menu Perdeu
   } else if (status.selected == Status.PERDEU) {
     perdeu.desenha();
-    perdeu.tocou();
-    println("A Solution: "+ "Move the Black Piece " + moveBaralhar); //Este print ainda não está bem, está a imprimir continuamente. Ainda tem de ser posto na classe
+    perdeu.tocou(); //Iniciar a música de Perder
 
-    //Definição do menu GANHOU
+    //Ativar o menu Ganhou
   } else if (status.selected == Status.GANHOU) {
     ganhou.desenha();
-    ganhou.tocou();
+    ganhou.tocou(); //Iniciar a música de ganhar
   }
 
-  //Limitar jogadas (Mensagem) 
-  if (moveJogador.size() > nBaralhar * 2) {
-    println("Esgotou o Número de Jogadas");
+  //Fazer o texto ficar maior quando o cursor está sobre o retângulo
+  if (principal.cursorSobre()) {
+    principal.tt = 75;
+  } else {
+    principal.tt = 70;
+  }
+
+  if (perdeu.cursorSobre()) {
+    perdeu.tt = 50;
+  } else {
+    perdeu.tt = 45;
+  }
+
+  if (ganhou.cursorSobre()) {
+    ganhou.tt = 50;
+  } else {
+    ganhou.tt = 45;
   }
 }
 
 void mousePressed() {
   //Clicar e iniciar o JOGO
   if (status.selected == Status.MENU) {
-    if (mouseX>=100 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
+    if (principal.cursorSobre()) {
       status.selected = Status.JOGO;
+    }
+  }
+
+  //Clicar no botão de Jogar Novamente e reeiniciar o Jogo
+  if (status.selected == Status.GANHOU) {
+    if (ganhou.cursorSobre()) {
+      restart();
+    }
+  }
+
+  //Clicar no botão de Jogar Novamente e reeiniciar o Jogo
+  if (status.selected == Status.PERDEU) {
+    if (perdeu.cursorSobre()) {
+      restart();
     }
   }
 
@@ -212,7 +238,6 @@ void mousePressed() {
 }
 
 void misturar(Pedaco[][] p, int nMovimentos) {
-
   //Mover as peças 
   for (int z=0; z<nMovimentos; z++) {
     for (int i=0; i<n /*8*/; i++) {
@@ -247,6 +272,7 @@ void misturar(Pedaco[][] p, int nMovimentos) {
   }
 }
 
+//Trocar as Palavras pela sua oposta para a solução fazer mais sentido
 String PalavraOposta(String s) {
   if (s.equals("UP")) {
     s = "DOWN";
@@ -260,6 +286,7 @@ String PalavraOposta(String s) {
   return s;
 }
 
+//Detetor de ganhar
 boolean vitoria(Pedaco[][] p) {
   int posicao = 0;
   for (int i=0; i<n; i++) {
@@ -275,9 +302,16 @@ boolean vitoria(Pedaco[][] p) {
   return true;
 }
 
-/* 
- 
- WEBGRAFIA
- https://www.openprocessing.org/sketch/131051
- 
- */
+//Função para reeiniciar o jogo
+void restart() {
+  misturar(pedacos, nBaralhar); //Baralha
+  moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
+  status.selected = Status.JOGO; //Inicia o Jogo
+}
+
+void printSolucao() {
+  if (jaPerdeu) {
+    println("A Solution: "+ "Move the Black Piece " + moveBaralhar); //Este print ainda não está bem, está a imprimir continuamente. Ainda tem de ser posto na classe
+    jaPerdeu = false;
+  }
+}
