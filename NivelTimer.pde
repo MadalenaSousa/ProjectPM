@@ -16,14 +16,14 @@ class NivelTimer extends Jogo {
     textSize(30);
     text("Tempo de Sobra", 800, 100);
     textSize(50);
-    text(/*tempo de sobra*/, 800, 200);
+    //text(/*tempo de sobra*/, 800, 200);
     textSize(30);
     text("Recorde", 800, 300);
     textSize(50);
-    text(/*recorde min tempo*/, 800, 400);
+    //text(/*recorde min tempo*/, 800, 400);
   }
 
-  boolean permiteJogar() {
+  //boolean permiteJogar() {
     //Adicionar aqui o que define que se perde quando o tempo acabar
-  }
+  //}
 }

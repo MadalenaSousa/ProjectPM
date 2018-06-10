@@ -20,7 +20,7 @@ class NivelSimples extends Jogo {
     textSize(30);
     text("Recorde", 800, 300);
     textSize(50);
-    text(/*recorde min jogadas*/, 800, 400);
+    //text(/*recorde min jogadas*/, 800, 400);
   }
 
   //Determina se, consoante o numero de jogadas feitas, é ainda permitido jogar (tecnicamente, diz-nos se o jogar já perdeu ou não)
