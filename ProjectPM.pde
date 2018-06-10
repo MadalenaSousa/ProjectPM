@@ -2,7 +2,7 @@ import processing.sound.*;
 
 String[] linhas;
 PImage img, azulejo;
-int n, m, nBaralhar;
+int n, m, nBaralhar, nLimite;
 int largura, altura;
 Status status;
 Principal principal; 
@@ -28,6 +28,7 @@ void setup() {
   n = parseInt(linhas[0]); //8
   m = parseInt(linhas[1]); //6
   nBaralhar = parseInt(linhas[3]); //100
+  nLimite = parseInt(linhas[4]); //2 * nBaralhar
   largura = 600;
   altura = 800;
   jaPerdeu = false;
@@ -151,7 +152,7 @@ void mousePressed() {
   if (status.selected == Status.JOGO) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
-        if (moveJogador.size() < nBaralhar*2) {
+        if (moveJogador.size() < nLimite) {
           if (pedacos[i][j] != null) {
             if (pedacos[i][j].pressed()) {
               if (i!=0) { 
