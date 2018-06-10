@@ -8,15 +8,16 @@ class Perdeu extends Menu {
     tocou = false;
   }
 
-  void viraFalse() {
+  void stopMusic() { //pára a música quando voltamos para o jogo
+    som.stop();
     tocou = false;
   }
 
   void tocou() {
-    if (tocou) {
-      return;
+    if (tocou) { //Se já está a tocar
+      return; //para aqui e não chega à instrução de tocar
     }
-    som.play();
-    tocou = true;
+    som.play(); //Se não está a tocar, toca
+    tocou = true; //Passa a estar definido como estando a tocar
   }
 }

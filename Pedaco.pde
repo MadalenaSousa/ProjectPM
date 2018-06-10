@@ -2,7 +2,7 @@ class Pedaco {
 
   int alt, larg;
   PImage pedaco;
-  float x, y; //estas coordenadas vão sendo atualizadas com os movimentos (?)
+  float x, y;
   int ident;
 
   Pedaco(int alt, int larg, PImage imgOriginal, float ix, float jy, int ident) { //enviados no construtor para poder pôr as peças no lugar logo no início
