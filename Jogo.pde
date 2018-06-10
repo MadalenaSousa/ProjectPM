@@ -1,4 +1,4 @@
-abstract class Jogo {
+class Jogo {
   Pedaco[][] pedacos;
   int n, m;
   ArrayList <String> moveJogador; //ArrayLists que guardam os movimentos
@@ -66,11 +66,14 @@ abstract class Jogo {
     }
   }
 
-//METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
-  void desenhaJogo() {}
+  //METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
+  void desenhaJogo() {
+  }
 
   //Detetor de perder
-  boolean permiteJogar(){return true;}
+  boolean permiteJogar() {
+    return true;
+  }
 
   //Detetor de ganhar
   boolean vitoria() {
@@ -87,7 +90,7 @@ abstract class Jogo {
     }
     return true;
   }
-  
+
   //Lógica dos movimentos e adição do som de movimento válido
   void moverPecaSom(SoundFile move) {
     for (int i=0; i<n /*8*/; i++) {
@@ -142,7 +145,7 @@ abstract class Jogo {
       }
     }
   }
-  
+
   //Adição do som de movimentos errados
   void somErrado(SoundFile wrong) {
     for (int i=0; i<n /*8*/; i++) {
@@ -209,7 +212,7 @@ abstract class Jogo {
     }
     return s;
   }
-  
+
   //Baralha as peças, movendo-as, tornando as soluções sempre possíveis de resolver
   void misturar() {
     for (int z=0; z<nBaralhar; z++) {
@@ -244,7 +247,7 @@ abstract class Jogo {
       }
     }
   }
-  
+
   //Consoante a classificação do jogo, imprime um determinado arraylist
   void printSolution() {
     if (jaGanhou) {
