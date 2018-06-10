@@ -3,7 +3,7 @@ class NivelTimer extends Jogo {
   boolean parar;
   int s, m;
   PFont d;
-  int tempo, tempos, tempoLimite, tempoLimites;
+  int tempoM, tempoS, tempoLimiteM, tempoLimiteS;
 
   NivelTimer(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar, int nLimite) {
     super(n, m, img, alturaImg, larguraImg, status, nBaralhar);
@@ -11,8 +11,8 @@ class NivelTimer extends Jogo {
     s=(millis()/1000)%60;
     m=((millis()/1000) / 60)%60;
     d=createFont("Baskerville", 75, true);
-    tempoLimite=2;
-    tempoLimites=59;
+    tempoLimiteM=2;
+    tempoLimiteS=59;
   }
 
   void startNivel() {
@@ -27,31 +27,27 @@ class NivelTimer extends Jogo {
   void desenhaJogo() {
     super.desenha();
 
+    tempoM = tempoLimiteM-m;
+    tempoS=tempoLimiteS-s;
+
     //Adicionar aqui o desenho do cronometro
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
     text("Tempo de Sobra", 800, 100);
     textSize(50);
-    //text(nf(tempo, 2)+":"+nf(tempos, 2), 800, 200);
+    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 200);
     textSize(30);
     text("Recorde", 800, 300);
     textSize(50);
     //text(/*recorde min tempo*/, 800, 400);
-    if (parar==false) {
-      tempo = tempoLimite-m;
-      tempos=tempoLimites-s;
-    }
-    if (tempo==0 && tempos==0) {
-      parar=true;
-    }
-    if (parar) {
-      m=tempoLimite;
-      s=tempoLimite;
-    }
   }
 
-  //boolean permiteJogar() {
-  //Adicionar aqui o que define que se perde quando o tempo acabar
-  //}
+  boolean permiteJogar() {
+    if (tempoM>0 && tempoS>0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
