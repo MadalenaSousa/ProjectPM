@@ -7,6 +7,7 @@ Ganhou ganhou;
 Perdeu perdeu;
 Opcoes opcoes;
 SoundFile wrong, move;
+boolean notMuted = true;
 
 void setup() {
   size(1000, 800);
@@ -38,7 +39,7 @@ void setup() {
 
   //NIVEIS
   nivelSimples = new NivelSimples(n, m, img, altura, largura, status, nBaralhar, nLimite);
-  nivelTimer = new NivelTimer(n, m, img, altura, largura, status, nBaralhar, nLimite);
+  nivelTimer = new NivelTimer(n, m, img, altura, largura, status, nBaralhar);
 }
 
 
@@ -65,7 +66,7 @@ void draw() {
   } else if (status.selected == Status.OPCOES) {
     ganhou.stopMusic();
     perdeu.stopMusic();
-    opcoes.desenha();
+    opcoes.desenhaMenu();
 
     //Ativar nivel Simples
   } else if (status.selected == Status.SIMPLES) {
@@ -108,9 +109,9 @@ void draw() {
     principal.t2 = 70;
   }
   if (opcoes.cursorSobreOption2()) {
-    opcoes.t2 = 75;
+    opcoes.t2 = 50;
   } else {
-    opcoes.t2 = 70;
+    opcoes.t2 = 45;
   }
   if (perdeu.cursorSobreOption2()) {
     perdeu.t2 = 50;
@@ -147,7 +148,7 @@ void mousePressed() {
     }
   } else if (status.selected == Status.OPCOES) {
     if (perdeu.cursorSobreOption1()) {
-      
+      notMuted = !notMuted;
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
@@ -160,5 +161,11 @@ void mousePressed() {
   } else if (status.selected == Status.TIMER) {
     nivelTimer.moverPecaSom(move);
     nivelTimer.somErrado(wrong);
+  }
+}
+
+void reproduzir(SoundFile som) {
+  if(notMuted) {
+    som.play();
   }
 }
