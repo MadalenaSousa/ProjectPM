@@ -9,7 +9,7 @@ Opcoes opcoes;
 Menu menu;
 SoundFile wrong, move;
 
-boolean notMuted, chooseImage;
+boolean notMuted;
 PImage img, img2, image1, image2;
 int l;
 float limg1, aimg1, limg2, aimg2;
@@ -17,8 +17,6 @@ int largura, altura;
 
 void setup() {
   size(1000, 800);
-
-  chooseImage = true;
 
   //CARREGAMENTOS
   String[] linhas = loadStrings("texto.txt");
