@@ -12,7 +12,7 @@ class Menu {
     this.option2 = option2;
     this.option3 = option3;
     this.option4 = option4;
-    f = createFont("Baskerville", 100, true);
+    f = createFont("HelveticaNeue-CondensedBold", 100, true);
     larg = 300;
     alt = 65;
     x = width/2 - larg/2;
