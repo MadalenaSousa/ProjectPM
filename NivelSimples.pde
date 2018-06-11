@@ -15,12 +15,5 @@ class NivelSimples extends Jogo {
   // Estrutura geral do nível
   void desenhaJogo() {
     super.desenha();
-
-    /*
-    textAlign(CENTER, CENTER);
-     fill(255);
-     textSize(30);
-     text("Desistir", 800, 300);
-     */
   }
 }

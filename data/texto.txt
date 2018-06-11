@@ -5,7 +5,7 @@ image.jpg
 image2.jpg
 image1small.jpg
 image2small.jpg
-4
-8
+50
+100
 2
 0
