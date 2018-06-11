@@ -10,9 +10,10 @@ Menu menu;
 SoundFile wrong, move;
 
 boolean notMuted, chooseImage;
-PImage image1, image2;
+PImage img, img2, image1, image2;
 int l;
 float limg1, aimg1, limg2, aimg2;
+int largura, altura;
 
 void setup() {
   size(1000, 800);
@@ -21,7 +22,8 @@ void setup() {
 
   //CARREGAMENTOS
   String[] linhas = loadStrings("texto.txt");
-  PImage img = loadImage(linhas[3]);
+  img = loadImage(linhas[3]);
+  img2 = loadImage(linhas[4]);
   PImage fundo = loadImage(linhas[2]);
   image1 = loadImage("image1small.jpg");
   image2 = loadImage("image2small.jpg");
@@ -31,8 +33,8 @@ void setup() {
   int m = parseInt(linhas[1]); //6
   int nBaralhar = parseInt(linhas[5]); //100
   int nLimite = parseInt(linhas[6]); //2 * nBaralhar
-  int largura = 600;
-  int altura = 800;
+  largura = 600;
+  altura = 800;
   notMuted = true;
 
   //OBJETOS
@@ -205,15 +207,12 @@ void mousePressed() {
     if (principal.cursorSobreOption1()) {
       status.selected = Status.JOGO;
       jogo.startNivel();
-      
     } else if (principal.cursorSobreOption2()) {
       status.selected = Status.SIMPLES;
       nivelSimples.startNivel();
-      
     } else if (principal.cursorSobreOption3()) {
       status.selected = Status.TIMER;
       nivelTimer.startNivel();
-      
     } else if (principal.cursorSobreOption4()) {
       status.selected = Status.OPCOES;
     }
@@ -225,7 +224,6 @@ void mousePressed() {
       jogo.startNivel();
       nivelSimples.startNivel();
       nivelTimer.startNivel();
-      
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
@@ -246,8 +244,13 @@ void mousePressed() {
     if (opcoes.cursorSobreOption1()) {
       notMuted = !notMuted;
     } else if (opcoes.cursorSobreOption2()) {
+      jogo.eletrico(img, altura, largura);
+      nivelSimples.eletrico(img, altura, largura);
+      nivelTimer.eletrico(img, altura, largura);
     } else if (opcoes.cursorSobreOption3()) {
-      chooseImage = !chooseImage;
+      jogo.torreDeBelem(img2, altura, largura);
+      nivelSimples.torreDeBelem(img2, altura, largura);
+      nivelTimer.torreDeBelem(img2, altura, largura);
     } else if (opcoes.cursorSobreOption4()) {
       status.selected = Status.MENU;
     }

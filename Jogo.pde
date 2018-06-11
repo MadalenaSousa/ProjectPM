@@ -64,9 +64,9 @@ class Jogo {
     textSize(50);
     text(moveJogador.size(), 800, 200);
     /*String[] movimentos = moveJogador.toArray(new String[0]);
-    for (int i=0; i<movimentos.length; i++) {
-      text(movimentos[i], 800, 200);
-    }*/
+     for (int i=0; i<movimentos.length; i++) {
+     text(movimentos[i], 800, 200);
+     }*/
   }
 
   //METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
@@ -278,5 +278,35 @@ class Jogo {
     }
     jaGanhou = false;
     jaPerdeu = false;
+  }
+
+  void eletrico(PImage img2, int altimg2, int largimg2) {
+    pedacos = new Pedaco[n][m];
+    int nIdentificacao = 0;
+    for (int i=0; i<n; i++) {
+      for (int j=0; j<m; j++) {
+        if (i != (n-1) || j != (m-1)) {
+          pedacos[i][j] = new Pedaco(altimg2/n, largimg2/m, img2, i, j, nIdentificacao);
+          nIdentificacao++;
+        } else {
+          pedacos[i][j] = null;
+        }
+      }
+    }
+  }
+
+  void torreDeBelem(PImage img2, int altimg2, int largimg2) {
+    pedacos = new Pedaco[n][m];
+    int nIdentificacao = 0;
+    for (int i=0; i<n; i++) {
+      for (int j=0; j<m; j++) {
+        if (i != (n-1) || j != (m-1)) {
+          pedacos[i][j] = new Pedaco(altimg2/n, largimg2/m, img2, i, j, nIdentificacao);
+          nIdentificacao++;
+        } else {
+          pedacos[i][j] = null;
+        }
+      }
+    }
   }
 }
