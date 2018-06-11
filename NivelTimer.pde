@@ -16,11 +16,7 @@ class NivelTimer extends Jogo {
   }
 
   void startNivel() {
-    moveBaralhar.clear(); // Limpa o array com os movimentos de baralhar
-    misturar();  // Baralha
-    moveJogador.clear(); // Limpa o array com os movimentos do jogador para poder voltar a jogar
-    jaGanhou = false; // Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
-    jaPerdeu = false;
+    super.startNivel();
     tRestaS = tFinalS; // O tempo que resta inicialmente é o tempo total limite
     tInicial = millis(); // tempo a que estou a comecar o nivel
   }
@@ -37,20 +33,33 @@ class NivelTimer extends Jogo {
     int tempoM = (int)(tRestaS/60); // Calcula o tempo que resta em minutos
     int tempoS = (tRestaS%60); // Calcula o tempo que resta em segundos
 
+    // texto 2
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 255, 300, 65, 50);
+
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Tempo de Sobra", 800, 300);
+    text("Tempo de Sobra", 800, 250);
     textSize(50);
-    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 400);
+    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 350);
+    
+    // texto 3
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 455, 300, 65, 50);
+    
+    fill(255);
     textSize(30);
-    text("Recorde", 800, 500);
+    text("Recorde", 800, 450);
     textSize(50);
+    text(recorde(), 800, 550);
 
     int recordeMin = parseInt(recorde())/60; // Converte o recorde para minutos e segundos
     int recordeSeg = parseInt(recorde())%60;
 
-    text(nf(recordeMin, 2) + ":" + nf(recordeSeg, 2), 800, 600);
+    text(nf(recordeMin, 2) + ":" + nf(recordeSeg, 2), 800, 550);
   }
 
   // Determina se, consoante o tempo, é ainda permitido jogar
