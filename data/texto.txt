@@ -1,5 +1,7 @@
 4
 3
+fundo.jpg
 image.jpg
+image2.jpg
 4
 8

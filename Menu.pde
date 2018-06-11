@@ -1,29 +1,32 @@
 class Menu {
   PImage img;
-  String topo, option1, option2;
+  String topo, option1, option2, option3, option4;
   PFont f;
   float larg, alt, x, y;
-  int t1, t2;
+  int t1, t2, t3, t4;
 
   Menu(PImage img, String topo, String option1, String option2) {
     this.img = img;
     this.topo = topo;
     this.option1 = option1;
     this.option2 = option2;
+    option3 = "opcão 3";
+    option4 = "opção 4";
     f = createFont("Baskerville", 100, true);
-    x = 300;
+    larg = 300;
+    alt = 65;
+    x = width/2 - larg/2;
     y = 400;
-    larg = 400;
-    alt = 100;
-    t1 = 45;
-    t2 = 45;
+    t1 = 20;
+    t2 = 20;
+    t3 = 20;
+    t4 = 20;
   }
 
   //Estrutura geral dos menus
   void desenha() {
-    img.resize(600, 800);
+    img.resize(1000, 800);
     image(img, 0, 0);
-    image(img, 500, 0);
     textAlign(CENTER, CENTER);
     noStroke();
     textFont(f);
@@ -31,25 +34,36 @@ class Menu {
     //Botões
     rectMode(CENTER);
     fill(#1C477E);
-    rect(width/2, 150, 600, 100);
+    rect(width/2, 150, 600, 100, 50);
     rectMode(CORNER);
     fill(#F5D57E);
-    rect(x, y, larg, alt);
-    rect(x, y+200, larg, alt);
+    //opção 1
+    rect(x, y, larg, alt, 50);
+    //opção 2
+    rect(x, y + 1.5 * alt, larg, alt, 50);
+    //opção 3
+    rect(x, y + 3 * alt, larg, alt, 50);
+    //opção 4
+    rect(x, y + 4.5 * alt, larg, alt, 50);
 
     //Texto dos botões
     fill(255);
     textSize(90);
     text(topo, width/2, 135);
+
     textSize(t1);
-    text(option1, width/2, 440);
+    text(option1, width/2, y + 20);
     textSize(t2);
-    text(option2, width/2, 640);
+    text(option2, width/2, y + 20 + 1.5 * alt);
+    textSize(t3);
+    text(option3, width/2, y + 20 + 3 * alt);
+    textSize(t4);
+    text(option4, width/2, y + 20 + 4.5 * alt);
   }
 
   //Deteta quando o cursor está sobre o botão de opção1
   boolean cursorSobreOption1() {
-    if (mouseX >= x && mouseX <= x + larg && mouseY >= y && mouseY <= y + 100) {
+    if (mouseX >= x && mouseX <= x + larg && mouseY >= y && mouseY <= y + alt) {
       return true;
     } else {
       return false;
@@ -58,7 +72,23 @@ class Menu {
 
   //Deteta quando o cursor está sobre o botão de opção2
   boolean cursorSobreOption2() {
-    if (mouseX >= x && mouseX <= x + larg && mouseY >= y + 200 && mouseY <= y + 300) {
+    if (mouseX >= x && mouseX <= x + larg && mouseY >=  y + 1.5 * alt && mouseY <=  y + 1.5 * alt + alt) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  boolean cursorSobreOption3() {
+    if (mouseX >= x && mouseX <= x + larg && mouseY >= y + 3 * alt && mouseY <= y + 3 * alt + alt) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  boolean cursorSobreOption4() {
+    if (mouseX >= x && mouseX <= x + larg && mouseY >= y + 20 + 4.5 * alt && mouseY <= y + 20 + 4.5 * alt + alt) {
       return true;
     } else {
       return false;

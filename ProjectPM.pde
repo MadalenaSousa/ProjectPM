@@ -14,14 +14,14 @@ void setup() {
 
   //CARREGAMENTOS
   String[] linhas = loadStrings("texto.txt");
-  PImage img = loadImage(linhas[2]);
-  PImage azulejo = loadImage("azulejo.jpg");
+  PImage img = loadImage(linhas[3]);
+  PImage fundo = loadImage(linhas[2]);
 
   //VARIÁVEIS
   int n = parseInt(linhas[0]); //8
   int m = parseInt(linhas[1]); //6
-  int nBaralhar = parseInt(linhas[3]); //100
-  int nLimite = parseInt(linhas[4]); //2 * nBaralhar
+  int nBaralhar = parseInt(linhas[5]); //100
+  int nLimite = parseInt(linhas[6]); //2 * nBaralhar
   int largura = 600;
   int altura = 800;
 
@@ -31,10 +31,10 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
 
   //MENUS
-  principal = new Principal(azulejo, "15 PUZZLE", "Jogar", "Opções");
-  ganhou = new Ganhou(azulejo, "GANHOU!", "Próximo Nível", "Menu Principal", new SoundFile(this, "win.mp3"));
-  perdeu = new Perdeu(azulejo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
-  opcoes = new Opcoes(azulejo, "OPÇÕES", "Sem Som", "Menu Principal");
+  principal = new Principal(fundo, "15 PUZZLE", "Jogar", "Opções");
+  ganhou = new Ganhou(fundo, "GANHOU!", "Próximo Nível", "Menu Principal", new SoundFile(this, "win.mp3"));
+  perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
+  opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Menu Principal");
 
 
   //NIVEIS
@@ -83,45 +83,87 @@ void draw() {
 
   //Fazer o texto ficar maior quando o cursor está sobre o retângulo
   if (principal.cursorSobreOption1()) {
-    principal.t1 = 75;
+    principal.t1 = 55;
   } else {
-    principal.t1 = 70;
+    principal.t1 = 50;
   }
   if (opcoes.cursorSobreOption1()) {
-    opcoes.t1 = 75;
+    opcoes.t1 = 55;
   } else {
-    opcoes.t1 = 70;
+    opcoes.t1 = 50;
   }
   if (perdeu.cursorSobreOption1()) {
-    perdeu.t1 = 50;
+    perdeu.t1 = 35;
   } else {
-    perdeu.t1 = 45;
+    perdeu.t1 = 30;
   }
   if (ganhou.cursorSobreOption1()) {
-    ganhou.t1 = 50;
+    ganhou.t1 = 35;
   } else {
-    ganhou.t1 = 45;
+    ganhou.t1 = 30;
   }
 
   if (principal.cursorSobreOption2()) {
-    principal.t2 = 75;
+    principal.t2 = 55;
   } else {
-    principal.t2 = 70;
+    principal.t2 = 50;
   }
   if (opcoes.cursorSobreOption2()) {
-    opcoes.t2 = 50;
+    opcoes.t2 = 35;
   } else {
-    opcoes.t2 = 45;
+    opcoes.t2 = 30;
   }
   if (perdeu.cursorSobreOption2()) {
-    perdeu.t2 = 50;
+    perdeu.t2 = 35;
   } else {
-    perdeu.t2 = 45;
+    perdeu.t2 = 30;
   }
   if (ganhou.cursorSobreOption2()) {
-    ganhou.t2 = 50;
+    ganhou.t2 = 35;
   } else {
-    ganhou.t2 = 45;
+    ganhou.t2 = 30;
+  }
+
+  if (principal.cursorSobreOption3()) {
+    principal.t2 = 55;
+  } else {
+    principal.t2 = 50;
+  }
+  if (opcoes.cursorSobreOption3()) {
+    opcoes.t2 = 35;
+  } else {
+    opcoes.t2 = 30;
+  }
+  if (perdeu.cursorSobreOption3()) {
+    perdeu.t2 = 35;
+  } else {
+    perdeu.t2 = 30;
+  }
+  if (ganhou.cursorSobreOption3()) {
+    ganhou.t2 = 35;
+  } else {
+    ganhou.t2 = 30;
+  }
+
+  if (principal.cursorSobreOption4()) {
+    principal.t2 = 55;
+  } else {
+    principal.t2 = 50;
+  }
+  if (opcoes.cursorSobreOption4()) {
+    opcoes.t2 = 35;
+  } else {
+    opcoes.t2 = 30;
+  }
+  if (perdeu.cursorSobreOption4()) {
+    perdeu.t2 = 35;
+  } else {
+    perdeu.t2 = 30;
+  }
+  if (ganhou.cursorSobreOption4()) {
+    ganhou.t2 = 35;
+  } else {
+    ganhou.t2 = 30;
   }
 }
 
@@ -165,7 +207,7 @@ void mousePressed() {
 }
 
 void reproduzir(SoundFile som) {
-  if(notMuted) {
+  if (notMuted) {
     som.play();
   }
 }
