@@ -7,5 +7,5 @@ image1small.jpg
 image2small.jpg
 4
 8
-2
 0
+30

@@ -9,35 +9,32 @@ class NivelLimite extends Jogo {
     recorde = new ArrayList();
   }
 
-  void startNivel() {
-    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
-    misturar(); // Baralha
-    moveJogador.clear(); // Limpa o array com os movimentos do jogador para poder voltar a jogar
-    jaGanhou = false; // Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
-    jaPerdeu = false;
-  }
-
   // Estrutura geral do nível + Jogadas
   void desenhaJogo() {
     super.desenha();
+    
+    // texto 2
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 255, 300, 65, 50);
 
-    rectMode(CENTER);
-    fill(#C16085);
-    rect(800, 305, 300, 65, 50);
-    textAlign(CENTER, CENTER);
-    rectMode(CENTER);
-    fill(#C16085);
-    rect(800, 505, 300, 65, 50);
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Jogadas Disponíveis", 800, 300);
+    text("Jogadas Disponíveis", 800, 250);
     textSize(50);
-    text(nLimite - moveJogador.size(), 800, 400);
+    text(nLimite - moveJogador.size(), 800, 350);
+    
+    // texto 3
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 455, 300, 65, 50);
+    
+    fill(255);
     textSize(30);
-    text("Recorde", 800, 500);
+    text("Recorde", 800, 450);
     textSize(50);
-    text(recorde(), 800, 600);
+    text(recorde(), 800, 550);
   }
 
   // Determina se, consoante o numero de jogadas feitas, é ainda permitido jogar

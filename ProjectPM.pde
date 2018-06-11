@@ -8,6 +8,7 @@ Perdeu perdeu;
 Opcoes opcoes;
 Menu menu;
 SoundFile wrong, move;
+Solucao solucaoAnimacao;
 
 boolean notMuted;
 PImage img, img2, image1, image2;
@@ -43,7 +44,7 @@ void setup() {
   //MENUS
   principal = new Principal(fundo, "15 PUZZLE", "Normal", "Limite de Jogadas", "Contra-Relógio", "Opções");
   ganhou = new Ganhou(fundo, "GANHOU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "win.mp3"));
-  perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "lose.mp3"));
+  perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "Ver Solução", "", new SoundFile(this, "lose.mp3"));
   opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
   menu = new Menu(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
 
@@ -71,8 +72,14 @@ void draw() {
 
     // Desenhar o menu perdeu
   } else if (status.selected == Status.PERDEU) {
-    perdeu.desenha();
+    perdeu.desenhaMenu();
     perdeu.tocou(); //Iniciar a música de Perder
+
+    // Desenhar solução
+  } else if (status.selected == Status.SOLUCAO) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    solucaoAnimacao.desenhaSolucao();
 
     // Desenhar o menu ganhou
   } else if (status.selected == Status.GANHOU) {
@@ -254,8 +261,11 @@ void mousePressed() {
       // Opção 2
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
-    }
 
+      // Opção 3
+    } else if (perdeu.cursorSobreOption3()) {
+      status.selected = Status.SOLUCAO;
+    }
 
     // Botões do Menu Opções
   } else if (status.selected == Status.OPCOES) {
@@ -278,6 +288,26 @@ void mousePressed() {
 
       // Opção 4
     } else if (opcoes.cursorSobreOption4()) {
+      status.selected = Status.MENU;
+    }
+  }
+  
+
+  // Voltar ao menu principal durante o jogo
+  if (status.selected == Status.SIMPLES) {
+    if (simples.cursorSobreDesistir()) {
+      status.selected = Status.MENU;
+    }
+  } else if (status.selected == Status.LIMITE) {
+    if (limite.cursorSobreDesistir()) {
+      status.selected = Status.MENU;
+    }
+  } else if (status.selected == Status.TIMER) {
+    if (timer.cursorSobreDesistir()) {
+      status.selected = Status.MENU;
+    }
+  } else if (status.selected == Status.SOLUCAO) {
+    if (solucaoAnimacao.cursorSobreDesistir()) {
       status.selected = Status.MENU;
     }
   }

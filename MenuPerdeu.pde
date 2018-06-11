@@ -8,6 +8,20 @@ class Perdeu extends Menu {
     tocou = false;
   }
 
+  void desenhaMenu() {
+    super.desenha();
+
+    rectMode(CORNER);
+    fill(#F5D57E);
+    // Opção 3
+    rect(x, y + 3 * alt, larg, alt, 50);
+
+    fill(255);
+    // Opção 3
+    textSize(t3);
+    text(option3, width/2, y + 25 + 3 * alt);
+  }
+
   void stopMusic() { //pára a música quando voltamos para o jogo
     if (notMuted) {
       som.stop();

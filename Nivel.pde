@@ -1,4 +1,5 @@
 class Jogo {
+  Pedaco[][] solucao;
   Pedaco[][] pedacos;
   int n, m; // Numero de divisões
   ArrayList <String> moveJogador; // ArrayLists que guardam os movimentos
@@ -14,6 +15,7 @@ class Jogo {
     this.nBaralhar = nBaralhar;
 
     // Criação dos pedacos, à exceção do último, atribuindo a cada um um numero de identificação
+    solucao = new Pedaco[n][m];
     pedacos = new Pedaco[n][m];
     int nIdentificacao = 0;
     for (int i=0; i<n; i++) {
@@ -24,6 +26,7 @@ class Jogo {
         } else {
           pedacos[i][j] = null;
         }
+        solucao[i][j] = pedacos[i][j];
       }
     }
     moveBaralhar = new ArrayList();
@@ -36,6 +39,11 @@ class Jogo {
   void startNivel() {
     moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
     moveJogador.clear(); // Limpa o array com os movimentos do jogador para poder voltar a jogar
+    for (int i=0; i<n; i++) { // Puzzle volta à solução
+      for (int j=0; j<m; j++) {
+          pedacos[i][j] = solucao[i][j];
+      }
+    }
     misturar(); // Baralha novamente
     jaGanhou = false; // Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
@@ -56,20 +64,37 @@ class Jogo {
       status.selected = Status.PERDEU;
       printSolution(); //imprime os movimentos da solução, visto que a variavel jaPerdeu está a true
     }
-    
+
+    // texto 1
     rectMode(CENTER);
     fill(#C16085);
-    rect(800, 105, 300, 65, 50);
+    rect(800, 55, 300, 65, 50);
+
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Movimentos", 800, 100);
+    text("Movimentos", 800, 50);
     textSize(50);
-    text(moveJogador.size(), 800, 200);
-    /*String[] movimentos = moveJogador.toArray(new String[0]);
-     for (int i=0; i<movimentos.length; i++) {
-     text(movimentos[i], 800, 200);
-     }*/
+    if (moveJogador.size() > 0) {
+      text(PalavraOposta(moveJogador.get(moveJogador.size()-1)), 800, 150);
+    }
+
+    // texto 4
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 655, 300, 65, 50);
+
+    fill(255);
+    textSize(30);
+    text("Menu Principal", 800, 650);
+  }
+
+  boolean cursorSobreDesistir() {
+    if (mouseX >= 650 && mouseX <= 950 && mouseY >= 622.5 && mouseY <= 682.5) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void desenhaJogo() {
@@ -270,6 +295,8 @@ class Jogo {
         }
       }
     }
+
+    solucaoAnimacao = new Solucao(n, m, pedacos, moveBaralhar);
   }
 
   // Consoante a classificação do jogo, imprime um determinado arraylist
@@ -286,6 +313,7 @@ class Jogo {
   //Cria novos pedacos a partir de uma imagem
   void alterarImagem(PImage img2, int altimg2, int largimg2) {
     pedacos = new Pedaco[n][m];
+    solucao = new Pedaco[n][m];
     int nIdentificacao = 0;
     for (int i=0; i<n; i++) {
       for (int j=0; j<m; j++) {
@@ -295,6 +323,7 @@ class Jogo {
         } else {
           pedacos[i][j] = null;
         }
+        solucao[i][j] = pedacos[i][j];
       }
     }
   }
