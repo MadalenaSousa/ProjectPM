@@ -243,14 +243,14 @@ void mousePressed() {
       notMuted = !notMuted;
       
     } else if (opcoes.cursorSobreOption2()) {
-      jogo.eletrico(img, altura, largura);
-      nivelSimples.eletrico(img, altura, largura);
-      nivelTimer.eletrico(img, altura, largura);
+      jogo.alterarImagem(img, altura, largura);
+      nivelSimples.alterarImagem(img, altura, largura);
+      nivelTimer.alterarImagem(img, altura, largura);
       
     } else if (opcoes.cursorSobreOption3()) {
-      jogo.torreDeBelem(img2, altura, largura);
-      nivelSimples.torreDeBelem(img2, altura, largura);
-      nivelTimer.torreDeBelem(img2, altura, largura);
+      jogo.alterarImagem(img2, altura, largura);
+      nivelSimples.alterarImagem(img2, altura, largura);
+      nivelTimer.alterarImagem(img2, altura, largura);
       
     } else if (opcoes.cursorSobreOption4()) {
       status.selected = Status.MENU;

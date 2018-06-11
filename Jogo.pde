@@ -280,22 +280,7 @@ class Jogo {
     jaPerdeu = false;
   }
 
-  void eletrico(PImage img2, int altimg2, int largimg2) {
-    pedacos = new Pedaco[n][m];
-    int nIdentificacao = 0;
-    for (int i=0; i<n; i++) {
-      for (int j=0; j<m; j++) {
-        if (i != (n-1) || j != (m-1)) {
-          pedacos[i][j] = new Pedaco(altimg2/n, largimg2/m, img2, i, j, nIdentificacao);
-          nIdentificacao++;
-        } else {
-          pedacos[i][j] = null;
-        }
-      }
-    }
-  }
-
-  void torreDeBelem(PImage img2, int altimg2, int largimg2) {
+  void alterarImagem(PImage img2, int altimg2, int largimg2) {
     pedacos = new Pedaco[n][m];
     int nIdentificacao = 0;
     for (int i=0; i<n; i++) {
