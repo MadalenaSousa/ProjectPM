@@ -21,7 +21,7 @@ class NivelTimer extends Jogo {
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
-    status.selected = Status.TIMER; //Inicia o Jogo
+    //status.selected = Status.TIMER; //Inicia o Jogo
     tRestaS = tFinalS; //O tempo que resta inicialmente é o tempo total limite
     tInicial = millis(); //tempo a que estou a comecar o nivel
   }

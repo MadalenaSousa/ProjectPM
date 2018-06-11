@@ -8,10 +8,11 @@ Perdeu perdeu;
 Opcoes opcoes;
 Menu menu;
 SoundFile wrong, move;
+
 boolean notMuted, chooseImage;
 PImage image1, image2;
 int l;
-String[] linhas;
+float limg1, aimg1, limg2, aimg2;
 
 void setup() {
   size(1000, 800);
@@ -19,7 +20,7 @@ void setup() {
   chooseImage = true;
 
   //CARREGAMENTOS
-  linhas = loadStrings("texto.txt");
+  String[] linhas = loadStrings("texto.txt");
   PImage img = loadImage(linhas[3]);
   PImage fundo = loadImage(linhas[2]);
   image1 = loadImage("image1small.jpg");
@@ -45,6 +46,11 @@ void setup() {
   perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "lose.mp3"));
   opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
   menu = new Menu(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
+
+  limg1 = opcoes.larg-25;
+  aimg1 = opcoes.alt-25;
+  limg2 = opcoes.larg-25;
+  aimg2 = opcoes.alt-25;
 
   //NIVEIS
   jogo = new Jogo(n, m, img, altura, largura, status, nBaralhar);
@@ -77,8 +83,9 @@ void draw() {
     ganhou.stopMusic();
     perdeu.stopMusic();
     opcoes.desenhaMenu();
-    image(image1, opcoes.x+10, opcoes.y + 1.5 * opcoes.alt + 10, opcoes.larg-20, opcoes.alt-20);
-    image(image2, opcoes.x+10, opcoes.y + 3 * opcoes.alt + 10, opcoes.larg-20, opcoes.alt-20);
+    imageMode(CENTER);
+    image(image1, opcoes.x+limg1/2+10, opcoes.y + 1.5 * opcoes.alt + 10 +  aimg1/2, limg1, aimg1);
+    image(image2, opcoes.x+limg2/2+10, opcoes.y + 3 * opcoes.alt + 10 + aimg2/2, limg2, aimg2);
 
     //Ativar o nivel Jogo
   } else if (status.selected == Status.JOGO) {
@@ -130,9 +137,11 @@ void draw() {
     principal.t2 = 30;
   }
   if (opcoes.cursorSobreOption2()) {
-    opcoes.t2 = 35;
+    limg1 = opcoes.larg-20;
+    aimg1 = opcoes.alt-20;
   } else {
-    opcoes.t2 = 30;
+    limg1 = opcoes.larg-25;
+    aimg1 = opcoes.alt-25;
   }
   if (perdeu.cursorSobreOption2()) {
     perdeu.t2 = 35;
@@ -151,9 +160,11 @@ void draw() {
     principal.t3 = 30;
   }
   if (opcoes.cursorSobreOption3()) {
-    opcoes.t3 = 35;
+    limg2 = opcoes.larg-20;
+    aimg2 = opcoes.alt-20;
   } else {
-    opcoes.t3 = 30;
+    limg2 = opcoes.larg-25;
+    aimg2 = opcoes.alt-25;
   }
   if (perdeu.cursorSobreOption3()) {
     perdeu.t3 = 35;
@@ -194,12 +205,15 @@ void mousePressed() {
     if (principal.cursorSobreOption1()) {
       status.selected = Status.JOGO;
       jogo.startNivel();
+      
     } else if (principal.cursorSobreOption2()) {
       status.selected = Status.SIMPLES;
       nivelSimples.startNivel();
+      
     } else if (principal.cursorSobreOption3()) {
       status.selected = Status.TIMER;
       nivelTimer.startNivel();
+      
     } else if (principal.cursorSobreOption4()) {
       status.selected = Status.OPCOES;
     }
@@ -208,8 +222,10 @@ void mousePressed() {
   } else if (status.selected == Status.GANHOU) {
     if (ganhou.cursorSobreOption1()) {
       status.selected = l;
+      jogo.startNivel();
       nivelSimples.startNivel();
       nivelTimer.startNivel();
+      
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
@@ -218,6 +234,7 @@ void mousePressed() {
   } else if (status.selected == Status.PERDEU) {
     if (perdeu.cursorSobreOption1()) {
       status.selected = l;
+      jogo.startNivel();
       nivelSimples.startNivel();
       nivelTimer.startNivel();
     } else if (perdeu.cursorSobreOption2()) {

@@ -63,7 +63,7 @@ class Jogo {
     textSize(30);
     text("Movimentos", 800, 100);
     textSize(50);
-    text(moveJogador.size(), 800, 200);
+    text(moveJogador, 800, 200);
     /*String[] movimentos = moveJogador.toArray(new String[0]);
     for (int i=0; i<movimentos.length; i++) {
       text(movimentos[i], 800, 200);
