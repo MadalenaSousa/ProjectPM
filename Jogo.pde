@@ -37,7 +37,6 @@ class Jogo {
     moveBaralhar.clear();
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
     misturar();
-    status.selected = Status.JOGO; //Inicia o Jogo
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
   }
@@ -63,7 +62,7 @@ class Jogo {
     textSize(30);
     text("Movimentos", 800, 100);
     textSize(50);
-    text(moveJogador, 800, 200);
+    text(moveJogador.size(), 800, 200);
     /*String[] movimentos = moveJogador.toArray(new String[0]);
     for (int i=0; i<movimentos.length; i++) {
       text(movimentos[i], 800, 200);
