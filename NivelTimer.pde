@@ -4,6 +4,7 @@ class NivelTimer extends Jogo {
   long tInicial;
   int tempoLimiteM, tempoLimiteS;
   int tRestaS, tFinalS;
+  ArrayList <Integer> recorde;
 
   NivelTimer(int n, int m, PImage img, int alturaImg, int larguraImg, Status status, int nBaralhar) {
     super(n, m, img, alturaImg, larguraImg, status, nBaralhar);
@@ -11,13 +12,13 @@ class NivelTimer extends Jogo {
     tempoLimiteM = 1;
     tempoLimiteS = 01;
     tFinalS = tempoLimiteM * 60 + tempoLimiteS; //tempo limite total em segundos
+    recorde = new ArrayList();
   }
 
   void startNivel() {
-    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
-    misturar(); //Baralha
+    moveBaralhar.clear();
+    misturar(); //Limpa o array com os movimentos de baralhar //Baralha
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
-    status.selected = Status.TIMER; //Inicia o Jogo
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
     tRestaS = tFinalS; //O tempo que resta inicialmente é o tempo total limite
@@ -26,12 +27,12 @@ class NivelTimer extends Jogo {
 
   void desenhaJogo() {
     super.desenha();
-    
+
     int tempoMillis = (int)(millis() - tInicial); //tempo que ja passou em millissegundos
     int tPassadoS = (tempoMillis/1000); // tempo que ja passou convertido em segundos
 
     tRestaS = tFinalS - tPassadoS; 
-    
+
     int tempoM = (int)(tRestaS/60); //calcula o tempo que resta em minutos
     int tempoS = (tRestaS%60); //calcula o tempo que resta em segundos
 
@@ -39,13 +40,15 @@ class NivelTimer extends Jogo {
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Tempo de Sobra", 800, 100);
+    text("Tempo de Sobra", 800, 300);
     textSize(50);
-    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 200);
+    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 400);
     textSize(30);
-    text("Recorde", 800, 300);
+    text("Recorde", 800, 500);
     textSize(50);
-    //text(/*recorde min tempo*/, 800, 400);
+    int recordeMin = parseInt(recorde())/60;
+    int recordeSeg = parseInt(recorde())%60;
+    text(nf(recordeMin, 2) + ":" + nf(recordeSeg, 2), 800, 600);
   }
 
   boolean permiteJogar() {
@@ -54,5 +57,19 @@ class NivelTimer extends Jogo {
     } else {
       return false;
     }
+  }
+
+  String recorde() {
+    if (jaGanhou) {
+      recorde.add(tFinalS - tRestaS);
+    }
+    if (recorde.size() == 0) {
+      return "";
+    }
+    int[] rec = new int[recorde.size()]; 
+    for (int i = 0; i < recorde.size(); i++) {
+      rec[i] = recorde.get(i);
+    }
+    return "" + min(rec);
   }
 }

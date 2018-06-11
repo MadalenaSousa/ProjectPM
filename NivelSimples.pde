@@ -13,7 +13,6 @@ class NivelSimples extends Jogo {
     moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
     misturar(); //Baralha
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
-    status.selected = Status.SIMPLES; //Inicia o Jogo
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
   }
@@ -25,13 +24,13 @@ class NivelSimples extends Jogo {
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Jogadas Disponíveis", 800, 100);
+    text("Jogadas Disponíveis", 800, 300);
     textSize(50);
-    text(nLimite - moveJogador.size(), 800, 200);
+    text(nLimite - moveJogador.size(), 800, 400);
     textSize(30);
-    text("Recorde", 800, 300);
+    text("Recorde", 800, 500);
     textSize(50);
-    text(recorde(), 800, 400);
+    text(recorde(), 800, 600);
 
   }
 
@@ -48,17 +47,13 @@ class NivelSimples extends Jogo {
     if (jaGanhou) {
       recorde.add(moveJogador.size());
     }
-    
     if(recorde.size() == 0) {
-      return "Sem Resultados";
+      return "";
     }
-    
     int[] rec = new int[recorde.size()]; 
-    
     for(int i = 0; i < recorde.size(); i++) {
       rec[i] = recorde.get(i);
     }
-    
     return "" + min(rec);
   }
 }
