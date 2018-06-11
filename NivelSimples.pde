@@ -48,17 +48,13 @@ class NivelSimples extends Jogo {
     if (jaGanhou) {
       recorde.add(moveJogador.size());
     }
-    
     if(recorde.size() == 0) {
-      return "Sem Resultados";
+      return "";
     }
-    
     int[] rec = new int[recorde.size()]; 
-    
     for(int i = 0; i < recorde.size(); i++) {
       rec[i] = recorde.get(i);
     }
-    
     return "" + min(rec);
   }
 }
