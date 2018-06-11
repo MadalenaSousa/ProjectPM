@@ -54,7 +54,7 @@ class Menu {
     text(option2, width/2, y + 25 + 1.5 * alt);
   }
 
-  //Deteta quando o cursor está sobre o botão de opção1
+  // Deteta quando o cursor está sobre o botão de opção1
   boolean cursorSobreOption1() {
     if (mouseX >= x && mouseX <= x + larg && mouseY >= y && mouseY <= y + alt) {
       return true;
@@ -63,7 +63,7 @@ class Menu {
     }
   }
 
-  //Deteta quando o cursor está sobre o botão de opção2
+  // Deteta quando o cursor está sobre o botão de opção2
   boolean cursorSobreOption2() {
     if (mouseX >= x && mouseX <= x + larg && mouseY >=  y + 1.5 * alt && mouseY <=  y + 1.5 * alt + alt) {
       return true;
@@ -72,6 +72,7 @@ class Menu {
     }
   }
 
+  // Deteta quando o cursor está sobre o botão de opção2
   boolean cursorSobreOption3() {
     if (mouseX >= x && mouseX <= x + larg && mouseY >= y + 3 * alt && mouseY <= y + 3 * alt + alt) {
       return true;
@@ -80,6 +81,7 @@ class Menu {
     }
   }
 
+  // Deteta quando o cursor está sobre o botão de opção2
   boolean cursorSobreOption4() {
     if (mouseX >= x && mouseX <= x + larg && mouseY >= y + 20 + 4.5 * alt && mouseY <= y + 20 + 4.5 * alt + alt) {
       return true;

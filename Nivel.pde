@@ -1,7 +1,7 @@
 class Jogo {
   Pedaco[][] pedacos;
-  int n, m;
-  ArrayList <String> moveJogador; //ArrayLists que guardam os movimentos
+  int n, m; // Numero de divisões
+  ArrayList <String> moveJogador; // ArrayLists que guardam os movimentos
   ArrayList <String> moveBaralhar;
   Status status;
   int nBaralhar;
@@ -13,7 +13,7 @@ class Jogo {
     this.status = status;
     this.nBaralhar = nBaralhar;
 
-    //Criação dos pedacos, à exceção do último, atribuindo a cada um um numero de identificação
+    // Criação dos pedacos, à exceção do último, atribuindo a cada um um numero de identificação
     pedacos = new Pedaco[n][m];
     int nIdentificacao = 0;
     for (int i=0; i<n; i++) {
@@ -32,12 +32,12 @@ class Jogo {
     jaGanhou = false;
   }
 
-  //Função para reeiniciar o jogo
+  // Função para reeiniciar o jogo
   void startNivel() {
-    moveBaralhar.clear();
-    moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
-    misturar();
-    jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
+    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
+    moveJogador.clear(); // Limpa o array com os movimentos do jogador para poder voltar a jogar
+    misturar(); // Baralha novamente
+    jaGanhou = false; // Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
   }
 
@@ -69,16 +69,20 @@ class Jogo {
      }*/
   }
 
-  //METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)
   void desenhaJogo() {
   }
 
-  //Detetor de perder
+  // Detetor de perder
   boolean permiteJogar() {
     return true;
   }
 
-  //Detetor de ganhar
+  // Função que retorna o recorde
+  String recorde() {
+    return "";
+  }
+
+  // Detetor de ganhar
   boolean vitoria() {
     int posicao = 0;
     for (int i=0; i<n; i++) {
@@ -105,11 +109,7 @@ class Jogo {
     }
   }
 
-  String recorde() {
-    return "";
-  }
-
-  //Lógica dos movimentos e adição do som de movimento válido
+  // Lógica dos movimentos e adição do som de movimento válido
   void moverPecaSom(SoundFile move) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -118,7 +118,7 @@ class Jogo {
             if (pedacos[i][j].pressed()) {
               if (i!=0) {
                 reproduzir(move);
-                if (pedacos[i-1][j] == null) { //Desce a peça nula
+                if (pedacos[i-1][j] == null) { // Desce a peça nula
                   pedacos[i-1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("DOWN");
@@ -129,7 +129,7 @@ class Jogo {
 
               if (i!=n-1) {
                 reproduzir(move);
-                if (pedacos[i+1][j] == null) { //Sobe a peça nula
+                if (pedacos[i+1][j] == null) { // Sobe a peça nula
                   pedacos[i+1][j] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("UP");
@@ -140,7 +140,7 @@ class Jogo {
 
               if (j!=0) {
                 reproduzir(move);
-                if (pedacos[i][j-1] == null) { //Move a peça nula para a direita
+                if (pedacos[i][j-1] == null) { // Move a peça nula para a direita
                   pedacos[i][j-1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("RIGHT");
@@ -151,7 +151,7 @@ class Jogo {
 
               if (j!=m-1) {
                 reproduzir(move);
-                if (pedacos[i][j+1] == null) { //Move a peça nula para a esquerda
+                if (pedacos[i][j+1] == null) { // Move a peça nula para a esquerda
                   pedacos[i][j+1] = pedacos[i][j];
                   pedacos[i][j] = null;
                   moveJogador.add("LEFT");
@@ -166,7 +166,7 @@ class Jogo {
     }
   }
 
-  //Adição do som de movimentos errados
+  // Adição do som de movimentos errados
   void somErrado(SoundFile wrong) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
@@ -220,7 +220,7 @@ class Jogo {
   }
 
 
-  //Trocar as Palavras pela sua oposta para a solução fazer mais sentido
+  // Trocar as Palavras pela sua oposta para a solução fazer mais sentido
   String PalavraOposta(String s) {
     if (s.equals("UP")) {
       s = "DOWN";
@@ -234,32 +234,32 @@ class Jogo {
     return s;
   }
 
-  //Baralha as peças, movendo-as, tornando as soluções sempre possíveis de resolver
+  // Baralha as peças, movendo-as, tornando as soluções sempre possíveis de resolver
   void misturar() {
     for (int z=0; z<nBaralhar; z++) {
       for (int i=0; i<n /*8*/; i++) {
         for (int j=0; j<m/*6*/; j++) {
           int r = (int)random(0, 4);
 
-          while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) { //cantos
+          while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) { // Cantos
             r = (int)random(0, 4);
           }
 
           if (pedacos[i][j] == null) {
             if (r==0) {
-              pedacos[i][j] = pedacos[i-1][j]; //r=0 puxa de cima, peça de baixo do nulo sobe
+              pedacos[i][j] = pedacos[i-1][j]; // r=0 puxa de cima, peça de baixo do nulo sobe
               pedacos[i-1][j] = null;
               moveBaralhar.add(0, PalavraOposta("UP"));
             } else if (r==1) {
-              pedacos[i][j] = pedacos[i+1][j]; //r=1 puxa de baixo, peça por cima do nulo desce
+              pedacos[i][j] = pedacos[i+1][j]; // r=1 puxa de baixo, peça por cima do nulo desce
               pedacos[i+1][j] = null;
               moveBaralhar.add(0, PalavraOposta("DOWN"));
             } else if (r==2) {
-              pedacos[i][j] = pedacos[i][j-1]; //r=2 puxa da esquerda, peça à esquerda do nulo anda para a direita
+              pedacos[i][j] = pedacos[i][j-1]; // r=2 puxa da esquerda, peça à esquerda do nulo anda para a direita
               pedacos[i][j-1] = null;
               moveBaralhar.add(0, PalavraOposta("LEFT"));
             } else if (r==3) {
-              pedacos[i][j] = pedacos[i][j+1]; //r=3 puxa da direita, peça à direita do nulo anda para a esquerda
+              pedacos[i][j] = pedacos[i][j+1]; // r=3 puxa da direita, peça à direita do nulo anda para a esquerda
               pedacos[i][j+1] = null;
               moveBaralhar.add(0, PalavraOposta("RIGHT"));
             }
@@ -269,7 +269,7 @@ class Jogo {
     }
   }
 
-  //Consoante a classificação do jogo, imprime um determinado arraylist
+  // Consoante a classificação do jogo, imprime um determinado arraylist
   void printSolution() {
     if (jaGanhou) {
       println("Os seus movimentos: Moveu a peça preta " + moveJogador);
@@ -280,6 +280,7 @@ class Jogo {
     jaPerdeu = false;
   }
 
+  //Cria novos pedacos a partir de uma imagem
   void alterarImagem(PImage img2, int altimg2, int largimg2) {
     pedacos = new Pedaco[n][m];
     int nIdentificacao = 0;
