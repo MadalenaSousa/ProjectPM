@@ -17,10 +17,22 @@ class NivelSimples extends Jogo {
     super.desenha();
 
     /*
-    textAlign(CENTER, CENTER);
+     rectMode(CENTER);
+     fill(#C16085);
+     rect(800, 305, 300, 65, 50);
+     textAlign(CENTER, CENTER);
      fill(255);
      textSize(30);
      text("Desistir", 800, 300);
      */
   }
+
+  /*/ Deteta quando o cursor está sobre o botão de desistir
+  boolean cursorSobreDesistir() {
+    if (mouseX >= 800 && mouseX <=  && mouseY >= y + 20 + 4.5 * alt && mouseY <= y + 20 + 4.5 * alt + alt) {
+      return true;
+    } else {
+      return false;
+    }
+  }*/
 }

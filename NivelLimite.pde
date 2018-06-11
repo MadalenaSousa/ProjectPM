@@ -21,6 +21,13 @@ class NivelLimite extends Jogo {
   void desenhaJogo() {
     super.desenha();
 
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 305, 300, 65, 50);
+    textAlign(CENTER, CENTER);
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 505, 300, 65, 50);
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);

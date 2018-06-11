@@ -56,7 +56,10 @@ class Jogo {
       status.selected = Status.PERDEU;
       printSolution(); //imprime os movimentos da solução, visto que a variavel jaPerdeu está a true
     }
-
+    
+    rectMode(CENTER);
+    fill(#C16085);
+    rect(800, 105, 300, 65, 50);
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
