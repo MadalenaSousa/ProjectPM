@@ -1,21 +1,29 @@
 import processing.sound.*;
 
-Jogo nivelSimples, nivelTimer;
+Jogo jogo, nivelSimples, nivelTimer;
 Status status;
 Principal principal; 
 Ganhou ganhou; 
 Perdeu perdeu;
 Opcoes opcoes;
+Menu menu;
 SoundFile wrong, move;
-boolean notMuted = true;
+boolean notMuted, chooseImage;
+PImage image1, image2;
+int l;
+String[] linhas;
 
 void setup() {
   size(1000, 800);
 
+  chooseImage = true;
+
   //CARREGAMENTOS
-  String[] linhas = loadStrings("texto.txt");
+  linhas = loadStrings("texto.txt");
   PImage img = loadImage(linhas[3]);
   PImage fundo = loadImage(linhas[2]);
+  image1 = loadImage("image1small.jpg");
+  image2 = loadImage("image2small.jpg");
 
   //VARIÁVEIS
   int n = parseInt(linhas[0]); //8
@@ -24,6 +32,7 @@ void setup() {
   int nLimite = parseInt(linhas[6]); //2 * nBaralhar
   int largura = 600;
   int altura = 800;
+  notMuted = true;
 
   //OBJETOS
   status = new Status(Status.MENU);
@@ -31,13 +40,14 @@ void setup() {
   wrong = new SoundFile(this, "wrong.mp3");
 
   //MENUS
-  principal = new Principal(fundo, "15 PUZZLE", "Jogar", "Opções");
-  ganhou = new Ganhou(fundo, "GANHOU!", "Próximo Nível", "Menu Principal", new SoundFile(this, "win.mp3"));
-  perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", new SoundFile(this, "lose.mp3"));
-  opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Menu Principal");
-
+  principal = new Principal(fundo, "15 PUZZLE", "Normal", "Limite de Jogadas", "Contra-Relógio", "Opções");
+  ganhou = new Ganhou(fundo, "GANHOU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "win.mp3"));
+  perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "lose.mp3"));
+  opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
+  menu = new Menu(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
 
   //NIVEIS
+  jogo = new Jogo(n, m, img, altura, largura, status, nBaralhar);
   nivelSimples = new NivelSimples(n, m, img, altura, largura, status, nBaralhar, nLimite);
   nivelTimer = new NivelTimer(n, m, img, altura, largura, status, nBaralhar);
 }
@@ -50,7 +60,7 @@ void draw() {
   if (status.selected == Status.MENU) {
     ganhou.stopMusic();
     perdeu.stopMusic();
-    principal.desenha();
+    principal.desenhaMenu();
 
     //Ativar o menu Perdeu
   } else if (status.selected == Status.PERDEU) {
@@ -67,30 +77,41 @@ void draw() {
     ganhou.stopMusic();
     perdeu.stopMusic();
     opcoes.desenhaMenu();
+    image(image1, opcoes.x+10, opcoes.y + 1.5 * opcoes.alt + 10, opcoes.larg-20, opcoes.alt-20);
+    image(image2, opcoes.x+10, opcoes.y + 3 * opcoes.alt + 10, opcoes.larg-20, opcoes.alt-20);
+
+    //Ativar o nivel Jogo
+  } else if (status.selected == Status.JOGO) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    jogo.desenha();
+    l = Status.JOGO;
 
     //Ativar nivel Simples
   } else if (status.selected == Status.SIMPLES) {
     ganhou.stopMusic();
     perdeu.stopMusic();
     nivelSimples.desenhaJogo();
+    l = Status.SIMPLES;
 
-    //Ativer nivel Timer
+    //Ativar nivel Timer
   } else if (status.selected == Status.TIMER) {
     ganhou.stopMusic();
     perdeu.stopMusic();
     nivelTimer.desenhaJogo();
+    l = Status.TIMER;
   }
 
   //Fazer o texto ficar maior quando o cursor está sobre o retângulo
   if (principal.cursorSobreOption1()) {
-    principal.t1 = 55;
+    principal.t1 = 35;
   } else {
-    principal.t1 = 50;
+    principal.t1 = 30;
   }
   if (opcoes.cursorSobreOption1()) {
-    opcoes.t1 = 55;
+    opcoes.t1 = 35;
   } else {
-    opcoes.t1 = 50;
+    opcoes.t1 = 30;
   }
   if (perdeu.cursorSobreOption1()) {
     perdeu.t1 = 35;
@@ -104,9 +125,9 @@ void draw() {
   }
 
   if (principal.cursorSobreOption2()) {
-    principal.t2 = 55;
+    principal.t2 = 35;
   } else {
-    principal.t2 = 50;
+    principal.t2 = 30;
   }
   if (opcoes.cursorSobreOption2()) {
     opcoes.t2 = 35;
@@ -125,79 +146,101 @@ void draw() {
   }
 
   if (principal.cursorSobreOption3()) {
-
+    principal.t3 = 35;
   } else {
-   
+    principal.t3 = 30;
   }
   if (opcoes.cursorSobreOption3()) {
-
+    opcoes.t3 = 35;
   } else {
-
+    opcoes.t3 = 30;
   }
   if (perdeu.cursorSobreOption3()) {
-
+    perdeu.t3 = 35;
   } else {
-
+    perdeu.t3 = 30;
   }
   if (ganhou.cursorSobreOption3()) {
-
+    ganhou.t3 = 35;
   } else {
-
+    ganhou.t3 = 30;
   }
 
   if (principal.cursorSobreOption4()) {
-
+    principal.t4 = 35;
   } else {
-
+    principal.t4 = 30;
   }
   if (opcoes.cursorSobreOption4()) {
-
+    opcoes.t4 = 35;
   } else {
-
+    opcoes.t4 = 30;
   }
   if (perdeu.cursorSobreOption4()) {
-
+    perdeu.t4 = 35;
   } else {
-
+    perdeu.t4 = 30;
   }
   if (ganhou.cursorSobreOption4()) {
-
+    ganhou.t4 = 35;
   } else {
-
+    ganhou.t4 = 30;
   }
 }
 
 void mousePressed() {
-  //Clicar e iniciar o JOGO
+  // Botões do Menu Principal
   if (status.selected == Status.MENU) {
     if (principal.cursorSobreOption1()) {
-      nivelSimples.startNivel();
+      status.selected = Status.JOGO;
+      jogo.startNivel();
     } else if (principal.cursorSobreOption2()) {
+      status.selected = Status.SIMPLES;
+      nivelSimples.startNivel();
+    } else if (principal.cursorSobreOption3()) {
+      status.selected = Status.TIMER;
+      nivelTimer.startNivel();
+    } else if (principal.cursorSobreOption4()) {
       status.selected = Status.OPCOES;
     }
+
+    // Botões do Menu Ganhou
   } else if (status.selected == Status.GANHOU) {
     if (ganhou.cursorSobreOption1()) {
-      status.selected = Status.TIMER;
+      status.selected = l;
+      nivelSimples.startNivel();
       nivelTimer.startNivel();
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
+
+    //Botões do Menu Perdeu
   } else if (status.selected == Status.PERDEU) {
     if (perdeu.cursorSobreOption1()) {
+      status.selected = l;
       nivelSimples.startNivel();
+      nivelTimer.startNivel();
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
     }
+
+    // Botões do Menu Opções
   } else if (status.selected == Status.OPCOES) {
-    if (perdeu.cursorSobreOption1()) {
+    if (opcoes.cursorSobreOption1()) {
       notMuted = !notMuted;
-    } else if (perdeu.cursorSobreOption2()) {
+    } else if (opcoes.cursorSobreOption2()) {
+    } else if (opcoes.cursorSobreOption3()) {
+      chooseImage = !chooseImage;
+    } else if (opcoes.cursorSobreOption4()) {
       status.selected = Status.MENU;
     }
   }
 
   //Mover as peças + Som do movimento Válido
-  if (status.selected == Status.SIMPLES) {
+  if (status.selected == Status.JOGO) {
+    jogo.moverPecaSom(move);
+    jogo.somErrado(wrong);
+  } else if (status.selected == Status.SIMPLES) {
     nivelSimples.moverPecaSom(move);
     nivelSimples.somErrado(wrong);
   } else if (status.selected == Status.TIMER) {

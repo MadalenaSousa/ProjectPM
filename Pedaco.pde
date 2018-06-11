@@ -19,6 +19,7 @@ class Pedaco {
   void desenha(float i, float j) { //enviar como argumento para eles poderem ser atualizados
     this.x = (5 + pedaco.width) * j;
     this.y = (5 + pedaco.height) * i;
+    imageMode(CORNER);
     image(pedaco, x, y); //ele desenha cada pedaco a 5px * o indíce do pedaco anterior
   }
 

@@ -34,6 +34,12 @@ class Jogo {
 
   //Função para reeiniciar o jogo
   void startNivel() {
+    moveBaralhar.clear();
+    moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
+    misturar();
+    status.selected = Status.JOGO; //Inicia o Jogo
+    jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
+    jaPerdeu = false;
   }
 
   void desenha() {
@@ -51,6 +57,17 @@ class Jogo {
       status.selected = Status.PERDEU;
       printSolution(); //imprime os movimentos da solução, visto que a variavel jaPerdeu está a true
     }
+
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(30);
+    text("Movimentos", 800, 100);
+    textSize(50);
+    text(moveJogador.size(), 800, 200);
+    /*String[] movimentos = moveJogador.toArray(new String[0]);
+    for (int i=0; i<movimentos.length; i++) {
+      text(movimentos[i], 800, 200);
+    }*/
   }
 
   //METODOS QUE NÃO FAZEM NADA NESTA CLASSE MAS SÃO NECESSÁRIOS NAS SUBCLASSES (OVERRIDE)

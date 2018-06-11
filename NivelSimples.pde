@@ -25,13 +25,13 @@ class NivelSimples extends Jogo {
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Jogadas Disponíveis", 800, 100);
+    text("Jogadas Disponíveis", 800, 300);
     textSize(50);
-    text(nLimite - moveJogador.size(), 800, 200);
+    text(nLimite - moveJogador.size(), 800, 400);
     textSize(30);
-    text("Recorde", 800, 300);
+    text("Recorde", 800, 500);
     textSize(50);
-    text(recorde(), 800, 400);
+    text(recorde(), 800, 600);
 
   }
 

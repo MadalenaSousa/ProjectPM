@@ -5,13 +5,13 @@ class Menu {
   float larg, alt, x, y;
   int t1, t2, t3, t4;
 
-  Menu(PImage img, String topo, String option1, String option2) {
+  Menu(PImage img, String topo, String option1, String option2, String option3, String option4) {
     this.img = img;
     this.topo = topo;
     this.option1 = option1;
     this.option2 = option2;
-    option3 = "opcão 3";
-    option4 = "opção 4";
+    this.option3 = option3;
+    this.option4 = option4;
     f = createFont("Baskerville", 100, true);
     larg = 300;
     alt = 65;
@@ -26,6 +26,7 @@ class Menu {
   //Estrutura geral dos menus
   void desenha() {
     img.resize(1000, 800);
+    imageMode(CORNER);
     image(img, 0, 0);
     textAlign(CENTER, CENTER);
     noStroke();
@@ -41,10 +42,6 @@ class Menu {
     rect(x, y, larg, alt, 50);
     //opção 2
     rect(x, y + 1.5 * alt, larg, alt, 50);
-    //opção 3
-    rect(x, y + 3 * alt, larg, alt, 50);
-    //opção 4
-    rect(x, y + 4.5 * alt, larg, alt, 50);
 
     //Texto dos botões
     fill(255);
@@ -52,13 +49,9 @@ class Menu {
     text(topo, width/2, 135);
 
     textSize(t1);
-    text(option1, width/2, y + 20);
+    text(option1, width/2, y + 25);
     textSize(t2);
-    text(option2, width/2, y + 20 + 1.5 * alt);
-    textSize(t3);
-    text(option3, width/2, y + 20 + 3 * alt);
-    textSize(t4);
-    text(option4, width/2, y + 20 + 4.5 * alt);
+    text(option2, width/2, y + 25 + 1.5 * alt);
   }
 
   //Deteta quando o cursor está sobre o botão de opção1

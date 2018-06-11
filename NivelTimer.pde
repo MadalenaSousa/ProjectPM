@@ -16,12 +16,12 @@ class NivelTimer extends Jogo {
   }
 
   void startNivel() {
-    moveBaralhar.clear(); //Limpa o array com os movimentos de baralhar
-    misturar(); //Baralha
+    moveBaralhar.clear();
+    misturar(); //Limpa o array com os movimentos de baralhar //Baralha
     moveJogador.clear(); //Limpa o array com os movimentos do jogador para poder voltar a jogar
-    status.selected = Status.TIMER; //Inicia o Jogo
     jaGanhou = false; //Garante que as variaveis que dizem se já perdeu ou ganhou o jogo estão a falso
     jaPerdeu = false;
+    status.selected = Status.TIMER; //Inicia o Jogo
     tRestaS = tFinalS; //O tempo que resta inicialmente é o tempo total limite
     tInicial = millis(); //tempo a que estou a comecar o nivel
   }
@@ -41,15 +41,15 @@ class NivelTimer extends Jogo {
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(30);
-    text("Tempo de Sobra", 800, 100);
+    text("Tempo de Sobra", 800, 300);
     textSize(50);
-    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 200);
+    text(nf(tempoM, 2)+":"+nf(tempoS, 2), 800, 400);
     textSize(30);
-    text("Recorde", 800, 300);
+    text("Recorde", 800, 500);
     textSize(50);
     int recordeMin = parseInt(recorde())/60;
     int recordeSeg = parseInt(recorde())%60;
-    text(nf(recordeMin, 2) + ":" + nf(recordeSeg, 2), 800, 400);
+    text(nf(recordeMin, 2) + ":" + nf(recordeSeg, 2), 800, 600);
   }
 
   boolean permiteJogar() {
