@@ -125,45 +125,45 @@ void draw() {
   }
 
   if (principal.cursorSobreOption3()) {
-    principal.t2 = 55;
+
   } else {
-    principal.t2 = 50;
+   
   }
   if (opcoes.cursorSobreOption3()) {
-    opcoes.t2 = 35;
+
   } else {
-    opcoes.t2 = 30;
+
   }
   if (perdeu.cursorSobreOption3()) {
-    perdeu.t2 = 35;
+
   } else {
-    perdeu.t2 = 30;
+
   }
   if (ganhou.cursorSobreOption3()) {
-    ganhou.t2 = 35;
+
   } else {
-    ganhou.t2 = 30;
+
   }
 
   if (principal.cursorSobreOption4()) {
-    principal.t2 = 55;
+
   } else {
-    principal.t2 = 50;
+
   }
   if (opcoes.cursorSobreOption4()) {
-    opcoes.t2 = 35;
+
   } else {
-    opcoes.t2 = 30;
+
   }
   if (perdeu.cursorSobreOption4()) {
-    perdeu.t2 = 35;
+
   } else {
-    perdeu.t2 = 30;
+
   }
   if (ganhou.cursorSobreOption4()) {
-    ganhou.t2 = 35;
+
   } else {
-    ganhou.t2 = 30;
+
   }
 }
 
