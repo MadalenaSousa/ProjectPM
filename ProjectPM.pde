@@ -283,7 +283,6 @@ void mousePressed() {
       simples.startNivel();
       limite.startNivel();
       timer.startNivel();
-
       // Opção 2
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
@@ -299,7 +298,6 @@ void mousePressed() {
       simples.startNivel();
       limite.startNivel();
       timer.startNivel();
-
       // Opção 2
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;
@@ -336,35 +334,29 @@ void mousePressed() {
 
 
   // Voltar ao menu principal durante o jogo
-  if (status.selected == Status.SIMPLES) {
+  //Mover as peças + Som do movimento Válido
+  else if (status.selected == Status.SIMPLES) {
     if (simples.cursorSobreDesistir()) {
       status.selected = Status.MENU;
     }
+    simples.moverPecaSom(move);
+    simples.somErrado(wrong);
   } else if (status.selected == Status.LIMITE) {
     if (limite.cursorSobreDesistir()) {
       status.selected = Status.MENU;
     }
+    limite.moverPecaSom(move);
+    limite.somErrado(wrong);
   } else if (status.selected == Status.TIMER) {
     if (timer.cursorSobreDesistir()) {
       status.selected = Status.MENU;
     }
+    timer.moverPecaSom(move);
+    timer.somErrado(wrong);
   } else if (status.selected == Status.SOLUCAO) {
     if (solucaoAnimacao.cursorSobreDesistir()) {
       status.selected = Status.MENU;
     }
-  }
-
-
-  //Mover as peças + Som do movimento Válido
-  if (status.selected == Status.SIMPLES) {
-    simples.moverPecaSom(move);
-    simples.somErrado(wrong);
-  } else if (status.selected == Status.LIMITE) {
-    limite.moverPecaSom(move);
-    limite.somErrado(wrong);
-  } else if (status.selected == Status.TIMER) {
-    timer.moverPecaSom(move);
-    timer.somErrado(wrong);
   }
 }
 

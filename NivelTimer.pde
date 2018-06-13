@@ -54,7 +54,6 @@ class NivelTimer extends Jogo {
     textSize(30);
     text("Recorde", 800, 450);
     textSize(50);
-    text(recorde(), 800, 550);
 
     int recordeMin = parseInt(recorde())/60; // Converte o recorde para minutos e segundos
     int recordeSeg = parseInt(recorde())%60;
