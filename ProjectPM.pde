@@ -7,12 +7,13 @@ Ganhou ganhou;
 Perdeu perdeu;
 Opcoes opcoes;
 Menu menu;
+Dificuldade dificuldade;
 SoundFile wrong, move;
 Solucao solucaoAnimacao;
 
 boolean notMuted;
 PImage img, img2, image1, image2;
-int l;
+int l, clique;
 float limg1, aimg1, limg2, aimg2;
 int largura, altura;
 
@@ -45,8 +46,9 @@ void setup() {
   principal = new Principal(fundo, "15 PUZZLE", "Normal", "Limite de Jogadas", "Contra-Relógio", "Opções");
   ganhou = new Ganhou(fundo, "GANHOU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "win.mp3"));
   perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "Ver Solução", "", new SoundFile(this, "lose.mp3"));
-  opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
+  opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "", "", "Menu Principal");
   menu = new Menu(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
+  dificuldade = new Dificuldade(fundo, "DIFICULDADE", "Fácil", "Difícil", "", "");
 
   // Tamanho das imagens icones
   limg1 = opcoes.larg-25;
@@ -94,6 +96,12 @@ void draw() {
     imageMode(CENTER); // Opções de imagem
     image(image1, opcoes.x+limg1/2+10, opcoes.y + 1.5 * opcoes.alt + 10 +  aimg1/2, limg1, aimg1);
     image(image2, opcoes.x+limg2/2+10, opcoes.y + 3 * opcoes.alt + 10 + aimg2/2, limg2, aimg2);
+
+    // Desenhar menu dificuldade
+  } else if (status.selected == Status.DIFICULDADE) {
+    ganhou.stopMusic();
+    perdeu.stopMusic();
+    dificuldade.desenha();
 
     // Desenhar o nivel simples
   } else if (status.selected == Status.SIMPLES) {
@@ -213,24 +221,48 @@ void mousePressed() {
 
     // Opção 1
     if (principal.cursorSobreOption1()) {
-      status.selected = Status.SIMPLES;
-      simples.startNivel();
+      clique = 1;
+      status.selected = Status.DIFICULDADE;
 
       // Opção 2
     } else if (principal.cursorSobreOption2()) {
-      status.selected = Status.LIMITE;
-      limite.startNivel();
+      clique = 2;
+      status.selected = Status.DIFICULDADE;
 
       // Opção 3
     } else if (principal.cursorSobreOption3()) {
-      status.selected = Status.TIMER;
-      timer.startNivel();
+      clique = 3;
+      status.selected = Status.DIFICULDADE;
 
       // Opção 4
     } else if (principal.cursorSobreOption4()) {
       status.selected = Status.OPCOES;
     }
-
+  } else if (status.selected == Status.DIFICULDADE) {
+    if (dificuldade.cursorSobreOption1()) {
+      if (clique == 1) {
+        status.selected = Status.SIMPLES;
+        simples.startNivel();
+      } else if (clique == 2) {
+        status.selected = Status.LIMITE;
+        limite.startNivel();
+      } else if (clique == 3) {
+        status.selected = Status.TIMER;
+        timer.startNivel();
+      }
+    } else if (dificuldade.cursorSobreOption2()) {
+      if (clique == 1) {
+        status.selected = Status.SIMPLES;
+        simples.maisDiv(altura, largura);
+        simples.startNivel();
+      } else if (clique == 2) {
+        status.selected = Status.LIMITE;
+        limite.startNivel();
+      } else if (clique == 3) {
+        status.selected = Status.TIMER;
+        timer.startNivel();
+      }
+    }
 
     // Botões do Menu Ganhou
   } else if (status.selected == Status.GANHOU) {
@@ -282,7 +314,7 @@ void mousePressed() {
 
       // Opção 3
     } else if (opcoes.cursorSobreOption3()) {
-      simples.alterarImagem(img2, altura, largura); // 1ª opção de imagem
+      simples.alterarImagem(img2, altura, largura); // 2ª opção de imagem
       limite.alterarImagem(img2, altura, largura);
       timer.alterarImagem(img2, altura, largura);
 
@@ -291,7 +323,7 @@ void mousePressed() {
       status.selected = Status.MENU;
     }
   }
-  
+
 
   // Voltar ao menu principal durante o jogo
   if (status.selected == Status.SIMPLES) {

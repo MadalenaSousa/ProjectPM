@@ -41,7 +41,7 @@ class Jogo {
     moveJogador.clear(); // Limpa o array com os movimentos do jogador para poder voltar a jogar
     for (int i=0; i<n; i++) { // Puzzle volta à solução
       for (int j=0; j<m; j++) {
-          pedacos[i][j] = solucao[i][j];
+        pedacos[i][j] = solucao[i][j];
       }
     }
     misturar(); // Baralha novamente
@@ -319,6 +319,23 @@ class Jogo {
       for (int j=0; j<m; j++) {
         if (i != (n-1) || j != (m-1)) {
           pedacos[i][j] = new Pedaco(altimg2/n, largimg2/m, img2, i, j, nIdentificacao);
+          nIdentificacao++;
+        } else {
+          pedacos[i][j] = null;
+        }
+        solucao[i][j] = pedacos[i][j];
+      }
+    }
+  }
+
+  void maisDiv(int alt, int larg) {
+    pedacos = new Pedaco[n*2][m*2];
+    solucao = new Pedaco[n*2][m*2];
+    int nIdentificacao = 0;
+    for (int i=0; i<n*2; i++) {
+      for (int j=0; j<m*2; j++) {
+        if (i != ((n*2)-1) || j != ((m*2)-1)) {
+          pedacos[i][j] = new Pedaco(alt/(n*2), larg/(m*2), img, i, j, nIdentificacao);
           nIdentificacao++;
         } else {
           pedacos[i][j] = null;

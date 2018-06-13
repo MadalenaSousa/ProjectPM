@@ -9,6 +9,7 @@ class Status {
   static final int LIMITE = 5;
   static final int TIMER = 6;
   static final int SOLUCAO = 7;
+  static final int DIFICULDADE = 8;
   int selected;
 
   Status(int selected) {
