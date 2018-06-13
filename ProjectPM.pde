@@ -213,6 +213,16 @@ void draw() {
   } else {
     ganhou.t4 = 30;
   }
+  if (dificuldade.cursorSobreOption1()) {
+    dificuldade.t1 = 35;
+  } else {
+    dificuldade.t1 = 30;
+  }
+  if (dificuldade.cursorSobreOption2()) {
+    dificuldade.t2 = 35;
+  } else {
+    dificuldade.t2 = 30;
+  }
 }
 
 void mousePressed() {
@@ -253,7 +263,7 @@ void mousePressed() {
     } else if (dificuldade.cursorSobreOption2()) {
       if (clique == 1) {
         status.selected = Status.SIMPLES;
-        simples.maisDiv(altura, largura);
+        //simples.maisDiv(altura, largura);
         simples.startNivel();
       } else if (clique == 2) {
         status.selected = Status.LIMITE;
