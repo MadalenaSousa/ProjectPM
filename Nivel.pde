@@ -26,7 +26,7 @@ class Jogo {
         } else {
           pedacos[i][j] = null;
         }
-        solucao[i][j] = pedacos[i][j];
+        solucao[i][j] = pedacos[i][j]; // Guarda a posição dos pedaacos ordenados
       }
     }
     moveBaralhar = new ArrayList();
@@ -53,7 +53,7 @@ class Jogo {
     for (int i=0; i<n; i++) {
       for (int j=0; j<m; j++) {
         if (pedacos[i][j] != null) {
-          pedacos[i][j].desenha(i, j);
+          pedacos[i][j].desenha(i, j); // Desenha os pedacos
         }
       }
     }
@@ -76,7 +76,7 @@ class Jogo {
     text("Movimentos", 800, 50);
     textSize(50);
     if (moveJogador.size() > 0) {
-      text(PalavraOposta(moveJogador.get(moveJogador.size()-1)), 800, 150);
+      text(PalavraOposta(moveJogador.get(moveJogador.size()-1)), 800, 150); // Apresenta a string com o movimento
     }
 
     // texto 4
@@ -88,7 +88,8 @@ class Jogo {
     textSize(30);
     text("Menu Principal", 800, 650);
   }
-
+  
+  // Deteta se o cursor está sobre o botão de regressar ao menu principal
   boolean cursorSobreDesistir() {
     if (mouseX >= 650 && mouseX <= 950 && mouseY >= 622.5 && mouseY <= 682.5) {
       return true;
@@ -296,7 +297,7 @@ class Jogo {
       }
     }
 
-    solucaoAnimacao = new Solucao(n, m, pedacos, moveBaralhar);
+    solucaoAnimacao = new Solucao(n, m, pedacos, moveBaralhar); // Guarda a posição das peças baralhadas
   }
 
   // Consoante a classificação do jogo, imprime um determinado arraylist
@@ -310,7 +311,7 @@ class Jogo {
     jaPerdeu = false;
   }
 
-  //Cria novos pedacos a partir de uma imagem
+  // Cria novos pedacos a partir de uma imagem
   void alterarImagem(PImage img2, int altimg2, int largimg2) {
     pedacos = new Pedaco[n][m];
     solucao = new Pedaco[n][m];
@@ -323,7 +324,7 @@ class Jogo {
         } else {
           pedacos[i][j] = null;
         }
-        solucao[i][j] = pedacos[i][j];
+        solucao[i][j] = pedacos[i][j]; // Guarda também os pedacos se mudarem a imagem
       }
     }
   }

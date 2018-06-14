@@ -241,6 +241,7 @@ void mousePressed() {
       simples.startNivel();
       limite.startNivel();
       timer.startNivel();
+    
       // Opção 2
     } else if (ganhou.cursorSobreOption2()) {
       status.selected = Status.MENU;
@@ -256,6 +257,7 @@ void mousePressed() {
       simples.startNivel();
       limite.startNivel();
       timer.startNivel();
+    
       // Opção 2
     } else if (perdeu.cursorSobreOption2()) {
       status.selected = Status.MENU;

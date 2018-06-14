@@ -18,7 +18,7 @@ class Solucao {
   }
 
   void desenhaSolucao() {
-    desenhaBaralhado();
+    desenhaBaralhado(); // Desenha as peças na posição baralhada enviada anteriormente no construtor, dentro da classe nível, após baralhar
 
     // texto 2
     rectMode(CENTER);
@@ -31,10 +31,10 @@ class Solucao {
     text("Solução", 800, 250);
     textSize(50);
     if (s > 0) {
-      text(moveSolucao.get(s-1), 800, 350);
+      text(moveSolucao.get(s-1), 800, 350); // Mostra os movimentos executados para resolver
     }
 
-    if (s < moveSolucao.size()) {
+    if (s < moveSolucao.size()) { // Move cada peça, percorrendo o array de movimentos
       movePeca(moveSolucao.get(s));
       delay(1000);
       s++;
@@ -59,7 +59,8 @@ class Solucao {
       }
     }
   }
-
+  
+  // Deteta se o cursor está sobre o botão de regressar ao menu principal
   boolean cursorSobreDesistir() {
     if (mouseX >= 650 && mouseX <= 950 && mouseY >= 622.5 && mouseY <= 682.5) {
       return true;
@@ -68,11 +69,12 @@ class Solucao {
     }
   }
 
+  // Move as pecas consoante o que diz na string do array com a solução, executado relativamente à peça preta
   void movePeca(String movimento) {
     for (int i=0; i<n /*8*/; i++) {
       for (int j=0; j<m/*6*/; j++) {
         if (peca[i][j] != null) {
-          if (movimento.equals("DOWN")) {
+          if (movimento.equals("DOWN")) { 
             if (i!=0) {
               if (peca[i-1][j] == null) { // Desce a peça nula
                 peca[i-1][j] = peca[i][j];
