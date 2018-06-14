@@ -6,7 +6,6 @@ Principal principal;
 Ganhou ganhou; 
 Perdeu perdeu;
 Opcoes opcoes;
-Menu menu;
 SoundFile wrong, move;
 Solucao solucaoAnimacao;
 
@@ -46,7 +45,6 @@ void setup() {
   ganhou = new Ganhou(fundo, "GANHOU!", "Jogar Novamente", "Menu Principal", "", "", new SoundFile(this, "win.mp3"));
   perdeu = new Perdeu(fundo, "PERDEU!", "Jogar Novamente", "Menu Principal", "Ver Solução", "", new SoundFile(this, "lose.mp3"));
   opcoes = new Opcoes(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
-  menu = new Menu(fundo, "OPÇÕES", "Sem Som", "Imagem", "", "Menu Principal");
 
   // Tamanho das imagens icones
   limg1 = opcoes.larg-25;
