@@ -344,4 +344,10 @@ class Jogo {
       }
     }
   }
+  
+  void menosTempo() {
+  }
+  
+  void menosJogadas() {
+  }
 }
