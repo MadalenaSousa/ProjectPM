@@ -271,7 +271,7 @@ class Jogo {
           int r = (int)random(0, 4);
 
           while ((r==0 && i==0) || (r==1 && i==n-1) || (r==2 && j==0) || (r==3 && j==m-1)) { // Cantos
-            r = (int)random(0, 4);
+            r = (int)random(0, 4); // Resolve quando calha nos cantos
           }
 
           if (pedacos[i][j] == null) {
